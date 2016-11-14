@@ -8,6 +8,7 @@
 (global-set-key (kbd "<f5>") 'revert-buffer)
 (defalias 'list-buffers 'ibuffer)
 (setq save-interprogram-paste-before-kill t)
+(show-paren-mode 1)
 #+END_SRC
 
 ** highlight current line
