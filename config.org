@@ -1,0 +1,33 @@
+#+STARTUP: overview
+
+* interface tweaks
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+(tool-bar-mode -1)
+(fset 'yes-or-no-p 'y-or-n-p)
+(global-set-key (kbd "<f5>") 'revert-buffer)
+#+END_SRC
+
+* try
+#+BEGIN_SRC emacs-lisp
+(use-package try)
+#+END_SRC
+
+* which-key
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+	:config
+	(which-key-mode))
+#+END_SRC
+
+* org mode
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+	:config
+	(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
+
+* OCaml
+#+BEGIN_SRC emacs-lisp
+(use-package tuareg)
+#+END_SRC
