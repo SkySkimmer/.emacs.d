@@ -2,21 +2,65 @@
 
 * interface tweaks
 #+BEGIN_SRC emacs-lisp
+(setq ls-lisp-dirs-first t)
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-set-key (kbd "<f5>") 'revert-buffer)
 (defalias 'list-buffers 'ibuffer)
-(setq save-interprogram-paste-before-kill t)
 (show-paren-mode 1)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+(delete-selection-mode 1); delete selected region on typing
+(line-number-mode 1)
+(column-number-mode 1)
+(setq-default indent-tabs-mode nil)
+(setq require-final-newline t)
+(setq diff-switches "-u"); unified diffs
 #+END_SRC
+** Clipboard integration
+   #+BEGIN_SRC emacs-lisp
+     (setq x-select-enable-clipboard t)
+     ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
+     (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
+     (setq save-interprogram-paste-before-kill t)
+     (setq kill-do-not-save-duplicates t)
+   #+END_SRC
 
 ** highlight current line
    #+BEGIN_SRC emacs-lisp
    (global-hl-line-mode t)
    (set-face-background hl-line-face "alice blue")
    #+END_SRC
+
+* Unicode
+#+BEGIN_SRC emacs-lisp
+(set-charset-priority 'unicode)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
+(prefer-coding-system 'utf-8)
+(setq default-process-coding-system '(utf-8-unix . utf-8-unix))
+#+END_SRC
+
+* Immortal *scratch*
+#+BEGIN_SRC emacs-lisp
+(defadvice kill-buffer (around kill-buffer-around-advice activate)
+  (let ((buffer-to-kill (ad-get-arg 0)))
+    (if (equal buffer-to-kill "*scratch*")
+        (bury-buffer)
+      ad-do-it)))
+#+END_SRC
+* Prettify symbols
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'emacs-lisp-mode-hook
+            (lambda ()
+              (push '("lambda" . ?λ) prettify-symbols-alist)))
+  (add-hook 'clojure-mode-hook
+            (lambda ()
+              (push '("fn" . ?ƒ) prettify-symbols-alist)))
+  (global-prettify-symbols-mode +1)
+#+END_SRC
 
 * try
 #+BEGIN_SRC emacs-lisp
@@ -115,7 +159,17 @@
 
     (add-hook 'tuareg-mode-hook 'merlin-mode))
 #+END_SRC
-* Mardown
+* Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode)
+#+END_SRC
+* ws-butler (unobtrusive whitespace remover)
+#+BEGIN_SRC emacs-lisp
+(use-package ws-butler
+  :ensure t
+  :diminish ws-butler-mode
+  :init
+  (add-hook 'prog-mode-hook #'ws-butler-mode)
+  (add-hook 'org-mode-hook #'ws-butler-mode)
+  (add-hook 'text-mode-hook #'ws-butler-mode))
 #+END_SRC
