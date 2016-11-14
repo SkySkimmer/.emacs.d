@@ -9,6 +9,7 @@
 (defalias 'list-buffers 'ibuffer)
 (setq save-interprogram-paste-before-kill t)
 (show-paren-mode 1)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+END_SRC
 
 ** highlight current line
@@ -78,7 +79,33 @@
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
     )
 #+END_SRC
+* Autocomplete
+#+BEGIN_SRC emacs-lisp
+  (use-package auto-complete
+    :init
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    )
+#+END_SRC
+
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :config
+    (global-flycheck-mode))
+#+END_SRC
 * OCaml
 #+BEGIN_SRC emacs-lisp
-(use-package tuareg)
+  (use-package tuareg)
+
+  (use-package flycheck-ocaml
+    :init
+    (with-eval-after-load 'merlin
+      ;; Disable Merlin's own error checking
+      (setq merlin-error-after-save nil)
+      (setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
+      ;; Enable Flycheck checker
+      (flycheck-ocaml-setup))
+
+    (add-hook 'tuareg-mode-hook 'merlin-mode))
 #+END_SRC
