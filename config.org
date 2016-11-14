@@ -32,6 +32,8 @@
 
 * org mode
 #+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+
 (use-package org-bullets
 	:config
 	(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
@@ -112,4 +114,8 @@
       (flycheck-ocaml-setup))
 
     (add-hook 'tuareg-mode-hook 'merlin-mode))
+#+END_SRC
+* Mardown
+#+BEGIN_SRC emacs-lisp
+  (use-package markdown-mode)
 #+END_SRC
