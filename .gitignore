@@ -5,3 +5,4 @@ auto-save-list
 config.el
 recentf
 *.dat
+eshell/
