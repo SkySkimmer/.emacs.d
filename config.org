@@ -219,3 +219,10 @@
               (define-key LaTeX-mode-map "\C-xn"
                 nil)))
 #+END_SRC
+* Undo tree
+#+BEGIN_SRC emacs-lisp
+  (use-package undo-tree
+    :diminish undo-tree-mode
+    :init
+    (global-undo-tree-mode))
+#+END_SRC
