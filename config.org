@@ -226,3 +226,7 @@
     :init
     (global-undo-tree-mode))
 #+END_SRC
+* Proof General
+#+BEGIN_SRC emacs-lisp
+  (load "~/.emacs.d/lisp/PG/generic/proof-site")
+#+END_SRC
