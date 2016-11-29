@@ -32,6 +32,18 @@
    (set-face-background hl-line-face "alice blue")
    #+END_SRC
 
+** File ignores
+   This is actually further processed in the Swiper section.
+   #+BEGIN_SRC emacs-lisp
+     (setq file-ignore-patterns
+           (list "~$"
+            "^\\."
+            "\\.mli?\\.d$"
+            "\\.mllib\\.d$"
+            "\\.cm[iotx]$"
+            "\\.cmti$"
+            "\\.o$"))
+   #+END_SRC
 * Unicode
 #+BEGIN_SRC emacs-lisp
 (set-charset-priority 'unicode)
@@ -124,6 +136,12 @@
     (setq ivy-use-virtual-buffers t)
     (setq ivy-display-style 'fancy)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+    (setq counsel-find-file-ignore-regexp
+          (reduce
+           (lambda (x y) (concat x "\\|" y))
+           (mapcar
+            (lambda (x) (concat "\\(" x "\\)"))
+            file-ignore-patterns)))
     )
 #+END_SRC
 * Autocomplete
