@@ -215,7 +215,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
           (reduce
            (lambda (x y) (concat x "\\|" y))
            (mapcar
-            (lambda (x) (concat "\\(" x "\\)"))
+            (lambda (x) (concat "\\(?:" x "\\)"))
             file-ignore-patterns)))
     )
 #+END_SRC
