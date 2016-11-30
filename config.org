@@ -46,6 +46,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (setq require-final-newline t)
 (setq diff-switches "-u"); unified diffs
 #+END_SRC
+
 ** Clipboard integration
    #+BEGIN_SRC emacs-lisp
      (setq x-select-enable-clipboard t)
@@ -122,6 +123,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 #+END_SRC
 
+
 * Immortal *scratch*
 #+BEGIN_SRC emacs-lisp
 (defadvice kill-buffer (around kill-buffer-around-advice activate)
@@ -130,6 +132,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
         (bury-buffer)
       ad-do-it)))
 #+END_SRC
+
 * Prettify symbols
 #+BEGIN_SRC emacs-lisp
   (add-hook 'emacs-lisp-mode-hook
@@ -141,10 +144,12 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
   (global-prettify-symbols-mode +1)
 #+END_SRC
 
+
 * try
 #+BEGIN_SRC emacs-lisp
 (use-package try)
 #+END_SRC
+
 
 * which-key
 #+BEGIN_SRC emacs-lisp
@@ -154,6 +159,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
     (which-key-mode))
 #+END_SRC
 
+
 * org mode
 #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
@@ -162,6 +168,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 	:config
 	(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
+
 
 * Window switching (Ace window)
 #+BEGIN_SRC emacs-lisp
@@ -173,6 +180,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
        ((t (:inherit ace-jump-face-foreground :height 3.0)))))
     )
 #+END_SRC
+
 
 * Swiper
 #+BEGIN_SRC emacs-lisp
@@ -211,14 +219,17 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
             file-ignore-patterns)))
     )
 #+END_SRC
+
 * Autocomplete
 #+BEGIN_SRC emacs-lisp
   (use-package auto-complete
+    :diminish ('auto-complete-mode . "↝")
     :init
     (ac-config-default)
     (global-auto-complete-mode t)
     )
 #+END_SRC
+
 
 * Flycheck
 #+BEGIN_SRC emacs-lisp
@@ -226,10 +237,12 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
     :config
     (global-flycheck-mode))
 #+END_SRC
+
 * Magit
 #+BEGIN_SRC emacs-lisp
   (use-package magit)
 #+END_SRC
+
 * OCaml
 #+BEGIN_SRC emacs-lisp
     (use-package tuareg
@@ -246,6 +259,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
       (add-hook 'tuareg-mode-hook 'merlin-mode))
 #+END_SRC
+
 * Markdown
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode)
@@ -277,6 +291,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
     :config
     (global-set-key (kbd "C-=") 'er/expand-region))
 #+END_SRC
+
 
 * Narrowing
 #+BEGIN_SRC emacs-lisp
@@ -315,6 +330,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
               (define-key LaTeX-mode-map "\C-xn"
                 nil)))
 #+END_SRC
+
 * Undo tree
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
@@ -324,6 +340,8 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
     (setq undo-tree-visualizer-diff t)
     (setq undo-tree-visualizer-timestamps t))
 #+END_SRC
+
+
 * Proof General
 #+BEGIN_SRC emacs-lisp
   (load "~/.emacs.d/lisp/PG/generic/proof-site")
