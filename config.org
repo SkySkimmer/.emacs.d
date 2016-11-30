@@ -250,16 +250,26 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 #+BEGIN_SRC emacs-lisp
   (use-package markdown-mode)
 #+END_SRC
-* ws-butler (unobtrusive whitespace remover)
-#+BEGIN_SRC emacs-lisp
-(use-package ws-butler
-  :ensure t
-  :diminish ws-butler-mode
-  :init
-  (add-hook 'prog-mode-hook #'ws-butler-mode)
-  (add-hook 'org-mode-hook #'ws-butler-mode)
-  (add-hook 'text-mode-hook #'ws-butler-mode))
-#+END_SRC
+
+* Whitespace
+  #+BEGIN_SRC emacs-lisp
+    (setq show-trailing-whitespace t)
+  #+END_SRC
+
+** ws-butler (unobtrusive whitespace remover)
+   #+BEGIN_SRC emacs-lisp
+     (use-package ws-butler
+       :ensure t
+       :diminish ws-butler-mode
+       :init
+       (add-hook 'prog-mode-hook #'ws-butler-mode)
+       (add-hook 'org-mode-hook #'ws-butler-mode)
+       (add-hook 'text-mode-hook #'ws-butler-mode))
+   #+END_SRC
+
+
+
+
 * Semantic region
 #+BEGIN_SRC emacs-lisp
   ; expand the marked region in semantic increments (negative prefix to reduce region)
