@@ -73,6 +73,13 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
             "\\.cmti$"
             "\\.o$"))
    #+END_SRC
+
+** Scroll
+   #+BEGIN_SRC emacs-lisp
+     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+     (setq mouse-wheel-progressive-speed nil)
+   #+END_SRC
+
 * Unicode
 #+BEGIN_SRC emacs-lisp
 (set-charset-priority 'unicode)
