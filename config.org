@@ -309,8 +309,10 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
     :diminish undo-tree-mode
-    :init
-    (global-undo-tree-mode))
+    :config
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-diff t)
+    (setq undo-tree-visualizer-timestamps t))
 #+END_SRC
 * Proof General
 #+BEGIN_SRC emacs-lisp
