@@ -334,6 +334,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
                 nil)))
 #+END_SRC
 
+
 * Undo tree
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
@@ -348,4 +349,6 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 * Proof General
 #+BEGIN_SRC emacs-lisp
   (load "~/.emacs.d/lisp/PG/generic/proof-site")
+
+  (setq proof-prog-name-ask t)
 #+END_SRC
