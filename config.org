@@ -243,7 +243,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 * Magit
 #+BEGIN_SRC emacs-lisp
-  (use-package magit)
+    (use-package magit
+      :config
+      (setq magit-diff-refine-hunk 'all))
 #+END_SRC
 
 * OCaml
