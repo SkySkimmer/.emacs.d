@@ -250,19 +250,19 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 * OCaml
 #+BEGIN_SRC emacs-lisp
-    (use-package tuareg
-      :diminish merlin-mode)
+  (use-package flycheck-ocaml
+    :init
+    (with-eval-after-load 'merlin
+      ;; Disable Merlin's own error checking
+      (setq merlin-error-after-save nil)
+      (setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
+      ;; Enable Flycheck checker
+      (flycheck-ocaml-setup))
 
-    (use-package flycheck-ocaml
-      :init
-      (with-eval-after-load 'merlin
-        ;; Disable Merlin's own error checking
-        (setq merlin-error-after-save nil)
-        (setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
-        ;; Enable Flycheck checker
-        (flycheck-ocaml-setup))
+    (add-hook 'tuareg-mode-hook 'merlin-mode))
 
-      (add-hook 'tuareg-mode-hook 'merlin-mode))
+  (use-package tuareg
+    :diminish merlin-mode)
 #+END_SRC
 
 * Markdown
