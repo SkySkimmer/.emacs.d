@@ -280,8 +280,10 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :config
-    (global-flycheck-mode))
+    (global-flycheck-mode)
+    (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 #+END_SRC
+
 
 * Magit
 #+BEGIN_SRC emacs-lisp
