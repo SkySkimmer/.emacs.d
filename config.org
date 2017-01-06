@@ -265,6 +265,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
     )
 #+END_SRC
 
+
 * Autocomplete
 #+BEGIN_SRC emacs-lisp
   (use-package auto-complete
@@ -323,7 +324,6 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 ** ws-butler (unobtrusive whitespace remover)
    #+BEGIN_SRC emacs-lisp
      (use-package ws-butler
-       :ensure t
        :diminish ws-butler-mode
        :init
        (add-hook 'prog-mode-hook #'ws-butler-mode)
@@ -398,4 +398,16 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
   (load "~/.emacs.d/lisp/PG/generic/proof-site")
 
   (setq proof-prog-name-ask t)
+#+END_SRC
+
+
+* Highlight symbol
+Doesn't highlight symbols on current line when hl-line-mode is on, which is annoying. So I only use it for navigation.
+I could use smartscan instead but that doesn't cycle.
+#+BEGIN_SRC emacs-lisp
+  (use-package highlight-symbol
+    :init
+    (add-hook 'prog-mode-hook #'highlight-symbol-nav-mode)
+    (add-hook 'text-mode-hook #'highlight-symbol-nav-mode)
+    (add-hook 'org-mode-hook #'highlight-symbol-nav-mode))
 #+END_SRC
