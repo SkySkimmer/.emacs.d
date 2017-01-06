@@ -5,7 +5,8 @@
  ;; If there is more than one, they won't work right.
  '(safe-local-variable-values
    (quote
-    ((TeX-master . "main")
+    ((TeX-master . "Reference-Manual")
+     (TeX-master . "main")
      (eval progn
            (let
                ((m31-root-directory
