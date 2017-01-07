@@ -112,6 +112,11 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
                      'my/smarter-move-beginning-of-line)
    #+END_SRC
 
+** Subword mode
+#+BEGIN_SRC emacs-lisp
+(global-subword-mode 1)
+(diminish 'subword-mode)
+#+END_SRC
 
 * Line numbers
 #+BEGIN_SRC emacs-lisp
