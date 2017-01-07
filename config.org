@@ -45,6 +45,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (setq-default indent-tabs-mode nil)
 (setq require-final-newline t)
 (setq diff-switches "-u"); unified diffs
+(setq sentence-end-double-space nil)
 #+END_SRC
 
 ** Clipboard integration
