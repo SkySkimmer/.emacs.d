@@ -162,6 +162,14 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 #+END_SRC
 
 
+* Save place in files
+#+BEGIN_SRC emacs-lisp
+  (setq-default save-place t)
+  (require 'saveplace)
+  (setq save-place-file "~/.emacs.d/saveplace")
+#+END_SRC
+
+
 * Unicode
 #+BEGIN_SRC emacs-lisp
 (set-charset-priority 'unicode)
