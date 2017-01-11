@@ -31,22 +31,23 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 * interface tweaks
 #+BEGIN_SRC emacs-lisp
-(setq ls-lisp-dirs-first t)
-(setq inhibit-startup-message t)
-(tool-bar-mode -1)
-(fset 'yes-or-no-p 'y-or-n-p)
-(global-set-key (kbd "<f5>") 'revert-buffer)
-(defalias 'list-buffers 'ibuffer)
-(show-paren-mode 1)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-(delete-selection-mode 1); delete selected region on typing
-(line-number-mode 1)
-(column-number-mode 1)
-(setq-default indent-tabs-mode nil)
-(setq require-final-newline t)
-(setq diff-switches "-u"); unified diffs
-(setq sentence-end-double-space nil)
-(setq scroll-error-top-bottom t)
+  (setq ls-lisp-dirs-first t)
+  (setq inhibit-startup-message t)
+  (tool-bar-mode -1)
+  (fset 'yes-or-no-p 'y-or-n-p)
+  (global-set-key (kbd "<f5>") 'revert-buffer)
+  (defalias 'list-buffers 'ibuffer)
+  (show-paren-mode 1)
+  (add-to-list 'default-frame-alist '(fullscreen . maximized))
+  (delete-selection-mode 1); delete selected region on typing
+  (line-number-mode 1)
+  (column-number-mode 1)
+  (setq-default indent-tabs-mode nil)
+  (setq require-final-newline t)
+  (setq diff-switches "-u"); unified diffs
+  (setq sentence-end-double-space nil)
+  (setq scroll-error-top-bottom t)
+  (setq frame-title-format '(buffer-file-name "%b [%f] — Emacs" "%b — Emacs"))
 #+END_SRC
 
 ** Clipboard integration
