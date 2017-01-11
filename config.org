@@ -308,7 +308,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
   (use-package magit
     :config
     (setq magit-diff-refine-hunk 'all)
-    (setq magit-log-margin '(t 18 "%Y-%m-%d %H:%M")))
+    (setq magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)))
 #+END_SRC
 
 * OCaml
