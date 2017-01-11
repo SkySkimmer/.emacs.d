@@ -46,6 +46,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (setq require-final-newline t)
 (setq diff-switches "-u"); unified diffs
 (setq sentence-end-double-space nil)
+(setq scroll-error-top-bottom t)
 #+END_SRC
 
 ** Clipboard integration
