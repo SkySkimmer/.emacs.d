@@ -48,6 +48,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
   (setq sentence-end-double-space nil)
   (setq scroll-error-top-bottom t)
   (setq frame-title-format '(buffer-file-name "%b [%f] — Emacs" "%b — Emacs"))
+  (setq read-quoted-char-radix 16)
 #+END_SRC
 
 ** Clipboard integration
