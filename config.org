@@ -47,7 +47,6 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
   (setq diff-switches "-u"); unified diffs
   (setq sentence-end-double-space nil)
   (setq scroll-error-top-bottom t)
-  (setq frame-title-format '(buffer-file-name "%b [%f] — Emacs" "%b — Emacs"))
   (setq read-quoted-char-radix 16)
 #+END_SRC
 
@@ -121,6 +120,14 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (diminish 'subword-mode)
 #+END_SRC
 
+** Frame title
+#+BEGIN_SRC emacs-lisp
+  (setq frame-title-format '(:eval
+                             (let ((curf (buffer-file-name)))
+                               (if curf
+                                   (format "%%b [%s] — Emacs" (abbreviate-file-name curf))
+                                 "%b — Emacs"))))
+#+END_SRC
 * Line numbers
 #+BEGIN_SRC emacs-lisp
   (require 'linum)
