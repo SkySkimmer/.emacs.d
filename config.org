@@ -53,7 +53,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 ** Clipboard integration
    #+BEGIN_SRC emacs-lisp
-     (setq x-select-enable-clipboard t)
+     (setq select-enable-clipboard t)
      ;; Treat clipboard input as UTF-8 string first; compound text next, etc.
      (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
      (setq save-interprogram-paste-before-kill t)
