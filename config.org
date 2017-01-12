@@ -17,11 +17,12 @@ This bit is for the # anti-crash files
 * History
 This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 #+BEGIN_SRC emacs-lisp
-  (setq savehist-file "~/.emacs.d/savehist")
+  (require 'savehist)
   (savehist-mode 1)
+  (setq savehist-file "~/.emacs.d/savehist")
   (setq history-length t)
   (setq history-delete-duplicates t)
-  (setq savehist-save-minibuffer-history 1)
+  (setq savehist-save-minibuffer-history t)
   (setq savehist-additional-variables
         '(kill-ring
           search-ring
@@ -61,21 +62,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 ** highlight current line
    #+BEGIN_SRC emacs-lisp
-   (global-hl-line-mode t)
-   (set-face-background hl-line-face "alice blue")
-   #+END_SRC
-
-** File ignores
-   This is actually further processed in the Swiper section.
-   #+BEGIN_SRC emacs-lisp
-     (setq file-ignore-patterns
-           (list "~$"
-            "^\\."
-            "\\.mli?\\.d$"
-            "\\.mllib\\.d$"
-            "\\.cm[iotx]$"
-            "\\.cmti$"
-            "\\.o$"))
+     (require 'hl-line)
+     (global-hl-line-mode t)
+     (set-face-background hl-line-face "alice blue")
    #+END_SRC
 
 ** Scroll
@@ -228,6 +217,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 * org mode
 #+BEGIN_SRC emacs-lisp
+  (require 'org)
   (setq
    org-src-fontify-natively t
    org-startup-indented t
@@ -286,8 +276,13 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
            (lambda (x y) (concat x "\\|" y))
            (mapcar
             (lambda (x) (concat "\\(?:" x "\\)"))
-            file-ignore-patterns)))
-    )
+            '("~$"
+                  "^\\."
+                  "\\.mli?\\.d$"
+                  "\\.mllib\\.d$"
+                  "\\.cm[iotx]$"
+                  "\\.cmti$"
+                  "\\.o$")))))
 #+END_SRC
 
 
@@ -322,7 +317,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 * OCaml
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck-ocaml
-    :init
+    :config
     (with-eval-after-load 'merlin
       ;; Disable Merlin's own error checking
       (setq merlin-error-after-save nil)

@@ -3,6 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auto-complete-auctex auctex ace-window)))
  '(safe-local-variable-values
    (quote
     ((TeX-master . "Reference-Manual")
