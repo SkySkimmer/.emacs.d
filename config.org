@@ -32,7 +32,6 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 * interface tweaks
 #+BEGIN_SRC emacs-lisp
-  (setq ls-lisp-dirs-first t)
   (setq inhibit-startup-message t)
   (tool-bar-mode -1)
   (fset 'yes-or-no-p 'y-or-n-p)
@@ -51,6 +50,13 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
   (setq read-quoted-char-radix 16)
 #+END_SRC
 
+** Dired
+#+BEGIN_SRC emacs-lisp
+  (require 'dired)
+  (setq
+   dired-ls-F-marks-symlinks t
+   dired-listing-switches "-alF --group-directories-first")
+#+END_SRC
 ** Clipboard integration
    #+BEGIN_SRC emacs-lisp
      (setq select-enable-clipboard t)
