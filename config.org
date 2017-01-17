@@ -233,7 +233,8 @@ Note that the "〖〗" characters have no space before/after them.
    org-src-fontify-natively t
    org-startup-indented t
    org-src-tab-acts-natively t
-   org-ellipsis " ▼")
+   org-ellipsis " ▼"
+   org-cycle-separator-lines 1)
 
   (use-package org-bullets
     :config
