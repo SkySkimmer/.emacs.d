@@ -12,8 +12,6 @@ This bit is for the # anti-crash files
   (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+END_SRC
 
-
-
 * History
 This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 #+BEGIN_SRC emacs-lisp
@@ -28,7 +26,6 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
           search-ring
           regexp-search-ring))
 #+END_SRC
-
 
 * interface tweaks
 #+BEGIN_SRC emacs-lisp
@@ -57,6 +54,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
    dired-ls-F-marks-symlinks t
    dired-listing-switches "-alF --group-directories-first")
 #+END_SRC
+
 ** Clipboard integration
    #+BEGIN_SRC emacs-lisp
      (setq select-enable-clipboard t)
@@ -124,10 +122,12 @@ Note that the "〖〗" characters have no space before/after them.
                                    (format "%%b〖%s〗— Emacs" (abbreviate-file-name curf))
                                  "%b — Emacs"))))
 #+END_SRC
+
 ** Emacs source
 #+BEGIN_SRC emacs-lisp
 (setq find-function-C-source-directory "/home/gaetan/dev/emacs25-25.1+1/src/")
 #+END_SRC
+
 * Line numbers
 #+BEGIN_SRC emacs-lisp
   (require 'linum)
@@ -166,9 +166,7 @@ Note that the "〖〗" characters have no space before/after them.
         (when line-numbers-off-p
           (linum-mode -1)))))
   (global-set-key [remap goto-line] 'goto-line-with-feedback)
-
 #+END_SRC
-
 
 * Save place in files
 #+BEGIN_SRC emacs-lisp
@@ -176,7 +174,6 @@ Note that the "〖〗" characters have no space before/after them.
   (require 'saveplace)
   (setq save-place-file "~/.emacs.d/saveplace")
 #+END_SRC
-
 
 * Unicode
 #+BEGIN_SRC emacs-lisp
@@ -188,7 +185,6 @@ Note that the "〖〗" characters have no space before/after them.
 (prefer-coding-system 'utf-8)
 (setq default-process-coding-system '(utf-8-unix . utf-8-unix))
 #+END_SRC
-
 
 * Immortal *scratch*
 #+BEGIN_SRC emacs-lisp
@@ -210,12 +206,10 @@ Note that the "〖〗" characters have no space before/after them.
   (global-prettify-symbols-mode +1)
 #+END_SRC
 
-
 * try
 #+BEGIN_SRC emacs-lisp
 (use-package try)
 #+END_SRC
-
 
 * which-key
 #+BEGIN_SRC emacs-lisp
@@ -224,7 +218,6 @@ Note that the "〖〗" characters have no space before/after them.
     :config
     (which-key-mode))
 #+END_SRC
-
 
 * org mode
 #+BEGIN_SRC emacs-lisp
@@ -241,7 +234,6 @@ Note that the "〖〗" characters have no space before/after them.
     (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 
-
 * Window switching (Ace window)
 #+BEGIN_SRC emacs-lisp
   (use-package ace-window
@@ -249,10 +241,8 @@ Note that the "〖〗" characters have no space before/after them.
     (global-set-key [remap other-window] 'ace-window)
     (custom-set-faces
      '(aw-leading-char-face
-       ((t (:inherit ace-jump-face-foreground :height 3.0)))))
-    )
+       ((t (:inherit ace-jump-face-foreground :height 3.0))))))
 #+END_SRC
-
 
 * Swiper
 #+BEGIN_SRC emacs-lisp
@@ -297,7 +287,6 @@ Note that the "〖〗" characters have no space before/after them.
                   "\\.o$")))))
 #+END_SRC
 
-
 * Autocomplete
 #+BEGIN_SRC emacs-lisp
   (use-package auto-complete
@@ -308,7 +297,6 @@ Note that the "〖〗" characters have no space before/after them.
     )
 #+END_SRC
 
-
 * Flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
@@ -316,7 +304,6 @@ Note that the "〖〗" characters have no space before/after them.
     (global-flycheck-mode)
     (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc)))
 #+END_SRC
-
 
 * Magit
 #+BEGIN_SRC emacs-lisp
@@ -363,9 +350,6 @@ Note that the "〖〗" characters have no space before/after them.
        (add-hook 'text-mode-hook #'ws-butler-mode))
    #+END_SRC
 
-
-
-
 * Semantic region
 #+BEGIN_SRC emacs-lisp
   ; expand the marked region in semantic increments (negative prefix to reduce region)
@@ -373,7 +357,6 @@ Note that the "〖〗" characters have no space before/after them.
     :config
     (global-set-key (kbd "C-=") 'er/expand-region))
 #+END_SRC
-
 
 * Narrowing
 #+BEGIN_SRC emacs-lisp
@@ -413,7 +396,6 @@ Note that the "〖〗" characters have no space before/after them.
                 nil)))
 #+END_SRC
 
-
 * Undo tree
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
@@ -424,14 +406,12 @@ Note that the "〖〗" characters have no space before/after them.
     (setq undo-tree-visualizer-timestamps t))
 #+END_SRC
 
-
 * Proof General
 #+BEGIN_SRC emacs-lisp
   (load "~/.emacs.d/lisp/PG/generic/proof-site")
 
   (setq proof-prog-name-ask t)
 #+END_SRC
-
 
 * Highlight symbol
 Doesn't highlight symbols on current line when hl-line-mode is on, which is annoying. So I only use it for navigation.
@@ -443,7 +423,6 @@ I could use smartscan instead but that doesn't cycle.
     (add-hook 'text-mode-hook #'highlight-symbol-nav-mode)
     (add-hook 'org-mode-hook #'highlight-symbol-nav-mode))
 #+END_SRC
-
 
 * AucTex
 #+BEGIN_SRC emacs-lisp
