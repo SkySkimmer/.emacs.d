@@ -70,7 +70,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
    #+BEGIN_SRC emacs-lisp
      (require 'hl-line)
      (global-hl-line-mode t)
-     (set-face-background hl-line-face "alice blue")
+     (set-face-background hl-line-face "LightCyan2")
    #+END_SRC
 
 ** Scroll
@@ -116,12 +116,17 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 #+END_SRC
 
 ** Frame title
+Note that the "〖〗" characters have no space before/after them.
 #+BEGIN_SRC emacs-lisp
   (setq frame-title-format '(:eval
                              (let ((curf (buffer-file-name)))
                                (if curf
-                                   (format "%%b [%s] — Emacs" (abbreviate-file-name curf))
+                                   (format "%%b〖%s〗— Emacs" (abbreviate-file-name curf))
                                  "%b — Emacs"))))
+#+END_SRC
+** Emacs source
+#+BEGIN_SRC emacs-lisp
+(setq find-function-C-source-directory "/home/gaetan/dev/emacs25-25.1+1/src/")
 #+END_SRC
 * Line numbers
 #+BEGIN_SRC emacs-lisp
@@ -462,6 +467,6 @@ I could use smartscan instead but that doesn't cycle.
               '(lambda () (add-to-list 'TeX-expand-list
                                   '("%u" Okular-make-url))))
     (add-to-list 'TeX-command-list
-                 '("Okular" "okular --unique %u"
+                 '("Okular" "okular %u"
                    TeX-run-discard-or-function nil t :help "View file")))
 #+END_SRC
