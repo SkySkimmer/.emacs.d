@@ -8,7 +8,8 @@
     (dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auto-complete-auctex auctex ace-window)))
  '(safe-local-variable-values
    (quote
-    ((TeX-master . "Reference-Manual")
+    ((coq-prog-name . "/home/gaetan/Aarhus/HoTT/hoqtop")
+     (TeX-master . "Reference-Manual")
      (TeX-master . "main")
      (eval progn
            (let

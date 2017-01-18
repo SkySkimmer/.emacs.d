@@ -123,7 +123,7 @@ Note that the "〖〗" characters have no space before/after them.
                                  "%b — Emacs"))))
 #+END_SRC
 
-** Emacs source
+* Emacs source
 #+BEGIN_SRC emacs-lisp
 (setq find-function-C-source-directory "/home/gaetan/dev/emacs25-25.1+1/src/")
 #+END_SRC
