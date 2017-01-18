@@ -115,12 +115,36 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 ** Frame title
 Note that the "〖〗" characters have no space before/after them.
+
+Print default directory according to major mode based on [[https://github.com/jbms/jmswm/blob/19f11ff1f081c07468b149998d851a2b7b1d54cd/config/emacs.example.el][jbms@github/jmswm]].
 #+BEGIN_SRC emacs-lisp
-  (setq frame-title-format '(:eval
-                             (let ((curf (buffer-file-name)))
-                               (if curf
-                                   (format "%%b〖%s〗— Emacs" (abbreviate-file-name curf))
-                                 "%b — Emacs"))))
+  (setq major-modes-with-meaningful-directory
+        '(magit-log-mode
+          magit-status-mode
+          dired-mode))
+
+  (defun default-directory-meaningful-p ()
+    "Figure out if the default directory of the current buffer
+  is meaningful according to `major-modes-with-meaningful-directory`"
+    (memq major-mode major-modes-with-meaningful-directory))
+
+  (defun frame-file-name-or-space ()
+    "If current buffer is associated with a file, return that file's name.
+  Otherwise if `default-directory-meaningful-p` return the default directory.
+  In both cases paths are bracketed with \"〖〗\" and processed by `abbreviate-file-name`.
+  If no path is meaningful return a space."
+    (if (buffer-file-name)
+        (format "〖%s〗" (abbreviate-file-name (buffer-file-name)))
+      (if (default-directory-meaningful-p)
+          (format "〖%s〗" (abbreviate-file-name default-directory))
+        " ")))
+
+
+  (setq frame-title-format
+        '((:eval (if (buffer-modified-p) "(!) " ""))
+          "%b"
+          (:eval (frame-file-name-or-space))
+          "— Emacs"))
 #+END_SRC
 
 * Emacs source
