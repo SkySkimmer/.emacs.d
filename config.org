@@ -129,7 +129,29 @@ Print default directory according to major mode based on [[https://github.com/jb
   is meaningful according to `major-modes-with-meaningful-directory'"
     (memq major-mode major-modes-with-meaningful-directory))
 
-  (defun frame-file-name-or-space ()
+  (defun help-what-about ()
+    "Returns nil if called in non help-mode derived buffer.
+  Otherwise guesses what the help buffer is about.
+  If it succeeds the guess is returned as a string. Otherwise returns nil.
+
+  Heuristics:
+  If the buffer starts with a known symbol (i.e. in `obarray') that's our result.
+  This may return the wrong thing: imagine a mode where `t t' runs `foo', we will
+  think `describe-key' is talking about `t' alone.
+  If someone defines `Enabled' we will be similarly confused after `describe-mode', etc."
+    (if (derived-mode-p 'help-mode)
+        (let ((described-thing
+               ;; (current-word t ...) protects us against things
+               ;; like describe-char which start with spaces
+               (save-excursion (progn (goto-char (point-min)) (current-word t nil)))))
+          (if (or
+               (intern-soft described-thing)
+               ;; Special case since  (intern-soft "nil") ==> nil
+               (string-equal described-thing "nil"))
+              described-thing
+            nil))))
+
+  (defun frame-title-mode-bonus ()
     "If current buffer is associated with a file, return that file's name.
   Otherwise if `default-directory-meaningful-p' return the default directory.
   In both cases paths are bracketed with \"〖〗\" and processed by `abbreviate-file-name'.
@@ -138,13 +160,14 @@ Print default directory according to major mode based on [[https://github.com/jb
         (format "〖%s〗" (abbreviate-file-name (buffer-file-name)))
       (if (default-directory-meaningful-p)
           (format "〖%s〗" (abbreviate-file-name default-directory))
-        " ")))
-
+        (if-let ((described-thing (help-what-about)))
+            (format "〖%s〗" described-thing)
+          " "))))
 
   (setq frame-title-format
         '((:eval (if (and (buffer-modified-p) (not buffer-read-only)) "(!) " ""))
           "%b"
-          (:eval (frame-file-name-or-space))
+          (:eval (frame-title-mode-bonus))
           "— Emacs"))
 #+END_SRC
 
