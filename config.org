@@ -1,5 +1,10 @@
 #+STARTUP: overview
 
+* Secrets
+#+BEGIN_SRC emacs-lisp
+(load "~/.emacs.d/secrets" nil nil)
+#+END_SRC
+
 * Backups
 #+BEGIN_SRC emacs-lisp
   (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
@@ -498,3 +503,15 @@ I could use smartscan instead but that doesn't cycle.
                  '("Okular" "okular %u"
                    TeX-run-discard-or-function nil t :help "View file")))
 #+END_SRC
+
+* erc
+#+BEGIN_SRC emacs-lisp
+   (setq erc-server "irc.freenode.net"
+         erc-port 6667
+         erc-nick "SkySkimmer"
+         erc-user-full-name user-full-name
+         ;;erc-email-userid "userid"    ; for when ident is not activated
+         ;;erc-password ; in secrets
+         )
+#+END_SRC
+
