@@ -1,0 +1,3 @@
+[submodule "emacs-sdcv"]
+	path = lisp/emacs-sdcv
+	url = git@github.com:gucong/emacs-sdcv.git

@@ -519,3 +519,9 @@ I could use smartscan instead but that doesn't cycle.
 #+BEGIN_SRC emacs-lisp
   (use-package systemd)
 #+END_SRC
+
+* Dictionary (sdcv)
+#+BEGIN_SRC emacs-lisp
+(load "~/.emacs.d/lisp/emacs-sdcv/sdcv-mode" nil t)
+(global-set-key (kbd "C-c d") 'sdcv-search)
+#+END_SRC
