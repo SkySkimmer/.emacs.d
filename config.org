@@ -526,13 +526,14 @@ I could use smartscan instead but that doesn't cycle.
 
 * erc
 #+BEGIN_SRC emacs-lisp
-   (setq erc-server "irc.freenode.net"
-         erc-port 6667
-         erc-nick "SkySkimmer"
-         erc-user-full-name user-full-name
-         ;;erc-email-userid "userid"    ; for when ident is not activated
-         ;;erc-password ; in secrets
-         )
+  (setq erc-server "irc.freenode.net"
+        erc-port 6667
+        erc-nick "SkySkimmer"
+        erc-user-full-name user-full-name
+        ;;erc-email-userid "userid"    ; for when ident is not activated
+        ;;erc-password ; in secrets
+        erc-lurker-hide-list '("JOIN" "PART" "QUIT")
+        erc-lurker-threshold-time 3600)
 #+END_SRC
 
 * Systemd
