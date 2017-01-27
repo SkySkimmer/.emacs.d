@@ -78,8 +78,23 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 ** Scroll
    #+BEGIN_SRC emacs-lisp
-     (setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-     (setq mouse-wheel-progressive-speed nil)
+     (setq
+      mouse-wheel-scroll-amount '(1 ((shift) . 1))
+      mouse-wheel-progressive-speed nil)
+
+     (defun window-half-height ()
+       (max 1 (/ (1- (window-height (selected-window))) 2)))
+
+     (defun reset-next-screen-context-lines ()
+       "Set `next-screen-context-lines' to screen height / 2"
+       (setq next-screen-context-lines (window-half-height)))
+
+     (defadvice scroll-up-command (before scroll-up-half-screen activate)
+       "Set `next-screen-context-lines' to screen height / 2"
+       (reset-next-screen-context-lines))
+     (defadvice scroll-down-command (before scroll-down-half-screen activate)
+       "Set `next-screen-context-lines' to screen height / 2"
+       (reset-next-screen-context-lines))
    #+END_SRC
 
 ** Move to beginning of line
