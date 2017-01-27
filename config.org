@@ -347,17 +347,14 @@ Print default directory according to major mode based on [[https://github.com/jb
     (setq ivy-display-style 'fancy)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
     (setq counsel-find-file-ignore-regexp
-          (reduce
-           (lambda (x y) (concat x "\\|" y))
-           (mapcar
-            (lambda (x) (concat "\\(?:" x "\\)"))
-            '("~$"
-                  "^\\."
-                  "\\.mli?\\.d$"
-                  "\\.mllib\\.d$"
-                  "\\.cm[iotx]$"
-                  "\\.cmti$"
-                  "\\.o$")))))
+          (rx (or
+               (: "~" eol)
+               (: bol ".")
+               (: ".ml" (? "i") ".d" eol)
+               (: ".mllib.d" eol)
+               (: ".cm" (char "iotx") eol)
+               (: ".cmti" eol)
+               (: ".o" eol)))))
 #+END_SRC
 
 * Autocomplete
