@@ -10,6 +10,7 @@ eshell/
 savehist
 saveplace
 url/
+projectile-bookmarks.eld
 
 #used by Emacs japanese IME
 kkcrc
