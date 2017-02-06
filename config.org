@@ -34,7 +34,6 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 * interface tweaks
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-message t)
   (tool-bar-mode -1)
   (fset 'yes-or-no-p 'y-or-n-p)
   (global-set-key (kbd "<f5>") 'revert-buffer)
@@ -45,11 +44,14 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
   (line-number-mode 1)
   (column-number-mode 1)
   (setq-default indent-tabs-mode nil)
-  (setq require-final-newline t)
-  (setq diff-switches "-u"); unified diffs
-  (setq sentence-end-double-space nil)
-  (setq scroll-error-top-bottom t)
-  (setq read-quoted-char-radix 16)
+  (setq
+   inhibit-startup-message t
+   require-final-newline t
+   diff-switches "-u"; unified diffs
+   sentence-end-double-space nil
+   scroll-error-top-bottom t
+   read-quoted-char-radix 16
+   apropos-do-all t)
 #+END_SRC
 
 ** Dired
