@@ -51,7 +51,8 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
    sentence-end-double-space nil
    scroll-error-top-bottom t
    read-quoted-char-radix 16
-   apropos-do-all t)
+   apropos-do-all t
+   browse-url-browser-function 'eww-browse-url)
 #+END_SRC
 
 ** Dired
