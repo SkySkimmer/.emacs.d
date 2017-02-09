@@ -11,6 +11,7 @@ savehist
 saveplace
 url/
 projectile-bookmarks.eld
+/tramp
 
 #used by Emacs japanese IME
 kkcrc
