@@ -54,7 +54,8 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
    scroll-error-top-bottom t
    read-quoted-char-radix 16
    apropos-do-all t
-   browse-url-browser-function 'eww-browse-url)
+   browse-url-browser-function 'eww-browse-url
+   recentf-max-saved-items 100)
 #+END_SRC
 
 ** Dired
