@@ -55,7 +55,15 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
    read-quoted-char-radix 16
    apropos-do-all t
    browse-url-browser-function 'eww-browse-url
-   recentf-max-saved-items 100)
+   recentf-max-saved-items 100
+   recenter-positions '(top middle bottom)
+   use-dialog-box nil)
+#+END_SRC
+
+** Dash fontlock
+#+BEGIN_SRC emacs-lisp
+(with-eval-after-load 'dash
+  (dash-enable-font-lock))
 #+END_SRC
 
 ** Dired
@@ -305,18 +313,21 @@ Print default directory according to major mode based on [[https://github.com/jb
 
 * org mode
 #+BEGIN_SRC emacs-lisp
-  (require 'org)
-  (setq
-   org-src-fontify-natively t
-   org-startup-indented t
-   org-src-tab-acts-natively t
-   org-ellipsis " ▼"
-   org-cycle-separator-lines 1)
-  (diminish 'org-indent-mode)
+(require 'org)
+(setq
+ org-catch-invisible-edits 'error
+ org-return-follows-link t
+ org-startup-indented t
+ org-src-preserve-indentation t
+ org-src-fontify-natively t
+ org-src-tab-acts-natively t
+ org-ellipsis " ▼"
+ org-cycle-separator-lines 1)
+(diminish 'org-indent-mode)
 
-  (use-package org-bullets
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+(use-package org-bullets
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 #+END_SRC
 
 * Window switching (Ace window)
@@ -568,4 +579,16 @@ I could use smartscan instead but that doesn't cycle.
               (format " ℘[%s]" (projectile-project-name))))))
   (use-package counsel-projectile
     :config (counsel-projectile-on))
+#+END_SRC
+
+* Comint
+#+BEGIN_SRC emacs-lisp
+  (setq
+   comint-prompt-read-only t)
+
+  (defun my-comint-preoutput-read-only (text)
+    (propertize text 'read-only t))
+
+  (add-hook 'comint-preoutput-filter-functions
+            'my-comint-preoutput-read-only)
 #+END_SRC
