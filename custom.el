@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auto-complete-auctex auctex ace-window)))
+    (nv-delete-back rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auto-complete-auctex auctex ace-window)))
  '(safe-local-variable-values
    (quote
     ((coq-prog-name . "/home/gaetan/Aarhus/HoTT/hoqtop")
