@@ -324,7 +324,6 @@ Print default directory according to major mode based on [[https://github.com/jb
  org-src-tab-acts-natively t
  org-ellipsis " ▼"
  org-cycle-separator-lines 1)
-(diminish 'org-indent-mode)
 
 (use-package org-bullets
   :config
@@ -381,14 +380,12 @@ Print default directory according to major mode based on [[https://github.com/jb
                (: ".o" eol)))))
 #+END_SRC
 
-* Autocomplete
+* Company
 #+BEGIN_SRC emacs-lisp
-  (use-package auto-complete
-    :diminish ('auto-complete-mode . "↝")
-    :init
-    (ac-config-default)
-    (global-auto-complete-mode t)
-    )
+(use-package company
+  :diminish " ℂ"
+  :config
+  (global-company-mode))
 #+END_SRC
 
 * Flycheck
@@ -515,8 +512,7 @@ Print default directory according to major mode based on [[https://github.com/jb
 (setq
  proof-prog-name-ask t
  proof-follow-mode 'followdown
- proof-sticky-errors t
- coq-smie-after-bolp-indentation 0)
+ proof-sticky-errors t)
 
 (defun my/coq-mode-setup ()
   "Setup non-customize coq mode stuff."
@@ -524,8 +520,17 @@ Print default directory according to major mode based on [[https://github.com/jb
   (define-key coq-mode-map (kbd "s-n") 'proof-assert-next-command-interactive)
   (define-key coq-mode-map (kbd "s-<down>") 'proof-assert-next-command-interactive)
   (define-key coq-mode-map (kbd "s-<right>") 'proof-goto-point)
-  (define-key coq-mode-map (kbd "s-<up>") 'proof-undo-last-successful-command))
+  (define-key coq-mode-map (kbd "s-<up>") 'proof-undo-last-successful-command)
+  (define-key coq-mode-map (kbd "s-<left>") 'proof-goto-end-of-locked))
 (add-hook 'coq-mode-hook #'my/coq-mode-setup)
+#+END_SRC
+
+* Company-Coq
+#+BEGIN_SRC emacs-lisp
+(use-package company-coq
+  :config
+  (setq company-coq-disabled-features '(hello))
+  (add-hook 'coq-mode-hook #'company-coq-mode))
 #+END_SRC
 
 * Highlight symbol
@@ -554,7 +559,6 @@ I could use smartscan instead but that doesn't cycle.
 
   (use-package tex
     :ensure auctex
-    :ensure auto-complete-auctex
     :config
     (setq
      LaTeX-command "latex -synctex=1")
@@ -613,4 +617,16 @@ I could use smartscan instead but that doesn't cycle.
 
   (add-hook 'comint-preoutput-filter-functions
             'my-comint-preoutput-read-only)
+#+END_SRC
+
+* Diminishing
+#+BEGIN_SRC emacs-lisp
+(defun my/diminishings ()
+  (diminish 'yas-minor-mode)
+  (diminish 'org-indent-mode)
+  (diminish 'hs-minor-mode)
+  (diminish 'holes-mode)
+  (diminish 'outline-minor-mode))
+
+(add-hook 'after-init-hook #'my/diminishings)
 #+END_SRC
