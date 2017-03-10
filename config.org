@@ -623,10 +623,10 @@ I could use smartscan instead but that doesn't cycle.
 #+BEGIN_SRC emacs-lisp
 (defun my/diminishings ()
   (diminish 'yas-minor-mode)
-  (diminish 'org-indent-mode)
   (diminish 'hs-minor-mode)
   (diminish 'holes-mode)
   (diminish 'outline-minor-mode))
 
 (add-hook 'after-init-hook #'my/diminishings)
+(eval-after-load 'org-indent '(diminish 'org-indent-mode))
 #+END_SRC
