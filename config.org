@@ -539,6 +539,29 @@ Print default directory according to major mode based on [[https://github.com/jb
  proof-follow-mode 'followdown
  proof-sticky-errors t)
 
+(require 'proof-utils) ; it complains about the use of proof-escape-keymap-doc otherwise
+(defmacro my/coq-deftoggler (fn string &optional key &optional default)
+  "Define function FN sending \"Set STRING.\" or \"Unset STRING.\" as appropriate.
+The state of the option is stored in variable FN starting with DEFAULT."
+  `(progn
+     (if ,key
+         (define-key coq-mode-map ,key (quote ,fn)))
+
+     (defvar ,fn ,default)
+
+     (defun ,fn ()
+       ,(concat "Command to toggle the option \""
+                (proof-escape-keymap-doc string)
+                "\".
+Uses variable `" (symbol-name fn) "'.")
+       (interactive)
+       (let ((string (if ,fn
+                         (progn (setq ,fn nil) (concat "Unset " ,string "."))
+                       (progn (setq ,fn t) (concat "Set " ,string ".")))))
+         (proof-shell-invisible-command string 'wait)
+         (proof-prf)
+         (message string)))))
+
 (defun my/coq-mode-setup ()
   "Setup non-customize coq mode stuff."
   (flycheck-mode 0)
@@ -546,7 +569,11 @@ Print default directory according to major mode based on [[https://github.com/jb
   (define-key coq-mode-map (kbd "s-<down>") 'proof-assert-next-command-interactive)
   (define-key coq-mode-map (kbd "s-<right>") 'proof-goto-point)
   (define-key coq-mode-map (kbd "s-<up>") 'proof-undo-last-successful-command)
-  (define-key coq-mode-map (kbd "s-<left>") 'proof-goto-end-of-locked))
+  (define-key coq-mode-map (kbd "s-<left>") 'proof-goto-end-of-locked)
+  (my/coq-deftoggler coq-toggle-printing-implicit "Printing Implicit" (kbd "C-c i"))
+  (my/coq-deftoggler coq-toggle-printing-all "Printing All" (kbd "C-c a"))
+  (my/coq-deftoggler coq-toggle-printing-notations "Printing Notations" (kbd "C-c n") t)
+  (my/coq-deftoggler coq-toggle-printing-universes "Printing Universes" (kbd "C-c u")))
 (add-hook 'coq-mode-hook #'my/coq-mode-setup)
 #+END_SRC
 
