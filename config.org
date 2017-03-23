@@ -408,20 +408,42 @@ Print default directory according to major mode based on [[https://github.com/jb
 
 * OCaml
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck-ocaml
-    :config
-    (setq tuareg-indent-align-with-first-arg nil)
-    (with-eval-after-load 'merlin
-      ;; Disable Merlin's own error checking
-      (setq merlin-error-after-save nil)
-      (setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
-      ;; Enable Flycheck checker
-      (flycheck-ocaml-setup))
+(use-package flycheck-ocaml
+  :config
+  (setq tuareg-indent-align-with-first-arg nil)
+  (with-eval-after-load 'merlin
+    ;; Disable Merlin's own error checking
+    (setq merlin-error-after-save nil)
+    (setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
+    ;; Enable Flycheck checker
+    (flycheck-ocaml-setup))
 
-    (add-hook 'tuareg-mode-hook 'merlin-mode))
+  (add-hook 'tuareg-mode-hook 'merlin-mode))
 
-  (use-package tuareg
-    :diminish merlin-mode)
+(use-package tuareg
+  :diminish merlin-mode
+
+  :config
+  (define-key tuareg-mode-map (kbd "C-x C-a")
+    (defhydra hydra-ocamldebug
+      (tuareg-mode-map "C-x C-a")
+      "Ocamldebug"
+      ("<" ocamldebug-up "Up")
+      (">" ocamldebug-down "Down")
+      ("b" ocamldebug-break "Break")
+      ("c" ocamldebug-close "Close")
+      ("d" ocamldebug-delete "Delete")
+      ("f" ocamldebug-finish "Finish")
+      ("g" ocamldebug-goto "Goto")
+      ("k" ocamldebug-kill "Kill")
+      ("l" ocamldebug-last "Last")
+      ("n" ocamldebug-next "Next")
+      ("o" ocamldebug-open "Open")
+      ("p" ocamldebug-print "Print")
+      ("r" ocamldebug-run "Run")
+      ("s" ocamldebug-step "Step")
+      ("t" ocamldebug-backtrace "Backtrace")
+      ("v" ocamldebug-reverse "Reverse"))))
 #+END_SRC
 
 * Markdown
