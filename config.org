@@ -624,6 +624,24 @@ I could use smartscan instead but that doesn't cycle.
             'my-comint-preoutput-read-only)
 #+END_SRC
 
+* Hydra
+#+BEGIN_SRC emacs-lisp
+(use-package hydra)
+(global-set-key
+ (kbd "<f1>")
+ (defhydra hydra-help (:color blue)
+   "Help"
+   ("a" helm-apropos "Apropos")
+   ("c" describe-char "Describe Char")
+   ("f" find-function "Find Function")
+   ("F" describe-function "Describe Function")
+   ("k" describe-key "Describe Key")
+   ("K" find-function-on-key "Find Key")
+   ("m" describe-mode "Describe Modes")
+   ("v" find-variable "Find Variable")
+   ("V" describe-variable "Describe Variable")))
+#+END_SRC
+
 * Diminishing
 #+BEGIN_SRC emacs-lisp
 (defun my/diminishings ()
