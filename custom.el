@@ -12,6 +12,21 @@
            ((default-directory
               (locate-dominating-file buffer-file-name ".dir-locals.el")))
            (make-local-variable
+            (quote coq-prog-args))
+           (setq coq-prog-args
+                 (\`
+                  ("-indices-matter" "-boot" "-nois" "-coqlib"
+                   (\,
+                    (expand-file-name ".."))
+                   "-R"
+                   (\,
+                    (expand-file-name "."))
+                   "Coq" "-emacs"))))
+     (coq-prog-args "-emacs" "-indices-matter")
+     (eval let
+           ((default-directory
+              (locate-dominating-file buffer-file-name ".dir-locals.el")))
+           (make-local-variable
             (quote coq-prog-name))
            (setq coq-prog-name
                  (expand-file-name "../hoqtop")))
