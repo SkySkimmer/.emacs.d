@@ -58,7 +58,8 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
    recentf-max-saved-items 100
    recenter-positions '(top middle bottom)
    use-dialog-box nil
-   disabled-command-function nil)
+   disabled-command-function nil
+   compilation-scroll-output 'first-error)
 #+END_SRC
 
 ** Dash fontlock
