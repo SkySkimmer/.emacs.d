@@ -60,6 +60,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
    use-dialog-box nil
    disabled-command-function nil
    compilation-scroll-output 'first-error)
+
+;; thanks http://pragmaticemacs.com/emacs/cycle-spacing/
+(global-set-key (kbd "M-SPC") 'cycle-spacing)
 #+END_SRC
 
 ** Dash fontlock
