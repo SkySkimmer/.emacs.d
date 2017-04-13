@@ -690,6 +690,7 @@ I could use smartscan instead but that doesn't cycle.
 * Hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra)
+(use-package ivy-hydra)
 (global-set-key
  (kbd "<f1>")
  (defhydra hydra-help (:color blue)
@@ -703,6 +704,12 @@ I could use smartscan instead but that doesn't cycle.
    ("m" describe-mode "Describe Modes")
    ("v" find-variable "Find Variable")
    ("V" describe-variable "Describe Variable")))
+#+END_SRC
+
+* Wgrep
+#+BEGIN_SRC emacs-lisp
+(use-package wgrep)
+(use-package wgrep-ag)
 #+END_SRC
 
 * Diminishing
