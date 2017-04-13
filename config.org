@@ -220,44 +220,55 @@ Print default directory according to major mode based on [[https://github.com/jb
   (use-package rainbow-mode)
 #+END_SRC
 
-* Line numbers
-#+BEGIN_SRC emacs-lisp
-  (require 'linum)
-  (set-face-attribute 'linum nil
-                      :background (face-attribute 'default :background)
-                      :foreground (face-attribute 'font-lock-comment-face :foreground))
-  (defface linum-current-line-face
-    `((t :background "gray30" :foreground "gold"))
-    "Face for the currently active Line number")
-  (defvar my-linum-current-line-number 0)
-  (defun get-linum-format-string ()
-    (setq-local my-linum-format-string
-                (let ((w (length (number-to-string
-                                  (count-lines (point-min) (point-max))))))
-                  (concat " %" (number-to-string w) "d "))))
-  (add-hook 'linum-before-numbering-hook 'get-linum-format-string)
-  (defun my-linum-format (line-number)
-    (propertize (format my-linum-format-string line-number) 'face
-                (if (eq line-number my-linum-current-line-number)
-                    'linum-current-line-face
-                  'linum)))
-  (setq linum-format 'my-linum-format)
-  (defadvice linum-update (around my-linum-update)
-    (let ((my-linum-current-line-number (line-number-at-pos)))
-      ad-do-it))
-  (ad-activate 'linum-update)
+* Avy and linum configuration
+Replace =goto-line= with =avy-goto-line= with temporary enabling of linum mode.
+Linum mode is also made to look nicer.
 
-  (defun goto-line-with-feedback ()
-    "Show line numbers temporarily, while prompting for the line number input"
-    (interactive)
-    (let ((line-numbers-off-p (not linum-mode)))
-      (unwind-protect
-          (progn (when line-numbers-off-p
-                   (linum-mode 1))
-                 (call-interactively 'goto-line))
-        (when line-numbers-off-p
-          (linum-mode -1)))))
-  (global-set-key [remap goto-line] 'goto-line-with-feedback)
+Note that jumping to a line by its number is still possible with avy.
+
+Fist make linum pretty
+#+BEGIN_SRC emacs-lisp
+(require 'linum)
+(set-face-attribute 'linum nil
+                    :background (face-attribute 'default :background)
+                    :foreground (face-attribute 'font-lock-comment-face :foreground))
+(defface linum-current-line-face
+  `((t :background "gray30" :foreground "gold"))
+  "Face for the currently active Line number")
+(defvar my-linum-current-line-number 0)
+(defun get-linum-format-string ()
+  (setq-local my-linum-format-string
+              (let ((w (length (number-to-string
+                                (count-lines (point-min) (point-max))))))
+                (concat " %" (number-to-string w) "d "))))
+(add-hook 'linum-before-numbering-hook 'get-linum-format-string)
+(defun my-linum-format (line-number)
+  (propertize (format my-linum-format-string line-number) 'face
+              (if (eq line-number my-linum-current-line-number)
+                  'linum-current-line-face
+                'linum)))
+(setq linum-format 'my-linum-format)
+(defadvice linum-update (around my-linum-update activate)
+  (let ((my-linum-current-line-number (line-number-at-pos)))
+    ad-do-it))
+#+END_SRC
+
+Then setup avy
+#+BEGIN_SRC emacs-lisp
+(use-package avy)
+
+;; based on joshwnj and magnars https://gist.github.com/joshwnj/3292750
+(defun avy-goto-line-with-feedback ()
+  "Show line numbers temporarily, while prompting for the line number input"
+  (interactive)
+  (let ((line-numbers-off-p (not linum-mode)))
+    (unwind-protect
+        (progn (when line-numbers-off-p
+                 (linum-mode 1))
+               (call-interactively 'avy-goto-line))
+      (when line-numbers-off-p
+        (linum-mode -1)))))
+(global-set-key [remap goto-line] 'avy-goto-line-with-feedback)
 #+END_SRC
 
 * Save place in files
