@@ -665,16 +665,17 @@ I could use smartscan instead but that doesn't cycle.
 
 * Projectile
 #+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :config
-    (projectile-global-mode)
-    (setq projectile-mode-line
-          '(:eval
-            (if (or (file-remote-p default-directory) (not (projectile-project-p)))
-                " ℘"
-              (format " ℘[%s]" (projectile-project-name))))))
-  (use-package counsel-projectile
-    :config (counsel-projectile-on))
+(use-package projectile
+  :config
+  (projectile-global-mode)
+  (setq projectile-mode-line
+        '(:eval
+          (if (or (file-remote-p default-directory) (not (projectile-project-p)))
+              " ℘"
+            (format " ℘[%s]" (projectile-project-name)))))
+  (setq projectile-switch-project-action 'projectile-vc))
+(use-package counsel-projectile
+  :config (counsel-projectile-on))
 #+END_SRC
 
 * Comint
