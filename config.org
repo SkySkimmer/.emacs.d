@@ -438,29 +438,7 @@ Then setup avy
   (add-hook 'tuareg-mode-hook 'merlin-mode))
 
 (use-package tuareg
-  :diminish merlin-mode
-
-  :config
-  (define-key tuareg-mode-map (kbd "C-x C-a")
-    (defhydra hydra-ocamldebug
-      (tuareg-mode-map "C-x C-a")
-      "Ocamldebug"
-      ("<" ocamldebug-up "Up")
-      (">" ocamldebug-down "Down")
-      ("b" ocamldebug-break "Break")
-      ("c" ocamldebug-close "Close")
-      ("d" ocamldebug-delete "Delete")
-      ("f" ocamldebug-finish "Finish")
-      ("g" ocamldebug-goto "Goto")
-      ("k" ocamldebug-kill "Kill")
-      ("l" ocamldebug-last "Last")
-      ("n" ocamldebug-next "Next")
-      ("o" ocamldebug-open "Open")
-      ("p" ocamldebug-print "Print")
-      ("r" ocamldebug-run "Run")
-      ("s" ocamldebug-step "Step")
-      ("t" ocamldebug-backtrace "Backtrace")
-      ("v" ocamldebug-reverse "Reverse"))))
+  :diminish merlin-mode)
 
 (defun debug-coq-sender (input)
   (insert input)
