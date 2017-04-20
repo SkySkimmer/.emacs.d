@@ -649,14 +649,29 @@ I could use smartscan instead but that doesn't cycle.
 
 * erc
 #+BEGIN_SRC emacs-lisp
-  (setq erc-server "irc.freenode.net"
-        erc-port 6697
-        erc-nick "SkySkimmer"
-        erc-user-full-name user-full-name
-        ;;erc-email-userid "userid"    ; for when ident is not activated
-        ;;erc-password ; in secrets
-        erc-lurker-hide-list '("JOIN" "PART" "QUIT")
-        erc-lurker-threshold-time 3600)
+(require 'erc)
+(require 'erc-services)
+
+(setq
+ erc-server "irc.freenode.net"
+ erc-port 6697
+ erc-nick "SkySkimmer"
+ erc-password nil
+ erc-user-full-name user-full-name
+ ;;erc-email-userid "userid"    ; for when ident is not activated
+ ;;erc-password ; in secrets
+ erc-lurker-hide-list '("JOIN" "PART" "QUIT")
+ erc-lurker-threshold-time 3600
+ erc-prompt-for-password nil
+ erc-prompt-for-nickserv-password nil
+ erc-autojoin-timing 'ident)
+
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "##hott" "#emacs")))
+(setq erc-nickserv-passwords
+      `((freenode (("SkySkimmer" . ,erc-freenode-password)))))
+
+(erc-services-mode 1)
 #+END_SRC
 
 * Systemd
