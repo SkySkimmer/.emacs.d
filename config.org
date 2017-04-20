@@ -428,10 +428,13 @@ Then setup avy
 #+END_SRC
 
 * OCaml
+ocp-indent is installed via apt since it needs a binary.
 #+BEGIN_SRC emacs-lisp
+(require 'ocp-indent)
+
 (use-package flycheck-ocaml
   :config
-  (setq tuareg-indent-align-with-first-arg nil)
+  ;;(setq tuareg-indent-align-with-first-arg nil)
   (with-eval-after-load 'merlin
     ;; Disable Merlin's own error checking
     (setq merlin-error-after-save nil)
