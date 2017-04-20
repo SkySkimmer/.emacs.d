@@ -709,6 +709,7 @@ I could use smartscan instead but that doesn't cycle.
    "Help"
    ("a" helm-apropos "Apropos")
    ("c" describe-char "Describe Char")
+   ("e" view-echo-area-messages "Messages")
    ("f" find-function "Find Function")
    ("F" describe-function "Describe Function")
    ("k" describe-key "Describe Key")
