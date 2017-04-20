@@ -692,7 +692,9 @@ I could use smartscan instead but that doesn't cycle.
 
 * Hydra
 #+BEGIN_SRC emacs-lisp
-(use-package hydra)
+(use-package hydra
+  :config
+  (hydra-add-font-lock))
 (use-package ivy-hydra)
 (global-set-key
  (kbd "<f1>")
