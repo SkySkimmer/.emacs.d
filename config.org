@@ -36,30 +36,34 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 * interface tweaks
 #+BEGIN_SRC emacs-lisp
-  (tool-bar-mode -1)
-  (fset 'yes-or-no-p 'y-or-n-p)
-  (global-set-key (kbd "<f5>") 'revert-buffer)
-  (defalias 'list-buffers 'ibuffer)
-  (show-paren-mode 1)
-  (add-to-list 'default-frame-alist '(fullscreen . maximized))
-  (delete-selection-mode 1); delete selected region on typing
-  (line-number-mode 1)
-  (column-number-mode 1)
-  (setq-default indent-tabs-mode nil)
-  (setq
-   inhibit-startup-message t
-   require-final-newline t
-   diff-switches "-u"; unified diffs
-   sentence-end-double-space nil
-   scroll-error-top-bottom t
-   read-quoted-char-radix 16
-   apropos-do-all t
-   browse-url-browser-function 'eww-browse-url
-   recentf-max-saved-items 100
-   recenter-positions '(top middle bottom)
-   use-dialog-box nil
-   disabled-command-function nil
-   compilation-scroll-output 'first-error)
+(tool-bar-mode -1)
+(fset 'yes-or-no-p 'y-or-n-p)
+(global-set-key (kbd "<f5>") 'revert-buffer)
+(defalias 'list-buffers 'ibuffer)
+(show-paren-mode 1)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(delete-selection-mode 1); delete selected region on typing
+(line-number-mode 1)
+(column-number-mode 1)
+(setq-default indent-tabs-mode nil)
+(setq
+ inhibit-startup-message t
+ require-final-newline t
+ diff-switches "-u"; unified diffs
+ sentence-end-double-space nil
+ scroll-error-top-bottom t
+ read-quoted-char-radix 16
+ apropos-do-all t
+ browse-url-browser-function 'eww-browse-url
+ recentf-max-saved-items 100
+ recenter-positions '(top middle bottom)
+ use-dialog-box nil
+ disabled-command-function nil
+ compilation-scroll-output 'first-error
+ enable-recursive-minibuffers t
+ minibuffer-message-timeout 0.5
+ print-circle t)
+(minibuffer-depth-indicate-mode t)
 
 ;; thanks http://pragmaticemacs.com/emacs/cycle-spacing/
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
