@@ -701,7 +701,10 @@ I could use smartscan instead but that doesn't cycle.
           (if (or (file-remote-p default-directory) (not (projectile-project-p)))
               " ℘"
             (format " ℘[%s]" (projectile-project-name)))))
-  (setq projectile-switch-project-action 'projectile-vc))
+  (setq projectile-switch-project-action 'projectile-vc)
+  (bind-key "C-c p C-b" #'magit-blame projectile-mode-map)
+  (bind-key "C-c p C-l" #'magit-log-buffer-file projectile-mode-map))
+
 (use-package counsel-projectile
   :config (counsel-projectile-on))
 #+END_SRC
