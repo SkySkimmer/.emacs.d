@@ -740,6 +740,11 @@ I could use smartscan instead but that doesn't cycle.
 (use-package wgrep-ag)
 #+END_SRC
 
+* Yaml
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode)
+#+END_SRC
+
 * Diminishing
 #+BEGIN_SRC emacs-lisp
 (defun my/diminishings ()
