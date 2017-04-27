@@ -425,7 +425,8 @@ Then setup avy
   :config
   (setq
    magit-diff-refine-hunk 'all
-   magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)))
+   magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18))
+  (add-to-list 'magit-log-arguments "--follow"))
 (use-package diff-hl
   :config
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
