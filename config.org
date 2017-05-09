@@ -448,7 +448,8 @@ ocp-indent is installed via apt since it needs a binary.
     (setq merlin-error-after-save nil)
     (setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
     ;; Enable Flycheck checker
-    (flycheck-ocaml-setup))
+    (flycheck-ocaml-setup)
+    (bind-key [remap merlin-locate] #'my/merlin-locate merlin-mode-map))
 
   (add-hook 'tuareg-mode-hook 'merlin-mode))
 
@@ -465,6 +466,20 @@ ocp-indent is installed via apt since it needs a binary.
   (let ((ocamldebug-command-name "../dev/ocamldebug-coq"))
     (ocamldebug (concat coqdir "bin/coqtop.byte"))
     (debug-coq-sender "source db")))
+
+(defun my/invert-merlin-locate-preference ()
+  (cl-case merlin-locate-preference
+    ('ml 'mli)
+    ('mli 'ml)))
+
+(defun my/merlin-locate (&optional arg)
+  "Locate the identifier under point.
+
+With prefix argument, invert `merlin-locate-preference'."
+  (interactive "P")
+  (let ((merlin-locate-preference
+         (if arg (my/invert-merlin-locate-preference) merlin-locate-preference)))
+    (merlin-locate)))
 #+END_SRC
 
 * Markdown
