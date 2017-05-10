@@ -693,7 +693,7 @@ I could use smartscan instead but that doesn't cycle.
       '(("freenode.net" "##hott" "#emacs")))
 (setq erc-nickserv-passwords
       `((freenode (("SkySkimmer" . ,erc-freenode-password)))
-        (rizon (("SkySkimmer" . ,erc-rizon-password)))))
+        (Rizon (("SkySkimmer" . ,erc-rizon-password)))))
 
 (erc-services-mode 1)
 #+END_SRC
