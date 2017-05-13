@@ -1,5 +1,11 @@
 #+STARTUP: overview
 
+* Lexical binding
+This needs to be on the very first line, thus =:padline no=
+#+BEGIN_SRC emacs-lisp :padline no
+;;; -*- lexical-binding: t; -*-
+#+END_SRC
+
 * Secrets
 #+BEGIN_SRC emacs-lisp
 (load "~/.emacs.d/secrets" nil nil)
