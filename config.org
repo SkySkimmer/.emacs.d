@@ -763,7 +763,6 @@ I could use smartscan instead but that doesn't cycle.
  (kbd "<f1>")
  (defhydra hydra-help (:color blue)
    "Help"
-   ("a" helm-apropos "Apropos")
    ("c" describe-char "Describe Char")
    ("e" view-echo-area-messages "Messages")
    ("f" find-function "Find Function")
@@ -772,7 +771,8 @@ I could use smartscan instead but that doesn't cycle.
    ("K" find-function-on-key "Find Key")
    ("m" describe-mode "Describe Modes")
    ("v" find-variable "Find Variable")
-   ("V" describe-variable "Describe Variable")))
+   ("V" describe-variable "Describe Variable")
+   ("q" nil "Quit")))
 #+END_SRC
 
 * Wgrep
