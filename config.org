@@ -647,7 +647,8 @@ I could use smartscan instead but that doesn't cycle.
     :init
     (add-hook 'prog-mode-hook #'highlight-symbol-nav-mode)
     (add-hook 'text-mode-hook #'highlight-symbol-nav-mode)
-    (add-hook 'org-mode-hook #'highlight-symbol-nav-mode))
+    (add-hook 'org-mode-hook #'highlight-symbol-nav-mode)
+    (add-hook 'coq-mode-hook #'highlight-symbol-nav-mode))
 #+END_SRC
 
 * AucTex
