@@ -585,8 +585,6 @@ With prefix argument, invert `merlin-locate-preference'."
  proof-follow-mode 'followdown
  proof-sticky-errors t)
 
-(require 'proof-utils) ; it complains about the use of proof-escape-keymap-doc otherwise
-
 (defun my/coq-test-option (string)
   "Ask Coq if option STRING is set."
   (let ((res (company-coq-ask-prover (concat "Test " string "."))))
@@ -613,7 +611,7 @@ With prefix argument, invert `merlin-locate-preference'."
 
      (defun ,fn ()
        ,(concat "`my/coq-toggle-option' specialised to \""
-                (proof-escape-keymap-doc string)
+                string
                 "\".")
        (interactive)
        (my/coq-toggle-option ,string))))
