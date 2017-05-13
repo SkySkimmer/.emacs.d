@@ -440,32 +440,23 @@ ocp-indent is installed via apt since it needs a binary.
 #+BEGIN_SRC emacs-lisp
 (require 'ocp-indent)
 
+(use-package tuareg
+  :config
+  (with-eval-after-load 'merlin
+    (diminish 'merlin-mode)))
+
 (use-package flycheck-ocaml
   :config
   ;;(setq tuareg-indent-align-with-first-arg nil)
   (with-eval-after-load 'merlin
     ;; Disable Merlin's own error checking
     (setq merlin-error-after-save nil)
-    (setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
+    ;;(setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
     ;; Enable Flycheck checker
     (flycheck-ocaml-setup)
     (bind-key [remap merlin-locate] #'my/merlin-locate merlin-mode-map))
 
   (add-hook 'tuareg-mode-hook 'merlin-mode))
-
-(use-package tuareg
-  :diminish merlin-mode)
-
-(defun debug-coq-sender (input)
-  (insert input)
-  (comint-send-input))
-
-(defun debug-coq (coqdir)
-  "Call ocamldebug for coqtop with correct arguments."
-  (interactive "DCoq root directory: ")
-  (let ((ocamldebug-command-name "../dev/ocamldebug-coq"))
-    (ocamldebug (concat coqdir "bin/coqtop.byte"))
-    (debug-coq-sender "source db")))
 
 (defun my/invert-merlin-locate-preference ()
   (cl-case merlin-locate-preference
@@ -480,6 +471,20 @@ With prefix argument, invert `merlin-locate-preference'."
   (let ((merlin-locate-preference
          (if arg (my/invert-merlin-locate-preference) merlin-locate-preference)))
     (merlin-locate)))
+#+END_SRC
+
+* Coq dev
+#+BEGIN_SRC emacs-lisp
+(defun debug-coq-sender (input)
+  (insert input)
+  (comint-send-input))
+
+(defun debug-coq (coqdir)
+  "Call ocamldebug for coqtop with correct arguments."
+  (interactive "DCoq root directory: ")
+  (let ((ocamldebug-command-name "../dev/ocamldebug-coq"))
+    (ocamldebug (concat coqdir "bin/coqtop.byte"))
+    (debug-coq-sender "source db")))
 #+END_SRC
 
 * Markdown
