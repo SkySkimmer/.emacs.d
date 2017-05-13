@@ -693,7 +693,10 @@ I could use smartscan instead but that doesn't cycle.
  erc-lurker-threshold-time 3600
  erc-prompt-for-password nil
  erc-prompt-for-nickserv-password nil
- erc-autojoin-timing 'ident)
+ erc-autojoin-timing 'ident
+ erc-try-new-nick-p nil
+ erc-user-full-name "SkySkimmer"
+ erc-join-buffer 'bury)
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "##hott" "#emacs")))
