@@ -382,6 +382,7 @@ Then setup avy
   (use-package swiper
     :ensure try
     :bind (("C-s" . swiper)
+           ("C-S-s" . counsel-imenu)
            ("C-r" . swiper)
            ("C-c C-r" . ivy-resume)
            ("M-x" . counsel-M-x)
