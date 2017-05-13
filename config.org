@@ -411,6 +411,10 @@ Then setup avy
   :diminish " ℂ"
   :config
   (global-company-mode))
+
+(use-package company-flx
+  :config
+  (company-flx-mode 1))
 #+END_SRC
 
 * Flycheck
