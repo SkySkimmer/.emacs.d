@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file 'noerror)
 
@@ -20,4 +22,5 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+(setq load-prefer-newer t)
 (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
