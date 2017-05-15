@@ -69,7 +69,10 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  compilation-scroll-output 'first-error
  enable-recursive-minibuffers t
  minibuffer-message-timeout 0.5
- print-circle t)
+ print-circle t
+ window-combination-resize t
+ mouse-yank-at-point t
+ frame-resize-pixelwise t)
 (minibuffer-depth-indicate-mode t)
 
 ;; thanks http://pragmaticemacs.com/emacs/cycle-spacing/
