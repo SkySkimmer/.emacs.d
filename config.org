@@ -678,7 +678,8 @@ I could use smartscan instead but that doesn't cycle.
  erc-join-buffer 'bury)
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "##hott" "#emacs")))
+      '(("freenode.net" "##hott" "#emacs")
+        ("rizon" "#madokami")))
 (setq erc-nickserv-passwords
       `((freenode (("SkySkimmer" . ,erc-freenode-password)))
         (Rizon (("SkySkimmer" . ,erc-rizon-password)))))
