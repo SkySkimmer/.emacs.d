@@ -231,6 +231,31 @@ even if there is no associated file.")
 (setq find-function-C-source-directory "/home/gaetan/dev/emacs/src/")
 #+END_SRC
 
+* elisp
+** eldoc in minibuffer
+#+BEGIN_SRC emacs-lisp
+;; from https://ryuslash.org/dotfiles/emacs/init.html#orgheadline108
+(add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
+#+END_SRC
+
+** find-symbol-at-point
+#+BEGIN_SRC emacs-lisp
+(defun find-function-at-point ()
+  "Call `find-function' for symbol at point."
+  (interactive)
+  (find-function (symbol-at-point)))
+
+(defun find-variable-at-point ()
+  "Call `find-variable' for symbol at point."
+  (interactive)
+  (let ((sym (symbol-at-point)))
+    (find-variable sym)))
+
+(bind-key "C-c f" #'find-function-at-point emacs-lisp-mode-map)
+(bind-key "C-c v" #'find-variable-at-point emacs-lisp-mode-map)
+#+END_SRC
+
+
 * Rainbow mode
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-mode)
