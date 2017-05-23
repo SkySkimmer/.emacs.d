@@ -23,4 +23,5 @@
 (setq use-package-always-ensure t)
 
 (setq load-prefer-newer t)
+;; TODO see https://ryuslash.org/dotfiles/emacs/init.html#orgheadline39 to fix compilation (I hope)
 (org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))

@@ -623,11 +623,12 @@ With prefix argument, invert `merlin-locate-preference'."
 (defun my/coq-mode-setup ()
   "Setup non-customize coq mode stuff."
   (flycheck-mode 0)
-  (define-key coq-mode-map (kbd "s-n") 'proof-assert-next-command-interactive)
-  (define-key coq-mode-map (kbd "s-<down>") 'proof-assert-next-command-interactive)
-  (define-key coq-mode-map (kbd "s-<right>") 'proof-goto-point)
-  (define-key coq-mode-map (kbd "s-<up>") 'proof-undo-last-successful-command)
-  (define-key coq-mode-map (kbd "s-<left>") 'proof-goto-end-of-locked)
+  (define-key coq-mode-map (kbd "s-n") #'proof-assert-next-command-interactive)
+  (define-key coq-mode-map (kbd "s-<down>") #'proof-assert-next-command-interactive)
+  (define-key coq-mode-map (kbd "s-<right>") #'proof-goto-point)
+  (define-key coq-mode-map (kbd "s-<up>") #'proof-undo-last-successful-command)
+  (define-key coq-mode-map (kbd "s-<left>") #'proof-goto-end-of-locked)
+  (define-key coq-mode-map (kbd "s-<end>") #'proof-process-buffer)
   (my/coq-deftoggler coq-toggle-printing-implicit "Printing Implicit" (kbd "C-c i"))
   (my/coq-deftoggler coq-toggle-printing-all "Printing All" (kbd "C-c a"))
   (my/coq-deftoggler coq-toggle-printing-notations "Printing Notations" (kbd "C-c n"))
@@ -706,13 +707,24 @@ I could use smartscan instead but that doesn't cycle.
  erc-join-buffer 'bury)
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "##hott" "#emacs")
-        ("rizon" "#madokami")))
+      `(("freenode.net" "##hott" "#emacs")
+        (,(rx "rizon." (* anything)) "#madokami" "#nyaa-dev")))
 (setq erc-nickserv-passwords
       `((freenode (("SkySkimmer" . ,erc-freenode-password)))
         (Rizon (("SkySkimmer" . ,erc-rizon-password)))))
 
 (erc-services-mode 1)
+
+(defun my/erc-reconnect-all ()
+  "Reconnect to all erc servers"
+  (interactive)
+  (let ((buffers (buffer-list)))
+    (while buffers
+      (let ((buffer (car buffers)))
+        (when (erc-server-buffer-p buffer)
+          (with-current-buffer buffer
+            (erc-server-reconnect)))
+        (setq buffers (cdr buffers))))))
 #+END_SRC
 
 * Systemd
