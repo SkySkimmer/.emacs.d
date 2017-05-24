@@ -660,28 +660,33 @@ I could use smartscan instead but that doesn't cycle.
 
 * AucTex
 #+BEGIN_SRC emacs-lisp
-  (defun Okular-make-url ()
-    (concat
-     "file://"
-     (expand-file-name (funcall file (TeX-output-extension) t)
-                       (file-name-directory (TeX-master-file)))
-     "#src:"
-     (TeX-current-line)
-     (expand-file-name (TeX-master-directory))
-     "./"
-     (TeX-current-file-name-master-relative)))
+(defun Okular-make-url ()
+  (concat
+   "file://"
+   (expand-file-name (funcall file (TeX-output-extension) t)
+                     (file-name-directory (TeX-master-file)))
+   "#src:"
+   (TeX-current-line)
+   (expand-file-name (TeX-master-directory))
+   "./"
+   (TeX-current-file-name-master-relative)))
 
-  (use-package tex
-    :ensure auctex
-    :config
-    (setq
-     LaTeX-command "latex -synctex=1")
-    (add-hook 'LaTeX-mode-hook
-              '(lambda () (add-to-list 'TeX-expand-list
-                                  '("%u" Okular-make-url))))
-    (add-to-list 'TeX-command-list
-                 '("Okular" "okular %u"
-                   TeX-run-discard-or-function nil t :help "View file")))
+(use-package tex
+  :ensure auctex
+  :config
+  (setq
+   LaTeX-command "latex -synctex=1")
+  (add-hook 'LaTeX-mode-hook
+            '(lambda () (add-to-list 'TeX-expand-list
+                                '("%u" Okular-make-url))))
+  (add-to-list 'TeX-command-list
+               '("Okular" "okular %u"
+                 TeX-run-discard-or-function nil t :help "View file")))
+
+(use-package company-bibtex
+  :config (add-to-list 'company-backends #'company-bibtex))
+
+(use-package biblio)
 #+END_SRC
 
 * erc
