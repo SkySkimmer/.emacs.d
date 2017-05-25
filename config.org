@@ -553,7 +553,8 @@ With prefix argument, invert `merlin-locate-preference'."
        (add-hook 'prog-mode-hook #'ws-butler-mode)
        (add-hook 'org-mode-hook #'ws-butler-mode)
        (add-hook 'text-mode-hook #'ws-butler-mode)
-       (add-hook 'proof-mode-hook #'ws-butler-mode))
+       (add-hook 'proof-mode-hook #'ws-butler-mode)
+       (add-hook 'bibtex-mode-hook #'ws-butler-mode))
    #+END_SRC
 
 * nv-delete-back
