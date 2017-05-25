@@ -464,7 +464,8 @@ Then setup avy
 (use-package flycheck
   :config
   (global-flycheck-mode)
-  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc coq)))
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc coq))
+  (setq flycheck-tex-chktex-executable "~/bin/chktex-wrap.sh"))
 #+END_SRC
 
 * Magit
