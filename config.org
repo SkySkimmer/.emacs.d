@@ -681,9 +681,10 @@ I could use smartscan instead but that doesn't cycle.
   (add-hook 'LaTeX-mode-hook
             '(lambda () (add-to-list 'TeX-expand-list
                                 '("%u" Okular-make-url))))
-  (add-to-list 'TeX-command-list
-               '("Okular" "okular %u"
-                 TeX-run-discard-or-function nil t :help "View file")))
+  (add-to-list 'TeX-view-program-list
+               '("Okular" "okular %u"))
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "Okular")))
 
 (use-package company-bibtex
   :config (add-to-list 'company-backends #'company-bibtex))
