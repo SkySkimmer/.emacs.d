@@ -476,7 +476,14 @@ Then setup avy
    magit-diff-refine-hunk 'all
    magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18))
   (add-to-list 'magit-log-arguments "--follow")
+
+  (magit-define-popup-action 'magit-merge-popup ?u
+    "Merge upstream"
+    (lambda ()
+      (interactive)
+      (magit-merge "@{upstream}" '("--ff-only"))))
   :bind (("C-x g" . magit-status)))
+
 (use-package diff-hl
   :config
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
