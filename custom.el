@@ -8,7 +8,9 @@
     (qml-mode biblio company-bibtex company-flx diff-hl yaml-mode ivy-hydra wgrep-ag wgrep hydra company-coq company nv-delete-back rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auctex ace-window)))
  '(safe-local-variable-values
    (quote
-    ((coq-prog-args "-bt")
+    ((coq-prog-name . "/home/gaetan/Aarhus/HoTT-master/hoqtop")
+     (coq-prog-args "-profile-ltac")
+     (coq-prog-args "-bt")
      (coq-prog-name . "~/dev/coq/coq/bin/coqtop")
      (eval let
            ((default-directory
