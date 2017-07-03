@@ -87,10 +87,13 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 ** Dired
 #+BEGIN_SRC emacs-lisp
-  (require 'dired)
-  (setq
-   dired-ls-F-marks-symlinks t
-   dired-listing-switches "-alF --group-directories-first")
+(require 'dired)
+(require 'dired-x)
+(add-hook 'dired-mode-hook #'dired-omit-mode)
+(setq
+ dired-ls-F-marks-symlinks t
+ dired-listing-switches "-alF --group-directories-first"
+ dired-omit-files nil)
 #+END_SRC
 
 ** Clipboard integration
