@@ -409,45 +409,40 @@ Then setup avy
 
 * Swiper
 #+BEGIN_SRC emacs-lisp
-  (use-package counsel
-    :bind
-    (("M-y" . counsel-yank-pop)
-     :map ivy-minibuffer-map
-     ("M-y" . ivy-next-line)))
+(use-package counsel
+  :bind
+  (("M-y" . counsel-yank-pop)
+   :map ivy-minibuffer-map
+   ("M-y" . ivy-next-line)))
 
-  (use-package ivy
-    :ensure t
-    :diminish (ivy-mode)
-    :bind (("C-x b" . ivy-switch-buffer))
-    :config
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-display-style 'fancy))
+(use-package ivy
+  :diminish (ivy-mode)
+  :bind (("C-x b" . ivy-switch-buffer))
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-display-style 'fancy))
 
-  (use-package swiper
-    :ensure try
-    :bind (("C-s" . swiper)
-           ("C-S-s" . counsel-imenu)
-           ("C-r" . swiper)
-           ("C-c C-r" . ivy-resume)
-           ("M-x" . counsel-M-x)
-           ("C-x C-f" . counsel-find-file))
-    :config
-    (ivy-mode 1)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-display-style 'fancy)
-    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
-    (setq counsel-find-file-ignore-regexp
-          (rx (or
-               (: "~" eol)
-               (: bol ".")
-               (: ".ml" (? "i") ".d" eol)
-               (: ".mllib.d" eol)
-               (: ".cm" (char "iotx") eol)
-               (: ".cmti" eol)
-               (: ".o" eol)
-               (: ".glob" eol)
-               (: ".vo" eol)))))
+(use-package swiper
+  :bind (("C-s" . swiper)
+         ("C-S-s" . counsel-imenu)
+         ("C-r" . swiper)
+         ("C-c C-r" . ivy-resume)
+         ("M-x" . counsel-M-x)
+         ("C-x C-f" . counsel-find-file))
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-display-style 'fancy)
+  (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)
+
+  (defun my/update-counsel-find-file-ignore-regexp ()
+    "Reset `counsel-find-file-ignore-regexp' using `completion-ignored-extensions'"
+    (let* ((exts (mapcar (lambda (x) `(: ,x eol)) completion-ignored-extensions))
+       (exts `(or ,@exts)))
+      (setq counsel-find-file-ignore-regexp (rx-to-string exts t))))
+
+  (my/update-counsel-find-file-ignore-regexp))
 #+END_SRC
 
 * Company
@@ -499,6 +494,9 @@ ocp-indent is installed via apt since it needs a binary.
 (require 'ocp-indent)
 
 (use-package tuareg
+  :init
+  (push ".ml.d" completion-ignored-extensions)
+  (push ".mli.d" completion-ignored-extensions)
   :config
   (with-eval-after-load 'merlin
     (diminish 'merlin-mode)))
@@ -596,6 +594,7 @@ With prefix argument, invert `merlin-locate-preference'."
 #+BEGIN_SRC emacs-lisp
 (load "~/.emacs.d/lisp/proofgeneral/generic/proof-site")
 
+(push ".v.d" completion-ignored-extensions)
 (setq
  proof-prog-name-ask t
  proof-follow-mode 'followdown
@@ -825,7 +824,8 @@ This is useful for KDE configuration files.
 (use-package yaml-mode)
 #+END_SRC
 
-* Diminishing
+* Ending
+Diminishing (somewhat bugged)
 #+BEGIN_SRC emacs-lisp
 (defun my/diminishings ()
   (diminish 'yas-minor-mode)
@@ -835,4 +835,14 @@ This is useful for KDE configuration files.
 
 (add-hook 'after-init-hook #'my/diminishings)
 (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+#+END_SRC
+
+Reset dired-omit-extensions after we added stuff that should got into it.
+#+BEGIN_SRC emacs-lisp
+(setq dired-omit-extensions
+      (append
+       completion-ignored-extensions
+       dired-latex-unclean-extensions
+       dired-bibtex-unclean-extensions
+       dired-texinfo-unclean-extensions))
 #+END_SRC
