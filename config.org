@@ -811,6 +811,12 @@ I could use smartscan instead but that doesn't cycle.
 (use-package wgrep-ag)
 #+END_SRC
 
+* QML
+This is useful for KDE configuration files.
+#+BEGIN_SRC emacs-lisp
+(use-package qml-mode)
+#+END_SRC
+
 * Yaml
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode)
