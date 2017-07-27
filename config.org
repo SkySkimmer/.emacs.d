@@ -77,6 +77,8 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 ;; thanks http://pragmaticemacs.com/emacs/cycle-spacing/
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
+
+(global-unset-key (kbd "<insert>"))
 #+END_SRC
 
 ** Dash fontlock
