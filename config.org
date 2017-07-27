@@ -538,6 +538,7 @@ With prefix argument, invert `merlin-locate-preference'."
 (defun debug-coq (coqdir)
   "Call ocamldebug for coqtop with correct arguments."
   (interactive "DCoq root directory: ")
+  (defvar ocamldebug-command-name)
   (let ((ocamldebug-command-name "../dev/ocamldebug-coq"))
     (ocamldebug (concat coqdir "bin/coqtop.byte"))
     (debug-coq-sender "source db")))
