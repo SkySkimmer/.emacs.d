@@ -601,7 +601,8 @@ With prefix argument, invert `merlin-locate-preference'."
 (setq
  proof-prog-name-ask t
  proof-follow-mode 'followdown
- proof-sticky-errors t)
+ proof-sticky-errors t
+ proof-splash-seen t)
 
 (defun my/coq-test-option (string)
   "Ask Coq if option STRING is set."
