@@ -140,8 +140,8 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
      (defun my/smarter-move-beginning-of-line (arg)
        "Move point back to indentation of beginning of line.
 
-     Move point to the first non-whitespace character on this line.
-     If point is already there, move to the beginning of the line.
+     Move point to the beginning of the line.
+     If point is already there, move to the first non-whitespace character on this line.
      Effectively toggle between the first non-whitespace character and
      the beginning of the line.
 
@@ -156,9 +156,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
            (forward-line (1- arg))))
 
        (let ((orig-point (point)))
-         (back-to-indentation)
+         (move-beginning-of-line 1)
          (when (= orig-point (point))
-           (move-beginning-of-line 1))))
+           (back-to-indentation))))
 
      ;; remap C-a to `smarter-move-beginning-of-line'
      (global-set-key [remap move-beginning-of-line]
