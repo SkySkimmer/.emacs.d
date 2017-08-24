@@ -171,7 +171,8 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (diminish 'subword-mode)
 #+END_SRC
 
-** Frame title
+
+* Frame title
 Note that the "〖〗" characters have no space before/after them.
 
 Print default directory according to major mode based on [[https://github.com/jbms/jmswm/blob/19f11ff1f081c07468b149998d851a2b7b1d54cd/config/emacs.example.el][jbms@github/jmswm]].
