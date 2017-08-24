@@ -135,42 +135,50 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
        (reset-next-screen-context-lines))
    #+END_SRC
 
-** Move to beginning of line
-   #+BEGIN_SRC emacs-lisp
-     (defun my/smarter-move-beginning-of-line (arg)
-       "Move point back to indentation of beginning of line.
-
-     Move point to the beginning of the line.
-     If point is already there, move to the first non-whitespace character on this line.
-     Effectively toggle between the first non-whitespace character and
-     the beginning of the line.
-
-     If ARG is not nil or 1, move forward ARG - 1 lines first.  If
-     point reaches the beginning or end of the buffer, stop there."
-       (interactive "^p")
-       (setq arg (or arg 1))
-
-       ;; Move lines first
-       (when (/= arg 1)
-         (let ((line-move-visual nil))
-           (forward-line (1- arg))))
-
-       (let ((orig-point (point)))
-         (move-beginning-of-line 1)
-         (when (= orig-point (point))
-           (back-to-indentation))))
-
-     ;; remap C-a to `smarter-move-beginning-of-line'
-     (global-set-key [remap move-beginning-of-line]
-                     'my/smarter-move-beginning-of-line)
-   #+END_SRC
-
 ** Subword mode
 #+BEGIN_SRC emacs-lisp
 ;(global-subword-mode 1)
 (diminish 'subword-mode)
 #+END_SRC
 
+
+* Smarter line and buffer begin-end
+Mode dependent buffer begin-end
+#+BEGIN_SRC emacs-lisp
+(use-package beginend
+  :config
+  (beginend-global-mode))
+#+END_SRC
+
+Indent aware line beginning
+#+BEGIN_SRC emacs-lisp
+(defun my/smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+   Move point to the beginning of the line.
+   If point is already there, move to the first non-whitespace character on this line.
+   Effectively toggle between the first non-whitespace character and
+   the beginning of the line.
+
+   If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+   point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (move-beginning-of-line 1)
+    (when (= orig-point (point))
+      (back-to-indentation))))
+
+;; remap C-a to `smarter-move-beginning-of-line'
+(global-set-key [remap move-beginning-of-line]
+                'my/smarter-move-beginning-of-line)
+#+END_SRC
 
 * Frame title
 Note that the "〖〗" characters have no space before/after them.
