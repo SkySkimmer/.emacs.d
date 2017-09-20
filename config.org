@@ -686,11 +686,7 @@ Doesn't highlight symbols on current line when hl-line-mode is on, which is anno
 I could use smartscan instead but that doesn't cycle.
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-symbol
-    :init
-    (add-hook 'prog-mode-hook #'highlight-symbol-nav-mode)
-    (add-hook 'text-mode-hook #'highlight-symbol-nav-mode)
-    (add-hook 'org-mode-hook #'highlight-symbol-nav-mode)
-    (add-hook 'coq-mode-hook #'highlight-symbol-nav-mode))
+    :bind (("M-n" . highlight-symbol-next) ("M-p" . highlight-symbol-prev)))
 #+END_SRC
 
 * AucTex
