@@ -156,7 +156,9 @@ Mode dependent buffer begin-end
 #+BEGIN_SRC emacs-lisp
 (use-package beginend
   :config
-  (beginend-global-mode))
+  (beginend-global-mode)
+  (diminish 'beginend-global-mode)
+  (mapc (lambda (x) (diminish (cdr x))) beginend-modes))
 #+END_SRC
 
 Indent aware line beginning
