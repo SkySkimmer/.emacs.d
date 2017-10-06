@@ -432,7 +432,7 @@ Then setup avy
   (setq aw-scope 'frame))
 #+END_SRC
 
-* Swiper
+* Swiper/counsel
 #+BEGIN_SRC emacs-lisp
 (use-package counsel
   :bind
