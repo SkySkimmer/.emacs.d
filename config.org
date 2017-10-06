@@ -523,6 +523,7 @@ ocp-indent is installed via apt since it needs a binary.
   (push ".ml.d" completion-ignored-extensions)
   (push ".mli.d" completion-ignored-extensions)
   :config
+  (add-hook 'tuareg-mode-hook (lambda () (setq-local comment-style 'indent)))
   (with-eval-after-load 'merlin
     (diminish 'merlin-mode)))
 
