@@ -414,7 +414,10 @@ Then setup avy
 
 (use-package org-bullets
   :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+  (defun my/org-hook ()
+    (org-bullets-mode 1)
+    (auto-fill-mode 1))
+  (add-hook 'org-mode-hook #'my/org-hook))
 #+END_SRC
 
 * Window switching (Ace window)
