@@ -1,17 +1,17 @@
-secrets.el
-elpa
-auto-save-list
+/secrets.el
+/elpa
+/auto-save-list
 *~
 \#*
-config.el
-recentf
+/config.el
+/recentf
 *.dat
-eshell/
-savehist
-saveplace
-url/
-projectile-bookmarks.eld
+/eshell/
+/savehist
+/saveplace
+/url/
+/projectile-bookmarks.eld
 /tramp
 
 #used by Emacs japanese IME
-kkcrc
+/kkcrc
