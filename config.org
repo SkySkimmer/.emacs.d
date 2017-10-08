@@ -581,16 +581,18 @@ With prefix argument, invert `merlin-locate-preference'."
   #+END_SRC
 
 ** ws-butler (unobtrusive whitespace remover)
-   #+BEGIN_SRC emacs-lisp
-     (use-package ws-butler
-       :diminish ws-butler-mode
-       :init
-       (add-hook 'prog-mode-hook #'ws-butler-mode)
-       (add-hook 'org-mode-hook #'ws-butler-mode)
-       (add-hook 'text-mode-hook #'ws-butler-mode)
-       (add-hook 'proof-mode-hook #'ws-butler-mode)
-       (add-hook 'bibtex-mode-hook #'ws-butler-mode))
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(use-package ws-butler
+  :diminish ws-butler-mode
+  :init
+  (add-hook 'prog-mode-hook #'ws-butler-mode)
+  (add-hook 'org-mode-hook #'ws-butler-mode)
+  (add-hook 'text-mode-hook #'ws-butler-mode)
+  (add-hook 'proof-mode-hook #'ws-butler-mode)
+  (add-hook 'bibtex-mode-hook #'ws-butler-mode)
+  :config
+  (setq ws-butler-convert-leading-tabs-or-spaces t))
+#+END_SRC
 
 * nv-delete-back
 #+BEGIN_SRC emacs-lisp
