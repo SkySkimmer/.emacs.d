@@ -816,6 +816,11 @@ I could use smartscan instead but that doesn't cycle.
             'my-comint-preoutput-read-only)
 #+END_SRC
 
+* Fish
+#+BEGIN_SRC emacs-lisp
+(use-package fish-mode)
+#+END_SRC
+
 * Hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra
