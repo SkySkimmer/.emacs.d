@@ -792,7 +792,7 @@ I could use smartscan instead but that doesn't cycle.
    (TeX-current-file-name-master-relative)))
 
 (use-package tex
-  :ensure auctex
+  :recipe auctex
   :config
   (setq
    LaTeX-command "latex -synctex=1")
