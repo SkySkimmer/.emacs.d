@@ -97,6 +97,7 @@ https://lists.gnu.org/archive/html/info-gnu/2017-09/msg00006.html
 #+END_SRC
 
 ** Dired
+TODO use-package?
 #+BEGIN_SRC emacs-lisp
 (require 'dired)
 (require 'dired-x)
@@ -509,8 +510,8 @@ Then setup avy
 
 (use-package diff-hl
   :config
-  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh))
-(global-diff-hl-mode t)
+  (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)
+  (global-diff-hl-mode t))
 #+END_SRC
 
 * OCaml
