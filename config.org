@@ -388,7 +388,7 @@ Then setup avy
 
 * try
 #+BEGIN_SRC emacs-lisp
-(use-package try)
+;(use-package try)
 #+END_SRC
 
 * which-key
