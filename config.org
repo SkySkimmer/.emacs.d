@@ -23,7 +23,25 @@ Apparently emacs does silly things with tls.
 * Package management
 We use the straight package manager
 (https://github.com/raxod502/straight.el).
-Note that package-enable-at-startup is disabled in the init.el.
+
+** Recipes
+We put recipe overrides at the beginning to avoid any chance of some
+package dependency being acquired before the override.
+#+BEGIN_SRC emacs-lisp
+(defvar straight-recipe-overrides)
+(let ((my/recipes nil))
+  (push '(caml
+          :type git
+          :files ("emacs/*.el")
+          :host github
+          :repo "ocaml/ocaml"
+          :branch "trunk")
+        my/recipes)
+  (setq straight-recipe-overrides
+        (cons (cons nil my/recipes) nil)))
+#+END_SRC
+
+** Install straight
 #+BEGIN_SRC emacs-lisp
 (let ((bootstrap-file (concat user-emacs-directory "straight.el/bootstrap.el"))
       (bootstrap-version 1))
@@ -32,6 +50,7 @@ Note that package-enable-at-startup is disabled in the init.el.
   (load bootstrap-file))
 #+END_SRC
 
+** use-package
 use-package is nice for organisation.
 I'm considering enabling the always-defer option.
 #+BEGIN_SRC emacs-lisp
@@ -41,6 +60,7 @@ I'm considering enabling the always-defer option.
 #+END_SRC
 
 ** package.el system (disabled)
+Note that package-enable-at-startup is set to nil in the init.el.
 #+BEGIN_SRC emacs-lisp :tangle no
 (require 'tls)
 (require 'gnutls)
@@ -567,8 +587,11 @@ Then setup avy
 
 * OCaml
 ocp-indent is installed via apt since it needs a binary.
-TODO tuareg recursively needs caml-mode which comes with the entire
-ocaml repo...
+
+NB: tuareg depends on caml.el which comes from the ocaml repo. May
+take time to download.
+If this is a problem one could download the tarball from melpa (which
+has only the .el files) and use it to make a fake git repository.
 #+BEGIN_SRC emacs-lisp
 (require 'ocp-indent)
 
