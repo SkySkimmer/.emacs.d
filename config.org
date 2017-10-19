@@ -43,7 +43,7 @@ package dependency being acquired before the override.
 
 ** Install straight
 #+BEGIN_SRC emacs-lisp
-(let ((bootstrap-file (concat user-emacs-directory "straight.el/bootstrap.el"))
+(let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
       (bootstrap-version 1))
   (unless (file-exists-p bootstrap-file)
     (error "Straight bootstrapper not present: %s" bootstrap-file))

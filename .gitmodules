@@ -6,5 +6,5 @@
 	path = lisp/proofgeneral
 	url = git@github.com:ProofGeneral/PG.git
 [submodule "straight.el"]
-	path = straight.el
+	path = straight/repos/straight.el
 	url = git@github.com:raxod502/straight.el.git
