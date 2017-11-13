@@ -1,5 +1,19 @@
 #+STARTUP: overview
 
+* Licensing
+Most of this stuff is either too trivial for copyright to apply or
+copied from other people. Anything that's mine is licensed [[/LICENSE][GPL3]] or
+later.
+
+* About
+This is Gaëtan Gilbert aka the SkySkimmer's Emacs configuration. It is
+formatted as an org file and is best viewed in Emacs.
+
+It uses the [[https://github.com/raxod502/straight.el][straight.el]] package manager with [[https://github.com/jwiegley/use-package][use-package]] integration.
+Look in the [[Package management]] section for information about using the
+builtin package.el instead (essentially you need to bootstrap
+=use-package=).
+
 * Lexical binding
 This needs to be on the very first line, thus =:padline no=
 #+BEGIN_SRC emacs-lisp :padline no
@@ -42,6 +56,8 @@ package dependency being acquired before the override.
 #+END_SRC
 
 ** Install straight
+Bootstrap is using a git submodule instead of downloading some random
+elisp.
 #+BEGIN_SRC emacs-lisp
 (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
       (bootstrap-version 1))
