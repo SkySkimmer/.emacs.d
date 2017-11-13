@@ -588,13 +588,14 @@ Then setup avy
 #+END_SRC
 
 * OCaml
-ocp-indent is installed via apt since it needs a binary.
+ocp-indent is installed via opam.
 
 NB: tuareg depends on caml.el which comes from the ocaml repo. May
 take time to download.
 If this is a problem one could download the tarball from melpa (which
 has only the .el files) and use it to make a fake git repository.
 #+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "/home/gaetan/.opam/4.05.0/share/emacs/site-lisp")
 (require 'ocp-indent)
 
 (use-package tuareg
