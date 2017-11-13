@@ -144,7 +144,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  window-combination-resize t
  mouse-yank-at-point t
  frame-resize-pixelwise t
- shell-file-name "/bin/bash")
+ shell-file-name "/bin/bash"
+ vc-follow-symlinks t
+ show-paren-delay 0)
 (minibuffer-depth-indicate-mode t)
 
 ;; thanks http://pragmaticemacs.com/emacs/cycle-spacing/
