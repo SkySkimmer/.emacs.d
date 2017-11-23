@@ -886,12 +886,13 @@ With prefix argument, invert `merlin-locate-preference'."
 
 * Undo tree
 #+BEGIN_SRC emacs-lisp
-  (use-package undo-tree
-    :diminish undo-tree-mode
-    :config
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-diff t)
-    (setq undo-tree-visualizer-timestamps t))
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :config
+  (global-undo-tree-mode)
+  (setq undo-tree-visualizer-diff t
+        undo-tree-visualizer-timestamps t
+        undo-tree-enable-undo-in-region nil))
 #+END_SRC
 
 * Proof General
