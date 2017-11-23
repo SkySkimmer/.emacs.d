@@ -504,10 +504,15 @@ even if there is no associated file.")
 #+END_SRC
 
 * elisp
-** eldoc in minibuffer
+** eldoc
 #+BEGIN_SRC emacs-lisp
-;; from https://ryuslash.org/dotfiles/emacs/init.html#orgheadline108
-(add-hook 'eval-expression-minibuffer-setup-hook #'eldoc-mode)
+(setq eldoc-idle-delay 0)
+
+;; considering (from radian)
+;; Always truncate ElDoc messages to one line. This prevents the echo
+;; area from resizing itself unexpectedly when point is on a variable
+;; with a multiline docstring.
+;;(setq eldoc-echo-area-use-multiline-p nil)
 #+END_SRC
 
 ** find-symbol-at-point
