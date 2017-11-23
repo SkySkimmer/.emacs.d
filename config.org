@@ -226,7 +226,8 @@ use-package is nice for organisation.
 I'm considering enabling the always-defer option.
 #+BEGIN_SRC emacs-lisp
 (straight-use-package 'use-package)
-(setq use-package-always-ensure t)
+(setq use-package-always-ensure t
+      use-package-verbose t)
 ; (setq use-package-always-defer t)
 #+END_SRC
 
