@@ -319,7 +319,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  frame-resize-pixelwise t
  shell-file-name "/bin/bash"
  vc-follow-symlinks t
- show-paren-delay 0)
+ find-file-visit-truename t
+ show-paren-delay 0
+ custom-search-field nil)
 (minibuffer-depth-indicate-mode t)
 
 ;; thanks http://pragmaticemacs.com/emacs/cycle-spacing/
