@@ -645,12 +645,24 @@ Note that jumping to a line by its number is still possible with avy.
 ;(use-package try)
 #+END_SRC
 
-* which-key
+* Keystroke help and which-key
+Display keystrokes in the echo area immediately, not after one second.
+We can't set the delay to zero because somebody thought it would be a
+good idea to have that value suppress keystroke display entirely.
+
+Taken from radian.
 #+BEGIN_SRC emacs-lisp
-  (use-package which-key
-    :diminish which-key-mode
-    :config
-    (which-key-mode))
+(cl-float-limits)
+(setq echo-keystrokes cl-float-epsilon)
+#+END_SRC
+
+When I start typing, display functions associated with possible
+following keys.
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+  :diminish which-key-mode
+  :config
+  (which-key-mode))
 #+END_SRC
 
 * org mode
