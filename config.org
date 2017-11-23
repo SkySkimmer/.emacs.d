@@ -698,7 +698,7 @@ following keys.
   (setq aw-scope 'frame))
 #+END_SRC
 
-* Swiper/counsel
+* Swiper/counsel/ivy
 #+BEGIN_SRC emacs-lisp
 (use-package counsel
   :bind
@@ -720,7 +720,8 @@ following keys.
          ("C-r" . swiper)
          ("C-c C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
-         ("C-x C-f" . counsel-find-file))
+         ("C-x C-f" . counsel-find-file)
+         ("C-x 8 RET" . counsel-unicode-char))
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
