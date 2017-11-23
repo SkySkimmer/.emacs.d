@@ -539,7 +539,7 @@ Linum mode is also made to look nicer.
 
 Note that jumping to a line by its number is still possible with avy.
 
-Fist make linum pretty
+** Fist make linum pretty
 #+BEGIN_SRC emacs-lisp
 (require 'linum)
 
@@ -572,9 +572,11 @@ Fist make linum pretty
     ad-do-it))
 #+END_SRC
 
-Then setup avy
+** Then setup avy
 #+BEGIN_SRC emacs-lisp
-(use-package avy)
+(use-package avy
+  :config
+  (setq avy-style 'de-bruijn))
 
 ;; based on joshwnj and magnars https://gist.github.com/joshwnj/3292750
 (defun avy-goto-line-with-feedback ()
