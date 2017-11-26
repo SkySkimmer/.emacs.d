@@ -1,12 +1,26 @@
 ;;; -*- lexical-binding: t; -*-
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file 'noerror)
+(let ((now (current-time)))
+  (message "Init start...")
 
-(defvar package-enable-at-startup)
-(setq package-enable-at-startup nil)
+  (setq custom-file "~/.emacs.d/custom.el")
+  (load custom-file 'noerror)
 
-(setq load-prefer-newer t)
+  (defvar package-enable-at-startup)
+  (setq package-enable-at-startup nil)
 
-;; TODO see https://ryuslash.org/dotfiles/emacs/init.html#orgheadline39 to fix compilation (I hope)
-(org-babel-load-file (expand-file-name "~/.emacs.d/config.org"))
+  (setq load-prefer-newer t)
+
+  (require 'cl-macs)
+
+  (declare-function org-babel-tangle-file "ob-tangle")
+  (let* ((emacs-d "~/.emacs.d/")
+         (conforg (concat emacs-d "config.org"))
+         (confel (concat emacs-d "config.el")))
+    (unless (file-newer-than-file-p confel conforg)
+      (require 'ob-tangle)
+      (org-babel-tangle-file conforg confel "emacs-lisp"))
+    (load-file confel))
+
+  (let ((elapsed (float-time (time-subtract (current-time) now))))
+    (message "Init done (%.3fs)" elapsed)))

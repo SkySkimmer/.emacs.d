@@ -59,13 +59,18 @@ package dependency being acquired before the override.
 Bootstrap is using a git submodule instead of downloading some random
 elisp.
 #+BEGIN_SRC emacs-lisp
-(defvar straight-check-for-modifications)
-(setq  straight-check-for-modifications 'never)
-(let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
-      (bootstrap-version 1))
-  (unless (file-exists-p bootstrap-file)
-    (error "Straight bootstrapper not present: %s" bootstrap-file))
-  (load bootstrap-file))
+(eval-and-compile
+  (defvar straight-check-for-modifications)
+  (setq  straight-check-for-modifications 'never)
+
+  (defvar bootstrap-version)
+  (unless (featurep 'straight)
+    (let ((bootstrap-file (concat user-emacs-directory "straight/repos/straight.el/bootstrap.el"))
+          (bootstrap-version 1))
+      (unless (file-exists-p bootstrap-file)
+        (error "Straight bootstrapper not present: %s" bootstrap-file))
+      (load bootstrap-file))))
+(require 'straight)
 #+END_SRC
 
 ** straight+
@@ -74,12 +79,10 @@ fetching some specific remote.
 #+BEGIN_SRC emacs-lisp
 (cl-defun straight-vc-git-fetch (recipe)
   "Using straight.el-style RECIPE, fetch all remotes."
-  (straight--with-plist recipe
-      (local-repo branch)
-    (while t
-      (and (straight-vc-git--validate-remotes recipe)
-           (straight--get-call "git" "fetch" "--all")
-           (cl-return-from straight-vc-git-fetch t)))))
+  (while t
+    (and (straight-vc-git--validate-remotes recipe)
+         (straight--get-call "git" "fetch" "--all")
+         (cl-return-from straight-vc-git-fetch t))))
 
 (defun straight-vc-fetch (recipe)
   "Pull from all remotes for straight.el-style RECIPE.
@@ -93,7 +96,7 @@ repository directory and delegates to the relevant
     (let ((straight--default-directory (straight--dir "repos" local-repo)))
       (straight-vc 'fetch type recipe))))
 
-(defun straight-fetch-package (package)
+(defun straight-fetch-package (package &optional ignored)
   "Try to fetch a PACKAGE from all remotes.
 PACKAGE is a string naming a package. Interactively, select
 PACKAGE from the known packages in the current Emacs session
@@ -102,7 +105,7 @@ using `completing-read'."
   (let ((recipe (gethash package straight--recipe-cache)))
     (straight-vc-fetch recipe)))
 
-(defun straight-fetch-all (&optional predicate)
+(defun straight-fetch-all (&optional ignored predicate)
   "Try to fetch all packages (with fetch --all).
 
 Return a list of recipes for packages that were not successfully
@@ -123,10 +126,16 @@ non-nil if the package should actually be normalized."
 use-package is nice for organisation.
 I'm considering enabling the always-defer option.
 #+BEGIN_SRC emacs-lisp
-(straight-use-package 'use-package)
-(setq use-package-always-ensure t
-      use-package-verbose t)
-; (setq use-package-always-defer t)
+(eval-and-compile
+  (straight-use-package 'use-package)
+  (defvar use-package-always-ensure)
+  (defvar use-package-verbose)
+  (setq use-package-always-ensure t
+        use-package-verbose t)
+  ;; (setq use-package-always-defer t)
+  )
+(require 'use-package)
+(require 'bind-key)
 #+END_SRC
 
 ** package.el system (disabled)
@@ -142,12 +151,12 @@ well as straight's bootstrap.
 (setq package-enable-at-startup nil)
 (setq package-archives (list '("gnu" . "https://elpa.gnu.org/packages/")))
 (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/"))
+             '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
-	(package-refresh-contents)
+  (package-refresh-contents)
         (package-install 'use-package))
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -195,6 +204,11 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (column-number-mode 1)
 (blink-cursor-mode 0)
 (setq-default indent-tabs-mode nil)
+(defvar apropos-do-all)
+(defvar recentf-max-saved-items)
+(defvar compilation-scroll-output)
+(defvar show-paren-delay)
+(defvar custom-search-field)
 (setq
  inhibit-startup-message t
  require-final-newline t
@@ -211,7 +225,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  compilation-scroll-output 'first-error
  enable-recursive-minibuffers t
  minibuffer-message-timeout 0.5
- print-circle t
+; print-circle t
  window-combination-resize t
  mouse-yank-at-point t
  frame-resize-pixelwise t
@@ -228,15 +242,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (global-unset-key (kbd "<insert>"))
 #+END_SRC
 
-This is a <25.3 vulnerability fix, see
-https://lists.gnu.org/archive/html/info-gnu/2017-09/msg00006.html
-#+BEGIN_SRC emacs-lisp
-(eval-after-load "enriched"
-  '(defun enriched-decode-display-prop (start end &optional param)
-     (list start end)))
-#+END_SRC
-
-** Dash fontlock
+* Dash fontlock
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'dash
   (dash-enable-font-lock))
@@ -302,6 +308,7 @@ TODO use-package?
 Mode dependent buffer begin-end
 #+BEGIN_SRC emacs-lisp
 (use-package beginend
+  :defer 5
   :config
   (beginend-global-mode)
   (diminish 'beginend-global-mode)
@@ -400,6 +407,7 @@ even if there is no associated file.")
 
 * Emacs source
 #+BEGIN_SRC emacs-lisp
+(defvar find-function-C-source-directory)
 (setq find-function-C-source-directory "/home/gaetan/dev/emacs/src/")
 #+END_SRC
 
@@ -433,9 +441,17 @@ even if there is no associated file.")
 #+END_SRC
 
 
+** expand macro
+#+BEGIN_SRC emacs-lisp
+(use-package elisp-mode
+  :ensure nil
+  :bind (("s-e" . emacs-lisp-macroexpand)))
+#+END_SRC
+
 * Rainbow mode
 #+BEGIN_SRC emacs-lisp
-  (use-package rainbow-mode)
+(use-package rainbow-mode
+  :commands (rainbow-mode))
 #+END_SRC
 
 * Avy and linum configuration
@@ -479,10 +495,6 @@ Note that jumping to a line by its number is still possible with avy.
 
 ** Then setup avy
 #+BEGIN_SRC emacs-lisp
-(use-package avy
-  :config
-  (setq avy-style 'de-bruijn))
-
 ;; based on joshwnj and magnars https://gist.github.com/joshwnj/3292750
 (defun avy-goto-line-with-feedback ()
   "Show line numbers temporarily, while prompting for the line number input"
@@ -494,7 +506,12 @@ Note that jumping to a line by its number is still possible with avy.
                (call-interactively 'avy-goto-line))
       (when line-numbers-off-p
         (linum-mode -1)))))
-(global-set-key [remap goto-line] 'avy-goto-line-with-feedback)
+
+(use-package avy
+  :bind (([remap goto-line] . avy-goto-line-with-feedback))
+  :commands (avy-goto-line)
+  :config
+  (setq avy-style 'de-bruijn))
 #+END_SRC
 
 * Save place in files
@@ -579,7 +596,8 @@ following keys.
  org-cycle-separator-lines 1)
 
 (use-package org-bullets
-  :config
+  :commands org-bullets-mode
+  :init
   (defun my/org-hook ()
     (org-bullets-mode 1)
     (auto-fill-mode 1))
@@ -589,11 +607,7 @@ following keys.
 * Window switching (Ace window)
 #+BEGIN_SRC emacs-lisp
 (use-package ace-window
-  :init
-  (global-set-key [remap other-window] 'ace-window)
-  (custom-set-faces
-   '(aw-leading-char-face
-     ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+  :bind (([remap other-window] . ace-window))
   :config
   (setq aw-scope 'frame))
 #+END_SRC
@@ -608,6 +622,7 @@ following keys.
 
 (use-package ivy
   :diminish (ivy-mode)
+  :demand t
   :bind (("C-x b" . ivy-switch-buffer))
   :config
   (ivy-mode 1)
@@ -640,11 +655,13 @@ following keys.
 * Company
 #+BEGIN_SRC emacs-lisp
 (use-package company
+  :defer 5
   :diminish " ℂ"
   :config
   (global-company-mode))
 
 (use-package company-flx
+  :defer 5
   :config
   (company-flx-mode 1))
 #+END_SRC
@@ -652,6 +669,7 @@ following keys.
 * Flycheck
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
+  :defer 5
   :config
   (global-flycheck-mode)
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc coq))
@@ -675,6 +693,7 @@ following keys.
   :bind (("C-x g" . magit-status)))
 
 (use-package diff-hl
+  :after magit
   :config
   (add-hook 'magit-post-refresh-hook #'diff-hl-magit-post-refresh)
   (global-diff-hl-mode t))
@@ -688,44 +707,57 @@ take time to download.
 If this is a problem one could download the tarball from melpa (which
 has only the .el files) and use it to make a fake git repository.
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "/home/gaetan/.opam/4.05.0/share/emacs/site-lisp")
-(require 'ocp-indent)
-
 (use-package tuareg
+  :defines (tuareg-mode-hook)
+  :mode (("\\.ml[4ip]?\\'" . tuareg-mode)
+         ("[./]opam_?\\'" . tuareg-opam-mode)
+         ("\\(?:\\`\\|/\\)jbuild\\'" . tuareg-jbuild-mode)
+         ("\\.eliomi?\\'" . tuareg-mode))
   :init
+  (defun tuareg-reset-indent ()
+    "Reset comment style for tuareg mode"
+    (setq-local comment-style 'indent))
+  (add-hook 'tuareg-mode-hook #'tuareg-reset-indent)
+
   (push ".ml.d" completion-ignored-extensions)
-  (push ".mli.d" completion-ignored-extensions)
-  :config
-  (add-hook 'tuareg-mode-hook (lambda () (setq-local comment-style 'indent)))
-  (with-eval-after-load 'merlin
-    (diminish 'merlin-mode)))
+  (push ".mli.d" completion-ignored-extensions))
 
-(use-package flycheck-ocaml
-  :config
-  ;;(setq tuareg-indent-align-with-first-arg nil)
-  (with-eval-after-load 'merlin
-    ;; Disable Merlin's own error checking
-    (setq merlin-error-after-save nil)
-    ;;(setq merlin-command "/home/gaetan/.opam/system/bin/ocamlmerlin")
-    ;; Enable Flycheck checker
-    (flycheck-ocaml-setup)
-    (bind-key [remap merlin-locate] #'my/merlin-locate merlin-mode-map))
+(use-package ocp-indent
+  :ensure nil ; not handled by straight
+  :load-path "/home/gaetan/.opam/4.05.0/share/emacs/site-lisp"
+  :after tuareg)
 
-  (add-hook 'tuareg-mode-hook 'merlin-mode))
+(use-package merlin
+  :diminish
+  :defines (merlin-locate-preference)
+  :commands (merlin-mode merlin-locate)
+  :bind (:map merlin-mode-map ([remap merlin-locate] . my/merlin-locate))
+  :init
+  (add-hook 'tuareg-mode-hook #'merlin-mode)
 
-(defun my/invert-merlin-locate-preference ()
-  (cl-case merlin-locate-preference
-    ('ml 'mli)
-    ('mli 'ml)))
+  (defun my/invert-merlin-locate-preference ()
+    (cl-case merlin-locate-preference
+      ('ml 'mli)
+      ('mli 'ml)))
 
-(defun my/merlin-locate (&optional arg)
-  "Locate the identifier under point.
+  (defun my/merlin-locate (&optional arg)
+    "Locate the identifier under point.
 
 With prefix argument, invert `merlin-locate-preference'."
-  (interactive "P")
-  (let ((merlin-locate-preference
-         (if arg (my/invert-merlin-locate-preference) merlin-locate-preference)))
-    (merlin-locate)))
+    (interactive "P")
+    (let ((merlin-locate-preference
+           (if arg (my/invert-merlin-locate-preference) merlin-locate-preference)))
+      (merlin-locate)))
+
+  :config
+  ;; Disable Merlin's own error checking, we use flycheck
+  (setq merlin-error-after-save nil))
+
+(use-package flycheck-ocaml
+  :after merlin
+  :config
+  ;; Enable Flycheck checker
+  (flycheck-ocaml-setup))
 #+END_SRC
 
 * Coq dev
@@ -745,18 +777,21 @@ With prefix argument, invert `merlin-locate-preference'."
 
 * Markdown
 #+BEGIN_SRC emacs-lisp
-  (use-package markdown-mode)
+(use-package markdown-mode
+  :mode  (("\\.markdown\\'" . markdown-mode)
+          ("\\.md\\'" . markdown-mode)))
 #+END_SRC
 
 * Whitespace
-  #+BEGIN_SRC emacs-lisp
-    (setq show-trailing-whitespace t)
-  #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(setq show-trailing-whitespace t)
+#+END_SRC
 
 ** ws-butler (unobtrusive whitespace remover)
 #+BEGIN_SRC emacs-lisp
 (use-package ws-butler
   :diminish ws-butler-mode
+  :commands (ws-butler-mode)
   :init
   (add-hook 'prog-mode-hook #'ws-butler-mode)
   (add-hook 'org-mode-hook #'ws-butler-mode)
@@ -776,10 +811,9 @@ With prefix argument, invert `merlin-locate-preference'."
 
 * Semantic region
 #+BEGIN_SRC emacs-lisp
-  ; expand the marked region in semantic increments (negative prefix to reduce region)
-  (use-package expand-region
-    :config
-    (global-set-key (kbd "C-=") 'er/expand-region))
+;; expand the marked region in semantic increments (negative prefix to reduce region)
+(use-package expand-region
+  :bind (("C-=" . er/expand-region)))
 #+END_SRC
 
 * Undo tree
@@ -796,65 +830,80 @@ With prefix argument, invert `merlin-locate-preference'."
 * Proof General
 TODO recipe
 #+BEGIN_SRC emacs-lisp
-(load "~/.emacs.d/lisp/proofgeneral/generic/proof-site")
+(use-package proof-site
+  :ensure nil
+  :load-path "~/.emacs.d/lisp/proofgeneral/generic/"
 
-(push ".v.d" completion-ignored-extensions)
-(setq
- proof-prog-name-ask t
- proof-follow-mode 'followdown
- proof-sticky-errors t
- proof-splash-seen t)
+  :defines (coq-mode-map
+            proof-prog-name-ask
+            proof-follow-mode
+            proof-sticky-errors
+            proof-splash-seen)
 
-(defun my/coq-test-option (string)
-  "Ask Coq if option STRING is set."
-  (let ((res (company-coq-ask-prover (concat "Test " string "."))))
-    (cond
-     ((string-match-p (rx "off" eol) res) nil)
-     ((string-match-p (rx "on" eol) res) t)
-     (t (error "Bad result in coq-test-option: %s" res)))))
+  :init
+  (push ".v.d" completion-ignored-extensions)
 
-(defun my/coq-toggle-option (string)
-  "Toggle option STRING according to the result of `my/coq-test-option'."
-  (interactive "M")
-  (let ((string (if (my/coq-test-option string)
-                    (concat "Unset " string ".")
-                  (concat "Set " string "."))))
-    (proof-shell-invisible-command string 'wait)
-    (proof-prf)
-    (message "%s" string)))
+  :config
+  (setq
+   proof-prog-name-ask t
+   proof-follow-mode 'followdown
+   proof-sticky-errors t
+   proof-splash-seen t)
 
-(defmacro my/coq-deftoggler (fn string &optional key)
-  "Define function FN toggling option STRING using `my/coq-toggle-option' and bind to KEY."
-  `(progn
-     (if ,key
-         (define-key coq-mode-map ,key (quote ,fn)))
+  (defun my/coq-test-option (string)
+    "Ask Coq if option STRING is set."
+    (let ((res (company-coq-ask-prover (concat "Test " string "."))))
+      (cond
+       ((string-match-p (rx "off" eol) res) nil)
+       ((string-match-p (rx "on" eol) res) t)
+       (t (error "Bad result in coq-test-option: %s" res)))))
 
-     (defun ,fn ()
-       ,(concat "`my/coq-toggle-option' specialised to \""
-                string
-                "\".")
-       (interactive)
-       (my/coq-toggle-option ,string))))
+  (defun my/coq-toggle-option (string)
+    "Toggle option STRING according to the result of `my/coq-test-option'."
+    (interactive "M")
+    (let ((string (if (my/coq-test-option string)
+                      (concat "Unset " string ".")
+                    (concat "Set " string "."))))
+      (proof-shell-invisible-command string 'wait)
+      (proof-prf)
+      (message "%s" string)))
 
-(defun my/coq-mode-setup ()
-  "Setup non-customize coq mode stuff."
-  (flycheck-mode 0)
-  (define-key coq-mode-map (kbd "s-n") #'proof-assert-next-command-interactive)
-  (define-key coq-mode-map (kbd "s-<down>") #'proof-assert-next-command-interactive)
-  (define-key coq-mode-map (kbd "s-<right>") #'proof-goto-point)
-  (define-key coq-mode-map (kbd "s-<up>") #'proof-undo-last-successful-command)
-  (define-key coq-mode-map (kbd "s-<left>") #'proof-goto-end-of-locked)
-  (define-key coq-mode-map (kbd "s-<end>") #'proof-process-buffer)
-  (my/coq-deftoggler coq-toggle-printing-implicit "Printing Implicit" (kbd "C-c i"))
-  (my/coq-deftoggler coq-toggle-printing-all "Printing All" (kbd "C-c a"))
-  (my/coq-deftoggler coq-toggle-printing-notations "Printing Notations" (kbd "C-c n"))
-  (my/coq-deftoggler coq-toggle-printing-universes "Printing Universes" (kbd "C-c u")))
-(add-hook 'coq-mode-hook #'my/coq-mode-setup)
+  (defun my/coq-mode-setup ()
+    "Setup non-customize coq mode stuff."
+    (flycheck-mode 0)
+    (define-key coq-mode-map (kbd "s-n") #'proof-assert-next-command-interactive)
+    (define-key coq-mode-map (kbd "s-<down>") #'proof-assert-next-command-interactive)
+    (define-key coq-mode-map (kbd "s-<right>") #'proof-goto-point)
+    (define-key coq-mode-map (kbd "s-<up>") #'proof-undo-last-successful-command)
+    (define-key coq-mode-map (kbd "s-<left>") #'proof-goto-end-of-locked)
+    (define-key coq-mode-map (kbd "s-<end>") #'proof-process-buffer)
+    (my/coq-deftoggler coq-toggle-printing-implicit "Printing Implicit" (kbd "C-c i"))
+    (my/coq-deftoggler coq-toggle-printing-all "Printing All" (kbd "C-c a"))
+    (my/coq-deftoggler coq-toggle-printing-notations "Printing Notations" (kbd "C-c n"))
+    (my/coq-deftoggler coq-toggle-printing-universes "Printing Universes" (kbd "C-c u")))
+
+  (add-hook 'coq-mode-hook #'my/coq-mode-setup)
+
+  :preface
+  (defmacro my/coq-deftoggler (fn string &optional key)
+    "Define function FN toggling option STRING using `my/coq-toggle-option' and bind to KEY."
+    `(progn
+       (if ,key
+           (define-key coq-mode-map ,key (quote ,fn)))
+
+       (defun ,fn ()
+         ,(concat "`my/coq-toggle-option' specialised to \""
+                  string
+                  "\".")
+         (interactive)
+         (my/coq-toggle-option ,string)))))
 #+END_SRC
 
 * Company-Coq
 #+BEGIN_SRC emacs-lisp
 (use-package company-coq
+  :commands (company-coq-mode)
+  :defines (company-coq-disabled-features company-coq-live-on-the-edge)
   :config
   (setq
    company-coq-disabled-features '(hello)
@@ -863,16 +912,19 @@ TODO recipe
 #+END_SRC
 
 * Highlight symbol
-Doesn't highlight symbols on current line when hl-line-mode is on, which is annoying. So I only use it for navigation.
-I could use smartscan instead but that doesn't cycle.
+Doesn't highlight symbols on current line when hl-line-mode is on,
+which is annoying. So I only use it for navigation. I could use
+smartscan instead but that doesn't cycle.
 #+BEGIN_SRC emacs-lisp
-  (use-package highlight-symbol
-    :config
-    (add-hook 'prog-mode-hook #'highlight-symbol-nav-mode)
-    (add-hook 'text-mode-hook #'highlight-symbol-nav-mode)
-    (add-hook 'org-mode-hook #'highlight-symbol-nav-mode)
-    (add-hook 'coq-mode-hook #'highlight-symbol-nav-mode)
-    :bind (("M-n" . highlight-symbol-next) ("M-p" . highlight-symbol-prev)))
+(use-package highlight-symbol
+  :commands highlight-symbol-nav-mode
+  :config
+  (add-hook 'prog-mode-hook #'highlight-symbol-nav-mode)
+  (add-hook 'text-mode-hook #'highlight-symbol-nav-mode)
+  (add-hook 'org-mode-hook #'highlight-symbol-nav-mode)
+  (add-hook 'coq-mode-hook #'highlight-symbol-nav-mode)
+  (add-hook 'makefile-mode-hook #'highlight-symbol-nav-mode)
+  :bind (("M-n" . highlight-symbol-next) ("M-p" . highlight-symbol-prev)))
 #+END_SRC
 
 * AucTex
@@ -880,8 +932,7 @@ I could use smartscan instead but that doesn't cycle.
 (defun Okular-make-url ()
   (concat
    "file://"
-   (expand-file-name (funcall file (TeX-output-extension) t)
-                     (file-name-directory (TeX-master-file)))
+   (expand-file-name (concat (TeX-master-file) "." (TeX-output-extension)))
    "#src:"
    (TeX-current-line)
    (expand-file-name (TeX-master-directory))
@@ -890,6 +941,7 @@ I could use smartscan instead but that doesn't cycle.
 
 (use-package tex
   :recipe auctex
+  :commands TeX-latex-mode
   :config
   (setq
    LaTeX-command "latex -synctex=1")
@@ -902,69 +954,88 @@ I could use smartscan instead but that doesn't cycle.
                '(output-pdf "Okular")))
 
 (use-package company-bibtex
+  :commands company-bibtex
   :config (add-to-list 'company-backends #'company-bibtex))
 
-(use-package biblio)
+;; just rely on autoloads for this one
+(use-package biblio
+  :defer t)
 #+END_SRC
 
 * erc
 #+BEGIN_SRC emacs-lisp
-(require 'erc)
-(require 'erc-services)
+(use-package erc
+  :ensure nil
+  :commands erc-tls
+  :config
+  (setq
+   erc-server "irc.freenode.net"
+   erc-port 6697
+   erc-nick "SkySkimmer"
+   erc-password nil
+   erc-user-full-name user-full-name
+   ;;erc-email-userid "userid"    ; for when ident is not activated
+   ;;erc-password ; in secrets
+   erc-lurker-hide-list '("JOIN" "PART" "QUIT")
+   erc-lurker-threshold-time 3600
+   erc-prompt-for-password nil
+   erc-autojoin-timing 'ident
+   erc-try-new-nick-p nil
+   erc-user-full-name "SkySkimmer"
+   erc-join-buffer 'bury)
 
-(setq
- erc-server "irc.freenode.net"
- erc-port 6697
- erc-nick "SkySkimmer"
- erc-password nil
- erc-user-full-name user-full-name
- ;;erc-email-userid "userid"    ; for when ident is not activated
- ;;erc-password ; in secrets
- erc-lurker-hide-list '("JOIN" "PART" "QUIT")
- erc-lurker-threshold-time 3600
- erc-prompt-for-password nil
- erc-prompt-for-nickserv-password nil
- erc-autojoin-timing 'ident
- erc-try-new-nick-p nil
- erc-user-full-name "SkySkimmer"
- erc-join-buffer 'bury)
+  (setq erc-autojoin-channels-alist
+        `(("freenode.net" "##hott" "#emacs")
+          (,(rx "rizon." (* anything)) "#madokami" "#nyaa-dev")))
 
-(setq erc-autojoin-channels-alist
-      `(("freenode.net" "##hott" "#emacs")
-        (,(rx "rizon." (* anything)) "#madokami" "#nyaa-dev")))
-(setq erc-nickserv-passwords
-      `((freenode (("SkySkimmer" . ,erc-freenode-password)))
-        (Rizon (("SkySkimmer" . ,erc-rizon-password)))))
+  (defun my/erc-reconnect-all ()
+    "Reconnect to all erc servers"
+    (interactive)
+    (let ((buffers (buffer-list)))
+      (while buffers
+        (let ((buffer (car buffers)))
+          (when (erc-server-buffer-p buffer)
+            (with-current-buffer buffer
+              (erc-server-reconnect)))
+          (setq buffers (cdr buffers)))))))
 
-(erc-services-mode 1)
+(use-package erc-services
+  :ensure nil
+  :after erc
+  :config
+  (setq erc-prompt-for-nickserv-password nil)
 
-(defun my/erc-reconnect-all ()
-  "Reconnect to all erc servers"
-  (interactive)
-  (let ((buffers (buffer-list)))
-    (while buffers
-      (let ((buffer (car buffers)))
-        (when (erc-server-buffer-p buffer)
-          (with-current-buffer buffer
-            (erc-server-reconnect)))
-        (setq buffers (cdr buffers))))))
+  ;; from secrets
+  (defvar erc-freenode-password)
+  (defvar erc-rizon-password)
+  (setq erc-nickserv-passwords
+        `((freenode (("SkySkimmer" . ,erc-freenode-password)))
+          (Rizon (("SkySkimmer" . ,erc-rizon-password)))))
+
+  (erc-services-mode 1))
 #+END_SRC
 
 * Systemd
 #+BEGIN_SRC emacs-lisp
-  (use-package systemd)
+(use-package systemd
+  :defer t)
 #+END_SRC
 
 * Dictionary (sdcv)
-TODO recipe
 #+BEGIN_SRC emacs-lisp
-(load "~/.emacs.d/lisp/emacs-sdcv/sdcv-mode" nil t)
-(global-set-key (kbd "C-c d") 'sdcv-search)
+(use-package sdcv
+  :bind (("C-c d" . sdcv-search-input)
+         :map sdcv-mode-map
+         ("RET" . sdcv-search-input)))
 #+END_SRC
 
 * Projectile
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
+  :bind-keymap ("C-c p" . projectile-command-map)
+  :bind (:map projectile-mode-map
+              ("C-c p C-b" . magit-blame)
+              ("C-c p C-l" . magit-log-buffer-file))
   :config
   (projectile-mode)
   (setq projectile-mode-line
@@ -972,11 +1043,10 @@ TODO recipe
           (if (or (file-remote-p default-directory) (not (projectile-project-p)))
               " ℘"
             (format " ℘[%s]" (projectile-project-name)))))
-  (setq projectile-switch-project-action 'projectile-vc)
-  (bind-key "C-c p C-b" #'magit-blame projectile-mode-map)
-  (bind-key "C-c p C-l" #'magit-log-buffer-file projectile-mode-map))
+  (setq projectile-switch-project-action 'projectile-vc))
 
 (use-package counsel-projectile
+  :after projectile
   :config (counsel-projectile-on))
 #+END_SRC
 
@@ -994,46 +1064,49 @@ TODO recipe
 
 * Fish
 #+BEGIN_SRC emacs-lisp
-(use-package fish-mode)
+(use-package fish-mode
+  :defer t)
 #+END_SRC
 
 * Hydra
 #+BEGIN_SRC emacs-lisp
-(use-package hydra
-  :config
-  (hydra-add-font-lock))
-(use-package ivy-hydra)
-(global-set-key
- (kbd "<f1>")
- (defhydra hydra-help (:color blue)
-   "Help"
-   ("c" describe-char "Describe Char")
-   ("e" view-echo-area-messages "Messages")
-   ("f" find-function "Find Function")
-   ("F" describe-function "Describe Function")
-   ("k" describe-key "Describe Key")
-   ("K" find-function-on-key "Find Key")
-   ("m" describe-mode "Describe Modes")
-   ("v" find-variable "Find Variable")
-   ("V" describe-variable "Describe Variable")
-   ("q" nil "Quit")))
+;; (use-package hydra
+;;   :config
+;;   (hydra-add-font-lock))
+;; (use-package ivy-hydra)
+;; (global-set-key
+;;  (kbd "<f1>")
+;;  (defhydra hydra-help (:color blue)
+;;    "Help"
+;;    ("c" describe-char "Describe Char")
+;;    ("e" view-echo-area-messages "Messages")
+;;    ("f" find-function "Find Function")
+;;    ("F" describe-function "Describe Function")
+;;    ("k" describe-key "Describe Key")
+;;    ("K" find-function-on-key "Find Key")
+;;    ("m" describe-mode "Describe Modes")
+;;    ("v" find-variable "Find Variable")
+;;    ("V" describe-variable "Describe Variable")
+;;    ("q" nil "Quit")))
 #+END_SRC
 
 * Wgrep
 #+BEGIN_SRC emacs-lisp
-(use-package wgrep)
-(use-package wgrep-ag)
+(use-package wgrep
+  :defer t)
 #+END_SRC
 
 * QML
 This is useful for KDE configuration files.
 #+BEGIN_SRC emacs-lisp
-(use-package qml-mode)
+(use-package qml-mode
+  :defer t)
 #+END_SRC
 
 * Yaml
 #+BEGIN_SRC emacs-lisp
-(use-package yaml-mode)
+(use-package yaml-mode
+  :defer t)
 #+END_SRC
 
 * Ending

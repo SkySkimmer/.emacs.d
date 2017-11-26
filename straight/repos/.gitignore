@@ -35,10 +35,14 @@
 /org-bullets/
 /parsebib/
 /pkg-info.el/
+/popup-el/
+/pos-tip/
 /projectile/
 /qml-mode/
 /rainbow-mode/
+/sdcv.el/
 /seq/
+/showtip/
 /swiper/
 /systemd-mode/
 /tuareg/
