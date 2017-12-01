@@ -122,7 +122,7 @@ non-nil if the package should actually be normalized."
    predicate))
 #+END_SRC
 
-** use-package
+** use-package, bind-key and diminish
 use-package is nice for organisation.
 I'm considering enabling the always-defer option.
 #+BEGIN_SRC emacs-lisp
@@ -135,7 +135,9 @@ I'm considering enabling the always-defer option.
   ;; (setq use-package-always-defer t)
   )
 (require 'use-package)
-(require 'bind-key)
+
+(use-package bind-key)
+(use-package diminish)
 #+END_SRC
 
 ** package.el system (disabled)
@@ -904,11 +906,11 @@ TODO recipe
 (use-package company-coq
   :commands (company-coq-mode)
   :defines (company-coq-disabled-features company-coq-live-on-the-edge)
+  :init (add-hook 'coq-mode-hook #'company-coq-mode)
   :config
   (setq
    company-coq-disabled-features '(hello)
-   company-coq-live-on-the-edge t)
-  (add-hook 'coq-mode-hook #'company-coq-mode))
+   company-coq-live-on-the-edge t))
 #+END_SRC
 
 * Highlight symbol
@@ -1113,6 +1115,7 @@ This is useful for KDE configuration files.
 Diminishing (somewhat bugged)
 #+BEGIN_SRC emacs-lisp
 (defun my/diminishings ()
+  (interactive)
   (diminish 'yas-minor-mode)
   (diminish 'hs-minor-mode)
   (diminish 'holes-mode)
