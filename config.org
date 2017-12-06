@@ -782,7 +782,8 @@ With prefix argument, invert `merlin-locate-preference'."
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode
   :mode  (("\\.markdown\\'" . markdown-mode)
-          ("\\.md\\'" . markdown-mode)))
+          ("\\.md\\'" . markdown-mode))
+  :init (add-hook 'markdown-mode-hook #'visual-line-mode))
 #+END_SRC
 
 * Whitespace
