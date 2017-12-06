@@ -684,7 +684,8 @@ following keys.
   :config
   (setq
    magit-diff-refine-hunk 'all
-   magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18))
+   magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)
+   magit-diff-highlight-indentation '((".*" . tabs)))
   (add-to-list 'magit-log-arguments "--follow")
 
   (magit-define-popup-action 'magit-merge-popup ?u
