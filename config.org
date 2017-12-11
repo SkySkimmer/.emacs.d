@@ -244,23 +244,18 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (global-unset-key (kbd "<insert>"))
 #+END_SRC
 
-* Dash fontlock
+** Dash fontlock
 #+BEGIN_SRC emacs-lisp
 (with-eval-after-load 'dash
   (dash-enable-font-lock))
 #+END_SRC
 
-** Dired
-TODO use-package?
-#+BEGIN_SRC emacs-lisp
-(require 'dired)
-(require 'dired-x)
-(add-hook 'dired-mode-hook #'dired-omit-mode)
-(setq
- dired-ls-F-marks-symlinks t
- dired-listing-switches "-alF --group-directories-first"
- dired-omit-files nil)
-#+END_SRC
+** highlight current line
+   #+BEGIN_SRC emacs-lisp
+     (require 'hl-line)
+     (global-hl-line-mode t)
+     (set-face-background hl-line-face "LightCyan2")
+   #+END_SRC
 
 ** Clipboard integration
    #+BEGIN_SRC emacs-lisp
@@ -271,14 +266,20 @@ TODO use-package?
      (setq kill-do-not-save-duplicates t)
    #+END_SRC
 
-** highlight current line
-   #+BEGIN_SRC emacs-lisp
-     (require 'hl-line)
-     (global-hl-line-mode t)
-     (set-face-background hl-line-face "LightCyan2")
-   #+END_SRC
+* Dired
+TODO use-package?
+#+BEGIN_SRC emacs-lisp
+(require 'dired)
+(require 'dired-x)
+(add-hook 'dired-mode-hook #'dired-omit-mode)
+(setq
+ dired-ls-F-marks-symlinks t
+ dired-listing-switches "-alF --group-directories-first"
+ dired-omit-files nil
+ dired-omit-size-limit nil)
+#+END_SRC
 
-** Scroll
+* Scroll half screens
    #+BEGIN_SRC emacs-lisp
      (setq
       mouse-wheel-scroll-amount '(1 ((shift) . 1))
@@ -298,13 +299,6 @@ TODO use-package?
        "Set `next-screen-context-lines' to screen height / 2"
        (reset-next-screen-context-lines))
    #+END_SRC
-
-** Subword mode
-#+BEGIN_SRC emacs-lisp
-;(global-subword-mode 1)
-(diminish 'subword-mode)
-#+END_SRC
-
 
 * Smarter line and buffer begin-end
 Mode dependent buffer begin-end
