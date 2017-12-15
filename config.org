@@ -101,7 +101,7 @@ repository directory and delegates to the relevant
 PACKAGE is a string naming a package. Interactively, select
 PACKAGE from the known packages in the current Emacs session
 using `completing-read'."
-  (interactive (list (straight--select-package "Fetch package")))
+  (interactive (list (straight--select-package "Fetch package" nil 'install)))
   (let ((recipe (gethash package straight--recipe-cache)))
     (straight-vc-fetch recipe)))
 
@@ -116,7 +116,7 @@ PREDICATE, if provided, filters the packages that are normalized.
 It is called with the package name as a string, and should return
 non-nil if the package should actually be normalized."
   (interactive)
-  (straight--map-repos-interactively
+  (straight--map-existing-repos-interactively
    (lambda (package)
      (straight-fetch-package package))
    predicate))
@@ -130,8 +130,9 @@ I'm considering enabling the always-defer option.
   (straight-use-package 'use-package)
   (defvar use-package-always-ensure)
   (defvar use-package-verbose)
-  (setq use-package-always-ensure t
-        use-package-verbose t)
+  (setq use-package-always-ensure nil
+        use-package-verbose t
+        straight-use-package-by-default t)
   ;; (setq use-package-always-defer t)
   )
 (require 'use-package)
@@ -440,7 +441,7 @@ even if there is no associated file.")
 ** expand macro
 #+BEGIN_SRC emacs-lisp
 (use-package elisp-mode
-  :ensure nil
+  :straight nil
   :bind (("s-e" . emacs-lisp-macroexpand)))
 #+END_SRC
 
@@ -720,7 +721,7 @@ has only the .el files) and use it to make a fake git repository.
   (push ".mli.d" completion-ignored-extensions))
 
 (use-package ocp-indent
-  :ensure nil ; not handled by straight
+  :straight nil ; not handled by straight
   :load-path "/home/gaetan/.opam/4.05.0/share/emacs/site-lisp"
   :after tuareg)
 
@@ -830,7 +831,7 @@ With prefix argument, invert `merlin-locate-preference'."
 TODO recipe
 #+BEGIN_SRC emacs-lisp
 (use-package proof-site
-  :ensure nil
+  :straight nil
   :load-path "~/.emacs.d/lisp/proofgeneral/generic/"
 
   :defines (coq-mode-map
@@ -939,7 +940,7 @@ smartscan instead but that doesn't cycle.
    (TeX-current-file-name-master-relative)))
 
 (use-package tex
-  :recipe auctex
+  :straight auctex
   :commands TeX-latex-mode
   :config
   (setq
@@ -964,7 +965,7 @@ smartscan instead but that doesn't cycle.
 * erc
 #+BEGIN_SRC emacs-lisp
 (use-package erc
-  :ensure nil
+  :straight nil
   :commands erc-tls
   :config
   (setq
@@ -999,7 +1000,7 @@ smartscan instead but that doesn't cycle.
           (setq buffers (cdr buffers)))))))
 
 (use-package erc-services
-  :ensure nil
+  :straight nil
   :after erc
   :config
   (setq erc-prompt-for-nickserv-password nil)
