@@ -1057,7 +1057,14 @@ smartscan instead but that doesn't cycle.
 
 (use-package counsel-projectile
   :after projectile
-  :config (counsel-projectile-on))
+  :config (counsel-projectile-mode 1)
+  ;; Set default action to magit, see
+  ;; https://github.com/ericdanan/counsel-projectile/issues/62
+  (setcar
+   counsel-projectile-switch-project-action
+   (1+ (cl-position #'counsel-projectile-switch-project-action-vc
+                    (cdr counsel-projectile-switch-project-action)
+                    :key #'cadr))))
 #+END_SRC
 
 * Comint
