@@ -267,6 +267,11 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
      (setq kill-do-not-save-duplicates t)
    #+END_SRC
 
+* Compile mode
+#+BEGIN_SRC emacs-lisp
+(defalias 'make #'compile)
+#+END_SRC
+
 * Dired
 TODO use-package?
 #+BEGIN_SRC emacs-lisp
