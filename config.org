@@ -267,6 +267,37 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
      (setq kill-do-not-save-duplicates t)
    #+END_SRC
 
+* my/set
+#+BEGIN_SRC emacs-lisp
+(defun replace-string-in-form (form orig new)
+  "Replace all appearances of ORIG in strings appearing in FORM
+by NEW."
+  (pcase form
+    ((pred consp)
+     (cons (replace-string-in-form (car form) orig new)
+           (replace-string-in-form (cdr form) orig new)))
+    ((pred stringp)
+     (if (string-match orig form)
+         (replace-match new t nil form)
+       form))
+    (_ form)))
+
+(defun my/set (symbol newval)
+  "`interactive' wrapping around `set', which see."
+  (interactive
+   (let* ((symbol (car (eval (replace-string-in-form
+                     (cadr (interactive-form #'describe-variable))
+                     "Describe variable"
+                     "Variable") t)))
+          (oldval (symbol-value symbol))
+          (foo (message "%s" oldval))
+          (newval (eval (read-minibuffer "Lisp expression: "
+                                         (when oldval (format "'%S" oldval))))))
+     (list symbol newval)))
+
+  (set symbol newval))
+#+END_SRC
+
 * Compile mode
 #+BEGIN_SRC emacs-lisp
 (defalias 'make #'compile)
