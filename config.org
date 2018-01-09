@@ -691,7 +691,9 @@ following keys.
   :defer 5
   :diminish " ℂ"
   :config
-  (global-company-mode))
+  (global-company-mode)
+  (setq company-idle-delay 0.2
+        company-minimum-prefix-length 1))
 
 (use-package company-flx
   :defer 5
