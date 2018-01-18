@@ -12,6 +12,7 @@
 /url/
 /projectile-bookmarks.eld
 /tramp
+/projectile.cache
 
 #used by Emacs japanese IME
 /kkcrc
