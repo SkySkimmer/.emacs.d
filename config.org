@@ -1146,6 +1146,16 @@ smartscan instead but that doesn't cycle.
   :defer t)
 #+END_SRC
 
+* Python
+#+BEGIN_SRC emacs-lisp
+(use-package python
+  :defer t
+  :straight nil
+  :commands (python-mode run-python)
+  :config
+  (setq python-shell-interpreter "python3"))
+#+END_SRC
+
 * QML
 This is useful for KDE configuration files.
 #+BEGIN_SRC emacs-lisp
