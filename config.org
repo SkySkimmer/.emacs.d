@@ -726,7 +726,14 @@ following keys.
     (lambda ()
       (interactive)
       (magit-merge "@{upstream}" '("--ff-only"))))
-  :bind (("C-x g" . magit-status)))
+
+  (defun my/show-commit ()
+    "Calls `magit-show-commit' with negated prefix argument."
+    (interactive)
+    (let ((current-prefix-arg (not current-prefix-arg)))
+      (call-interactively #'magit-show-commit)))
+  :bind (("C-x g" . magit-status)
+         ("C-x G" . my/show-commit)))
 
 (use-package diff-hl
   :after magit
