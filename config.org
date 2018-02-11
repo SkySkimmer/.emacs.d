@@ -1232,6 +1232,7 @@ Diminishing (somewhat bugged)
 
 (add-hook 'after-init-hook #'my/diminishings)
 (eval-after-load 'org-indent '(diminish 'org-indent-mode))
+(eval-after-load 'company-coq '(my/diminishings))
 #+END_SRC
 
 Reset dired-omit-extensions after we added stuff that should got into it.
