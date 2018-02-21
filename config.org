@@ -718,7 +718,8 @@ following keys.
   (setq
    magit-diff-refine-hunk 'all
    magit-log-margin '(t "%Y-%m-%d %H:%M" magit-log-margin-width t 18)
-   magit-diff-highlight-indentation '((".*" . tabs)))
+   magit-diff-highlight-indentation '((".*" . tabs))
+   magit-branch-rename-push-target 'local-only)
   (add-to-list 'magit-log-arguments "--follow")
 
   (magit-define-popup-action 'magit-merge-popup ?u
