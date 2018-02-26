@@ -628,6 +628,29 @@ following keys.
  org-ellipsis " ▼"
  org-cycle-separator-lines 1)
 
+(defvar org-latex-packages-alist)
+(defvar org-latex-listings)
+(defvar org-latex-pdf-process)
+(defvar org-latex-minted-options)
+
+;; Setup minted syntax highlighting
+(add-to-list 'org-latex-packages-alist '("" "minted"))
+(setq org-latex-listings 'minted)
+
+;; Add the shell-escape flag
+(setq org-latex-pdf-process
+      '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        ;; "bibtex %b"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+        "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+;; Sample minted options.
+(setq org-latex-minted-options
+      '(("frame" "lines")
+        ("fontsize" "\\scriptsize")
+        ("xleftmargin" "\\parindent")
+        ("linenos" "")))
+
 (use-package org-bullets
   :commands org-bullets-mode
   :init
