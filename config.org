@@ -80,7 +80,7 @@ fetching some specific remote.
 (cl-defun straight-vc-git-fetch (recipe)
   "Using straight.el-style RECIPE, fetch all remotes."
   (while t
-    (and (straight-vc-git--validate-remotes recipe)
+    (and (straight-vc-git--ensure-remotes recipe)
          (straight--get-call "git" "fetch" "--all")
          (cl-return-from straight-vc-git-fetch t))))
 
