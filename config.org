@@ -873,6 +873,8 @@ With prefix argument, invert `merlin-locate-preference'."
 
 * Coq dev
 #+BEGIN_SRC emacs-lisp
+(require 'coqdev "~/.emacs.d/coqdev.el")
+
 (defun debug-coq-sender (input)
   (insert input)
   (comint-send-input))
