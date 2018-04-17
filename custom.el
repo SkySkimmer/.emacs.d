@@ -8,7 +8,25 @@
     (fish-mode agda2-mode beginend qml-mode biblio company-bibtex company-flx diff-hl yaml-mode ivy-hydra wgrep-ag wgrep hydra company-coq company nv-delete-back rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auctex ace-window)))
  '(safe-local-variable-values
    (quote
-    ((eval flycheck-cask-setup)
+    ((eval let
+           ((unimath-topdir
+             (expand-file-name
+              (locate-dominating-file buffer-file-name "UniMath"))))
+           (setq fill-column 100)
+           (make-local-variable
+            (quote coq-prog-args))
+           (setq coq-prog-args
+                 (\`
+                  ("-emacs" "-noinit" "-indices-matter" "-Q"
+                   (\,
+                    (concat unimath-topdir "UniMath"))
+                   "UniMath" "-w" "-notation-overridden,-local-declaration,+uniform-inheritance,-deprecated-option")))
+           (if
+               (equal buffer-file-name
+                      (concat unimath-topdir "UniMath/Foundations/Resizing.v"))
+               (setq coq-prog-args
+                     (cons "-type-in-type" coq-prog-args))))
+     (eval flycheck-cask-setup)
      (eval font-lock-add-keywords nil
            (quote
             (("defexamples\\|def-example-group\\| => \\| !!> \\| ~>"
