@@ -1087,6 +1087,14 @@ smartscan instead but that doesn't cycle.
   :defer t)
 #+END_SRC
 
+* Agda
+#+BEGIN_SRC emacs-lisp
+(use-package agda2
+  :straight nil
+  :load-path "/usr/share/emacs/site-lisp/elpa-src/agda2-mode-2.5.3/"
+  :mode (("\\.agda\\'" . agda2-mode)))
+#+END_SRC
+
 * Docker
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode
