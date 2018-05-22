@@ -1087,6 +1087,12 @@ smartscan instead but that doesn't cycle.
   :defer t)
 #+END_SRC
 
+* Docker
+#+BEGIN_SRC emacs-lisp
+(use-package dockerfile-mode
+  :mode  (("\\Dockerfile\\'" . dockerfile-mode)))
+#+END_SRC
+
 * erc
 #+BEGIN_SRC emacs-lisp
 (use-package erc

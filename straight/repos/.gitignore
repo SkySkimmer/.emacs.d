@@ -12,6 +12,7 @@
 /dash.el/
 /diff-hl/
 /diminish.el/
+/dockerfile-mode/
 /emacs-async/
 /emacs-fish/
 /Emacs-wgrep/
@@ -41,6 +42,7 @@
 /projectile/
 /qml-mode/
 /rainbow-mode/
+/s.el/
 /sdcv.el/
 /seq/
 /showtip/
