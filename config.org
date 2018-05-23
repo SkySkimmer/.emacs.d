@@ -71,6 +71,7 @@ elisp.
         (error "Straight bootstrapper not present: %s" bootstrap-file))
       (load bootstrap-file))))
 (require 'straight)
+(setq straight-vc-git-auto-fast-forward nil)
 #+END_SRC
 
 ** straight+
