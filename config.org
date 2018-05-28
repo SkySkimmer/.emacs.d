@@ -1122,7 +1122,7 @@ smartscan instead but that doesn't cycle.
    erc-autojoin-timing 'ident
    erc-try-new-nick-p nil
    erc-user-full-name "SkySkimmer"
-   erc-join-buffer 'bury)
+   erc-join-buffer 'window)
 
   (setq erc-autojoin-channels-alist
         `(("freenode.net" "##hott" "#emacs")
