@@ -684,7 +684,9 @@ following keys.
   :config
   (ivy-mode 1)
   (setq ivy-use-virtual-buffers t)
-  (setq ivy-display-style 'fancy))
+  (setq ivy-display-style 'fancy)
+  ;; this makes autocompletion for git refs in magit worse
+  (setcdr (assq t ivy-sort-functions-alist) nil))
 
 (use-package swiper
   :bind (("C-s" . swiper)
