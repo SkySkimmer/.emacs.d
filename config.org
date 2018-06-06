@@ -338,17 +338,7 @@ TODO use-package?
        (reset-next-screen-context-lines))
    #+END_SRC
 
-* Smarter line and buffer begin-end
-Mode dependent buffer begin-end
-#+BEGIN_SRC emacs-lisp
-(use-package beginend
-  :defer 5
-  :config
-  (beginend-global-mode)
-  (diminish 'beginend-global-mode)
-  (mapc (lambda (x) (diminish (cdr x))) beginend-modes))
-#+END_SRC
-
+* Smarter move-beginning-of-line
 Indent aware line beginning
 #+BEGIN_SRC emacs-lisp
 (defun my/smarter-move-beginning-of-line (arg)
