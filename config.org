@@ -723,7 +723,8 @@ following keys.
   :defer 5
   :config
   (global-flycheck-mode)
-  (setq-default flycheck-disabled-checkers '(rst-sphinx emacs-lisp-checkdoc coq))
+  (setq-default flycheck-disabled-checkers '(rst-sphinx emacs-lisp-checkdoc coq
+                                                        tex-chktex tex-lacheck))
   (setq flycheck-tex-chktex-executable "~/bin/chktex-wrap.sh"))
 #+END_SRC
 
