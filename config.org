@@ -769,7 +769,7 @@ has only the .el files) and use it to make a fake git repository.
 #+BEGIN_SRC emacs-lisp
 (use-package tuareg
   :defines (tuareg-mode-hook)
-  :mode (("\\.ml[4ipl]?\\'" . tuareg-mode)
+  :mode (("\\.ml[4iplg]?\\'" . tuareg-mode)
          ("[./]opam_?\\'" . tuareg-opam-mode)
          ("\\(?:\\`\\|/\\)jbuild\\'" . tuareg-jbuild-mode)
          ("\\.eliomi?\\'" . tuareg-mode))
