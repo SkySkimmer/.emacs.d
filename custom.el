@@ -8,7 +8,21 @@
     (fish-mode agda2-mode beginend qml-mode biblio company-bibtex company-flx diff-hl yaml-mode ivy-hydra wgrep-ag wgrep hydra company-coq company nv-delete-back rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auctex ace-window)))
  '(safe-local-variable-values
    (quote
-    ((git-commit-major-mode . git-commit-elisp-text-mode)
+    ((eval let
+           ((unimath-topdir
+             (expand-file-name
+              (locate-dominating-file buffer-file-name "UniMath"))))
+           (setq fill-column 100)
+           (make-local-variable
+            (quote coq-use-project-file))
+           (setq coq-use-project-file nil)
+           (setq-local coq-prog-args
+                       (\`
+                        ("-emacs" "-noinit" "-indices-matter" "-type-in-type" "-w" "-notation-overridden,-local-declaration,+uniform-inheritance,-deprecated-option" "-Q"
+                         (\,
+                          (concat unimath-topdir "UniMath"))
+                         "UniMath"))))
+     (git-commit-major-mode . git-commit-elisp-text-mode)
      (eval let
            ((unimath-topdir
              (expand-file-name
