@@ -877,7 +877,11 @@ With prefix argument, invert `merlin-locate-preference'."
 (defvar ocamldebug-command-name)
 (defun debug-coq (coq)
   "Call ocamldebug for coqtop with correct arguments."
-  (interactive "fCoq executable: ")
+  (interactive (let ((f (read-file-name
+                         "Coq executable: " nil nil t nil
+                         ;; allow directories for navigation
+                         (lambda (f) (string-match (rx (or ".byte" "/") string-end) f)))))
+                 (list f)))
   (let ((ocamldebug-command-name "../dev/ocamldebug-coq"))
     (message "coq is %s" coq)
     (when (not (string= (file-name-extension coq) "byte"))
