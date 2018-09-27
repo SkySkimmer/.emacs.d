@@ -25,6 +25,7 @@
 /flycheck-ocaml/
 /flycheck/
 /ghub/
+/graphql.el/
 /highlight-symbol.el/
 /hydra/
 /magit/
@@ -49,6 +50,7 @@
 /showtip/
 /swiper/
 /systemd-mode/
+/treepy.el/
 /tuareg/
 /undo-tree/
 /use-package/
