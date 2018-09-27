@@ -956,8 +956,7 @@ With prefix argument, invert `merlin-locate-preference'."
 TODO recipe
 #+BEGIN_SRC emacs-lisp
 (use-package proof-site
-  :straight nil
-  :load-path "~/.emacs.d/lisp/proofgeneral/generic/"
+  :straight proof-general
 
   :defines (coq-mode-map
             proof-prog-name-ask
