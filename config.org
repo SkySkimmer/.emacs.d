@@ -865,6 +865,10 @@ With prefix argument, invert `merlin-locate-preference'."
   :config
   ;; Enable Flycheck checker
   (flycheck-ocaml-setup))
+
+(use-package dune
+  :straight (dune :type git :host github :repo "ocaml/dune"
+                  :files ("editor-integration/emacs/dune.el")))
 #+END_SRC
 
 * Coq dev
