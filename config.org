@@ -1176,7 +1176,7 @@ smartscan instead but that doesn't cycle.
               ("C-c p C-l" . magit-log-buffer-file))
   :config
   (projectile-mode)
-  (setq projectile-mode-line-fn
+  (setq projectile-mode-line-function
         (lambda ()
           (if (or (file-remote-p default-directory) (not (projectile-project-p)))
               " ℘"
