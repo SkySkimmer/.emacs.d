@@ -1176,10 +1176,7 @@ smartscan instead but that doesn't cycle.
 * Projectile
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
-  :bind-keymap ("C-c p" . projectile-command-map)
-  :bind (:map projectile-mode-map
-              ("C-c p C-b" . magit-blame)
-              ("C-c p C-l" . magit-log-buffer-file))
+  :demand t
   :config
   (projectile-mode)
   (setq projectile-mode-line-prefix " ℘")
@@ -1188,7 +1185,12 @@ smartscan instead but that doesn't cycle.
           (if (or (file-remote-p default-directory) (not (projectile-project-p)))
               projectile-mode-line-prefix
             (format " ℘[%s]" (projectile-project-name)))))
-  (setq projectile-switch-project-action 'projectile-vc))
+  (setq projectile-switch-project-action 'projectile-vc)
+
+  (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  (bind-keys :package projectile :map projectile-mode-map
+             ("C-c p C-b" . magit-blame)
+             ("C-c p C-l" . magit-log-buffer-file)))
 
 (use-package counsel-projectile
   :after projectile
