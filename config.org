@@ -1188,9 +1188,8 @@ smartscan instead but that doesn't cycle.
   (setq projectile-switch-project-action 'projectile-vc)
 
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (bind-keys :package projectile :map projectile-mode-map
-             ("C-c p C-b" . magit-blame)
-             ("C-c p C-l" . magit-log-buffer-file)))
+  (define-key projectile-mode-map (kbd "C-c p C-b") #'magit-blame)
+  (define-key projectile-mode-map (kbd "C-c p C-l") #'magit-log-buffer-file))
 
 (use-package counsel-projectile
   :after projectile
