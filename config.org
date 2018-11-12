@@ -892,15 +892,17 @@ With prefix argument, invert `merlin-locate-preference'."
       (error "Not a byte executable %s" coq))
     (ocamldebug coq)
     (debug-coq-sender "cd ../dev")
-    (if (string= (file-name-base coq) "coqchk")
-        (debug-coq-sender "source checker_db")
-      (debug-coq-sender "source db"))
+    (debug-coq-sender "source db")
     (debug-coq-sender "cd ..")))
 
 (defun my/coqbin (dir)
   "Set COQBIN environment variable"
   (interactive "DDirectory: ")
   (setenv "COQBIN" dir))
+
+(defun my/coqargs ()
+  (interactive)
+  (add-file-local-variable-prop-line 'coq-prog-args '("")))
 #+END_SRC
 
 * Markdown
