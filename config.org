@@ -903,6 +903,12 @@ With prefix argument, invert `merlin-locate-preference'."
 (defun my/coqargs ()
   (interactive)
   (add-file-local-variable-prop-line 'coq-prog-args '("")))
+
+(defun my/git-overlay-fix ()
+  "Fix .git/config for Coq overlays"
+  (interactive)
+  (re-search-forward "https://github.com/.*/")
+  (replace-match "git@github.com:SkySkimmer/"))
 #+END_SRC
 
 * Markdown
