@@ -911,6 +911,15 @@ With prefix argument, invert `merlin-locate-preference'."
   (replace-match "git@github.com:SkySkimmer/"))
 #+END_SRC
 
+* Melt
+Mode for editing Melt (.mlt) files. Melt is a tool to generate latex
+from OCaml.
+#+BEGIN_SRC emacs-lisp
+(use-package melt-mode
+  :straight nil
+  :load-path "/home/gaetan/dev/ocaml-melt/")
+#+END_SRC
+
 * Markdown
 #+BEGIN_SRC emacs-lisp
 (use-package markdown-mode
