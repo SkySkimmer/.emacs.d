@@ -839,7 +839,7 @@ With prefix argument, invert `merlin-locate-preference'."
 (defun debug-coq (coq)
   "Call ocamldebug for coqtop with correct arguments."
   (interactive (let ((f (read-file-name
-                         "Coq executable: " nil nil t "coqtop.byte"
+                         "Coq executable: " nil nil t "coqc.byte"
                          ;; allow directories for navigation
                          (lambda (f) (string-match (rx (or ".byte" "/") string-end) f)))))
                  (list f)))
