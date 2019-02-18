@@ -3,6 +3,7 @@
 /avy/
 /beginend/
 /biblio.el/
+/cl-lib/
 /company-bibtex/
 /company-coq/
 /company-flx/
@@ -26,6 +27,7 @@
 /flycheck-ocaml/
 /flycheck/
 /ghub/
+/gnu-elpa-mirror/
 /graphql.el/
 /highlight-symbol.el/
 /hydra/
@@ -53,6 +55,7 @@
 /showtip/
 /swiper/
 /systemd-mode/
+/transient/
 /treepy.el/
 /tuareg/
 /undo-tree/

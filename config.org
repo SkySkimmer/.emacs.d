@@ -52,7 +52,8 @@ package dependency being acquired before the override.
           :branch "trunk")
         my/recipes)
   (setq straight-recipe-overrides
-        (cons (cons nil my/recipes) nil)))
+        (cons (cons nil my/recipes) nil)
+        straight-recipes-gnu-elpa-use-mirror nil))
 #+END_SRC
 
 ** Install straight
@@ -741,17 +742,20 @@ following keys.
                                             ([unpulled status] . show)))
   (add-to-list 'magit-log-arguments "--follow")
 
-  (magit-define-popup-action 'magit-merge-popup ?u
-    "Merge upstream"
-    (lambda ()
-      (interactive)
-      (magit-merge "@{upstream}" '("--ff-only"))))
+  (defun my/magit-merge-upstream (&optional args)
+    (interactive (list (magit-merge-arguments)))
+    (magit-merge-assert)
+    (magit-run-git-async "merge" "--ff-only" args "@{upstream}"))
+
+  (transient-append-suffix 'magit-merge "p"
+    '("u" "Merge upstream" my/magit-merge-upstream ?u))
 
   (defun my/show-commit ()
     "Calls `magit-show-commit' with negated prefix argument."
     (interactive)
     (let ((current-prefix-arg (not current-prefix-arg)))
       (call-interactively #'magit-show-commit)))
+
   :bind (("C-x g" . magit-status)
          ("C-x G" . my/show-commit)))
 
@@ -933,9 +937,7 @@ from OCaml.
 * Proof General
 TODO recipe
 #+BEGIN_SRC emacs-lisp
-(use-package proof-site
-  :straight proof-general
-
+(use-package proof-general
   :defines (coq-mode-map
             proof-prog-name-ask
             proof-follow-mode
@@ -1160,7 +1162,7 @@ smartscan instead but that doesn't cycle.
   (setq projectile-switch-project-action 'projectile-vc)
 
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-  (define-key projectile-mode-map (kbd "C-c p C-b") #'magit-blame)
+  (define-key projectile-mode-map (kbd "C-c p C-b") #'magit-blame-addition)
   (define-key projectile-mode-map (kbd "C-c p C-l") #'magit-log-buffer-file))
 
 (use-package counsel-projectile
