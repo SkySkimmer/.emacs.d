@@ -870,6 +870,19 @@ With prefix argument, invert `merlin-locate-preference'."
   (interactive)
   (re-search-forward "https://github.com/.*/")
   (replace-match "git@github.com:SkySkimmer/"))
+
+(require 'compile)
+;; experimental (doesn't quite work?
+;; see https://gist.github.com/SkySkimmer/3c54916809ea1e3cf6b1b820c736701e)
+(let ((regexp
+        (rx bol
+            (group-n 5
+                     "File \"" (group-n 1 (+ (not (any "\"\n")))) "\", "
+                     "line " (group-n 2 (+ digit)) ", "
+                     "characters " (group-n 3 (+ digit)) "-" (group-n 4 (+ digit))) ":\n"
+                     (opt (group-n 6 bol "Warning" (opt " " (+ digit)) ":")))))
+  (add-to-list 'compilation-error-regexp-alist-alist `(coq-ocaml ,regexp 1 2 (3 . 4) (6 . nil) 5))
+  (add-to-list 'compilation-error-regexp-alist 'coq-ocaml))
 #+END_SRC
 
 * Melt
