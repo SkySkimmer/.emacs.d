@@ -727,7 +727,8 @@ following keys.
   (global-flycheck-mode)
   (setq-default flycheck-disabled-checkers '(rst-sphinx emacs-lisp-checkdoc coq
                                                         tex-chktex tex-lacheck))
-  (setq flycheck-tex-chktex-executable "~/bin/chktex-wrap.sh"))
+  (setq flycheck-tex-chktex-executable "~/bin/chktex-wrap.sh"
+        flycheck-emacs-lisp-load-path 'inherit))
 #+END_SRC
 
 * Magit
