@@ -379,7 +379,8 @@ Print default directory according to major mode based on [[https://github.com/jb
   '(magit-log-mode
     magit-status-mode
     dired-mode
-    eshell-mode)
+    eshell-mode
+    compilation-mode)
   "Major modes where the directory is interesting
 even if there is no associated file.")
 
