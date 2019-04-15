@@ -1030,6 +1030,11 @@ TODO recipe
    company-coq-live-on-the-edge t))
 #+END_SRC
 
+* Haskell
+#+BEGIN_SRC emacs-lisp
+(use-package haskell-mode)
+#+END_SRC
+
 * Highlight symbol
 Doesn't highlight symbols on current line when hl-line-mode is on,
 which is annoying. So I only use it for navigation. I could use
