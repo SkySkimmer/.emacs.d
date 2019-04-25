@@ -734,6 +734,7 @@ following keys.
 * Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
+  :commands (magit-show-commit)
   :config
   (setq
    magit-diff-refine-hunk 'all
@@ -742,7 +743,6 @@ following keys.
    magit-branch-rename-push-target 'local-only
    magit-section-initial-visibility-alist '(([unpushed status] . show)
                                             ([unpulled status] . show)))
-  (add-to-list 'magit-log-arguments "--follow")
 
   (defun my/magit-merge-upstream (&optional args)
     (interactive (list (magit-merge-arguments)))
@@ -752,14 +752,14 @@ following keys.
   (transient-append-suffix 'magit-merge "p"
     '("u" "Merge upstream" my/magit-merge-upstream ?u))
 
-  (defun my/show-commit ()
-    "Calls `magit-show-commit' with negated prefix argument."
-    (interactive)
-    (let ((current-prefix-arg (not current-prefix-arg)))
-      (call-interactively #'magit-show-commit)))
+  :bind (("C-x g" . magit-status)))
 
-  :bind (("C-x g" . magit-status)
-         ("C-x G" . my/show-commit)))
+(defun my/show-commit ()
+  "Calls `magit-show-commit' with negated prefix argument."
+  (interactive)
+  (let ((current-prefix-arg (not current-prefix-arg)))
+    (call-interactively #'magit-show-commit)))
+(bind-key "C-x G" #'my/show-commit)
 
 (use-package diff-hl
   :after magit
