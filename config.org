@@ -245,6 +245,11 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
 (global-unset-key (kbd "<insert>"))
+
+(defun my/insert-date ()
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d")))
+(bind-key "C-c h" #'my/insert-date)
 #+END_SRC
 
 ** Dash fontlock
@@ -743,6 +748,8 @@ following keys.
    magit-branch-rename-push-target 'local-only
    magit-section-initial-visibility-alist '(([unpushed status] . show)
                                             ([unpulled status] . show)))
+
+  (remove-hook 'magit-blame-goto-chunk-hook #'magit-blame-maybe-update-revision-buffer)
 
   (defun my/magit-merge-upstream (&optional args)
     (interactive (list (magit-merge-arguments)))
