@@ -87,6 +87,7 @@ Note that this function is executed before _Coqproject is read if it exists."
 (defvar coqdev-ocamldebug-command "dune exec dev/dune-dbg"
   "Command run by `coqdev-ocamldebug'")
 
+(require 'ocamldebug)
 (defun coqdev-ocamldebug ()
   "Runs a command in an ocamldebug buffer."
   (interactive)
