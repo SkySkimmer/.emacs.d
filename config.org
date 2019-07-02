@@ -894,6 +894,7 @@ from OCaml.
 #+BEGIN_SRC emacs-lisp
 (use-package melt-mode
   :straight nil
+  :mode "\\.mlt\\'"
   :load-path "/home/gaetan/dev/ocaml-melt/")
 #+END_SRC
 
