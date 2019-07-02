@@ -44,13 +44,7 @@ package dependency being acquired before the override.
 #+BEGIN_SRC emacs-lisp
 (defvar straight-recipe-overrides)
 (let ((my/recipes nil))
-  (push '(caml
-          :type git
-          :files ("emacs/*.el")
-          :host github
-          :repo "ocaml/ocaml"
-          :branch "trunk")
-        my/recipes)
+  ; push stuff to my/recipes here
   (setq straight-recipe-overrides
         (cons (cons nil my/recipes) nil)
         straight-recipes-gnu-elpa-use-mirror nil))
