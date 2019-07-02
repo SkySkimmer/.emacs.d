@@ -87,10 +87,16 @@ Note that this function is executed before _Coqproject is read if it exists."
 (defvar coqdev-ocamldebug-command "dune exec dev/dune-dbg"
   "Command run by `coqdev-ocamldebug'")
 
-(require 'ocamldebug)
+(declare-function comint-check-proc "comint")
+(declare-function tuareg--split-args "tuareg")
+(declare-function ocamldebug-filter "ocamldebug")
+(declare-function ocamldebug-sentinel "ocamldebug")
+(declare-function ocamldebug-mode "ocamldebug")
+(declare-function ocamldebug-set-buffer "ocamldebug")
 (defun coqdev-ocamldebug ()
   "Runs a command in an ocamldebug buffer."
   (interactive)
+  (require 'ocamldebug)
   (let* ((dir (read-directory-name "Run from directory: "
                                    (coqdev-default-directory)))
          (name "ocamldebug-coq")
