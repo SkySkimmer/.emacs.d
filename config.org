@@ -312,7 +312,7 @@ TODO use-package?
 (add-hook 'dired-mode-hook #'dired-omit-mode)
 (setq
  dired-ls-F-marks-symlinks t
- dired-listing-switches "-alF --group-directories-first"
+ dired-listing-switches "-alFv --group-directories-first"
  dired-omit-files nil
  dired-omit-size-limit nil)
 #+END_SRC
