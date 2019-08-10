@@ -1265,7 +1265,7 @@ This is useful for KDE configuration files.
 * Yaml
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode
-  :defer t)
+  :mode (("\\.yml\\'" . yaml-mode)))
 #+END_SRC
 
 * Ending
