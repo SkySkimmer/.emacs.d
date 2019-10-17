@@ -84,7 +84,7 @@ Note that this function is executed before _Coqproject is read if it exists."
       (setq-local coq-prog-name (concat dir "_build/default/dev/shim/coqtop-prelude")))))
 (add-hook 'hack-local-variables-hook #'coqdev-setup-proofgeneral)
 
-(defvar coqdev-ocamldebug-command "dune exec dev/dune-dbg"
+(defvar coqdev-ocamldebug-command "dune exec -- dev/dune-dbg"
   "Command run by `coqdev-ocamldebug'")
 
 (declare-function comint-check-proc "comint")
