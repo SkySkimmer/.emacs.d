@@ -235,6 +235,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  custom-search-field nil)
 (minibuffer-depth-indicate-mode t)
 
+;; for some reason the KR version gets picked without this
+(set-fontset-font t 'han "Noto Sans CJK JP" nil 'prepend)
+
 ;; thanks http://pragmaticemacs.com/emacs/cycle-spacing/
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
