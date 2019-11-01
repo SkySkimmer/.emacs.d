@@ -17,6 +17,7 @@
 /dockerfile-mode/
 /dune/
 /elpa/
+/emacsmirror-mirror/
 /emacs-async/
 /emacs-fish/
 /Emacs-wgrep/
@@ -43,7 +44,7 @@
 /nv-delete-back/
 /org-bullets/
 /parsebib/
-/pkg-info.el/
+/pkg-info/
 /PG/
 /popup-el/
 /pos-tip/
