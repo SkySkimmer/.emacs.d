@@ -118,7 +118,8 @@ Note that this function is executed before _Coqproject is read if it exists."
         (set-process-sentinel (get-buffer-process (current-buffer))
                               #'ocamldebug-sentinel)
         (ocamldebug-mode)))
-  (ocamldebug-set-buffer)))
+    (ocamldebug-set-buffer)
+    (insert "source dune_db")))
 
 ;; This Elisp snippet adds a regexp parser for the format of Anomaly
 ;; backtraces (coqc -bt ...), to the error parser of the Compilation
