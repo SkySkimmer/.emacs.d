@@ -224,7 +224,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  compilation-scroll-output 'first-error
  enable-recursive-minibuffers t
  minibuffer-message-timeout 0.5
-; print-circle t
+ ;; print-circle t
  window-combination-resize t
  mouse-yank-at-point t
  frame-resize-pixelwise t
@@ -245,7 +245,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
 
 (defun my/insert-date ()
   (interactive)
-  (insert (format-time-string "%Y-%m-%d")))
+  (let ((s (let ((system-time-locale "ja_JP.UTF-8"))
+             (format-time-string "%Y-%m-%d (%a)"))))
+    (insert s)))
 (bind-key "C-c h" #'my/insert-date)
 #+END_SRC
 
