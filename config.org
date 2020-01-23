@@ -235,6 +235,10 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  custom-search-field nil)
 (minibuffer-depth-indicate-mode t)
 
+;; avoid "<dead-circumflex> is undefined"
+;; see https://www.emacswiki.org/emacs/DeadKeys
+(require 'iso-transl)
+
 ;; for some reason the KR version gets picked without this
 (set-fontset-font t 'han "Noto Sans CJK JP" nil 'prepend)
 
