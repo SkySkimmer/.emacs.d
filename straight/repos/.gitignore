@@ -25,6 +25,7 @@
 /epkgs/
 /epl/
 /expand-region.el/
+/f.el/
 /flx/
 /flycheck-ocaml/
 /flycheck/
@@ -34,6 +35,7 @@
 /haskell-mode/
 /highlight-symbol.el/
 /hydra/
+/lean-mode/
 /let-alist/
 /magit/
 /magit-popup/
