@@ -622,7 +622,6 @@ following keys.
 (setq
  org-catch-invisible-edits 'error
  org-return-follows-link t
- org-startup-indented t
  org-src-preserve-indentation t
  org-src-fontify-natively t
  org-src-tab-acts-natively t
@@ -651,14 +650,6 @@ following keys.
         ("fontsize" "\\scriptsize")
         ("xleftmargin" "\\parindent")
         ("linenos" "")))
-
-(use-package org-bullets
-  :commands org-bullets-mode
-  :init
-  (defun my/org-hook ()
-    (org-bullets-mode 1)
-    (auto-fill-mode 1))
-  (add-hook 'org-mode-hook #'my/org-hook))
 #+END_SRC
 
 * Window switching (Ace window)
