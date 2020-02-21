@@ -807,9 +807,9 @@ has only the .el files) and use it to make a fake git repository.
   :after tuareg
   :config (setq ocp-indent-untabify t))
 
+(defvar merlin-locate-preference)
 (use-package merlin
   :diminish
-  :defines (merlin-locate-preference)
   :commands (merlin-mode merlin-locate)
   :bind (:map merlin-mode-map ([remap merlin-locate] . my/merlin-locate))
   :init
