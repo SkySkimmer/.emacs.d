@@ -232,7 +232,9 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  vc-follow-symlinks t
  find-file-visit-truename t
  show-paren-delay 0
- custom-search-field nil)
+ custom-search-field nil
+ ring-bell-function #'ignore
+)
 (minibuffer-depth-indicate-mode t)
 
 ;; avoid "<dead-circumflex> is undefined"
