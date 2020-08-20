@@ -795,12 +795,14 @@ has only the .el files) and use it to make a fake git repository.
 
 (use-package ocp-indent
   :straight nil ; not handled by straight
-  :load-path "/home/gaetan/.opam/4.07.1/share/emacs/site-lisp"
+  :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
   :after tuareg
   :config (setq ocp-indent-untabify t))
 
 (defvar merlin-locate-preference)
 (use-package merlin
+  :straight nil
+  :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
   :diminish
   :commands (merlin-mode merlin-locate)
   :bind (:map merlin-mode-map ([remap merlin-locate] . my/merlin-locate))
@@ -837,7 +839,7 @@ With prefix argument, invert `merlin-locate-preference'."
 
 (use-package ocamlformat
   :straight nil
-  :load-path "/home/gaetan/.opam/4.07.1/share/emacs/site-lisp"
+  :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
   :after tuareg
   :config
   (setq ocamlformat-show-errors 'echo)
