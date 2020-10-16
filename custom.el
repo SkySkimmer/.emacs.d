@@ -8,7 +8,8 @@
     (fish-mode agda2-mode beginend qml-mode biblio company-bibtex company-flx diff-hl yaml-mode ivy-hydra wgrep-ag wgrep hydra company-coq company nv-delete-back rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auctex ace-window)))
  '(safe-local-variable-values
    (quote
-    ((checkdoc-package-keywords-flag)
+    ((coq-prog-name . "/home/gaetan/Aarhus/HoTTClasses/HoTT/hoqtop")
+     (checkdoc-package-keywords-flag)
      (eval let
            ((unimath-topdir
              (expand-file-name
