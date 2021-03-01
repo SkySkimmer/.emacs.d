@@ -32,6 +32,7 @@
 ;;; Code:
 
 (require 'seq)
+(require 'subr-x)
 
 (defun coqdev-default-directory ()
   "Return the Coq repository containing `default-directory'."
@@ -120,6 +121,53 @@ Note that this function is executed before _Coqproject is read if it exists."
         (ocamldebug-mode)))
     (ocamldebug-set-buffer)
     (insert "source dune_db_409")))
+
+;; Provide correct breakpoint setting in dune wrapped libraries
+;; (assuming only 1 library/dune file)
+(defun coqdev--read-from-file (file)
+  "Read FILE as a list of sexps. If invalid syntax, return nil and message the error."
+  (with-temp-buffer
+    (save-excursion
+      (insert "(\n")
+      (insert-file-contents file)
+      (goto-char (point-max))
+      (insert "\n)\n"))
+    (condition-case err
+        (read (current-buffer))
+      ((error err) (message "Error reading file %S: %S" file err)))))
+
+(defun coqdev--find-single-library (sexps)
+  "If list SEXPS has a single element whose `car' is \"library\", return it.
+Otherwise return `nil'."
+  (let ((libs (seq-filter (lambda (elt) (equal (car elt) 'library)) sexps)))
+    (and (null (cdr libs)) (car libs))))
+
+(defun coqdev--dune-library-name (lib)
+  "With LIB a dune-syntax library stanza, get its name as a string."
+  (let ((field (or (seq-find (lambda (field) (and (consp field) (equal (car field) 'name))) lib)
+                   (seq-find (lambda (field) (and (consp field) (equal (car field) 'public\_name))) lib))))
+    (symbol-name (car (cdr field)))))
+
+(defun coqdev--upcase-first-char (arg)
+  "Set the first character of ARG to uppercase."
+  (concat (upcase (substring arg 0 1)) (substring arg 1 (length arg))))
+
+(defun coqdev--real-module-name (filename)
+  "Return module name for ocamldebug, taking into account dune wrapping.
+(for now only understands dune files with a single library stanza)"
+  (let ((mod (substring filename (string-match "\\([^/]*\\)\\.ml$" filename) (match-end 1)))
+        (dune (concat (file-name-directory filename) "dune")))
+    (if (file-exists-p dune)
+        (if-let* ((lib (coqdev--find-single-library (coqdev--read-from-file dune)))
+                  (is-wrapped (null (seq-contains-p lib '(wrapped false))))
+                  (libname (coqdev--dune-library-name lib)))
+            (concat libname "__" (coqdev--upcase-first-char mod))
+          mod)
+      mod)))
+
+(with-eval-after-load 'ocamldebug
+  (defun ocamldebug-module-name (arg)
+    (coqdev--real-module-name arg)))
 
 ;; This Elisp snippet adds a regexp parser for the format of Anomaly
 ;; backtraces (coqc -bt ...), to the error parser of the Compilation
