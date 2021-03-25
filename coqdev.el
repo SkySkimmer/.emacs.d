@@ -38,7 +38,7 @@
   "Return the Coq repository containing `default-directory'."
   (let ((dir (seq-some
               (lambda (f) (locate-dominating-file default-directory f))
-              '("META.coq" "META.coq.in"))))
+              '("META.coq" "META.coq.in" "META.coq-core.in"))))
     (when dir (expand-file-name dir))))
 
 (defun coqdev-setup-compile-command ()
