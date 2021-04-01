@@ -134,7 +134,7 @@ Note that this function is executed before _Coqproject is read if it exists."
       (insert "\n)\n"))
     (condition-case err
         (read (current-buffer))
-      ((error err) (message "Error reading file %S: %S" file err)))))
+      ((error err) (progn (message "Error reading file %S: %S" file err) nil)))))
 
 (defun coqdev--find-single-library (sexps)
   "If list SEXPS has a single element whose `car' is \"library\", return it.
@@ -158,7 +158,8 @@ Otherwise return `nil'."
   (let ((mod (substring filename (string-match "\\([^/]*\\)\\.ml$" filename) (match-end 1)))
         (dune (concat (file-name-directory filename) "dune")))
     (if (file-exists-p dune)
-        (if-let* ((lib (coqdev--find-single-library (coqdev--read-from-file dune)))
+        (if-let* ((contents (coqdev--read-from-file dune))
+                  (lib (coqdev--find-single-library contents))
                   (is-wrapped (null (seq-contains-p lib '(wrapped false))))
                   (libname (coqdev--dune-library-name lib)))
             (concat libname "__" (coqdev--upcase-first-char mod))
