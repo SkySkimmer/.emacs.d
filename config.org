@@ -479,7 +479,7 @@ even if there is no associated file.")
 ** expand macro
 #+BEGIN_SRC emacs-lisp
 (use-package elisp-mode
-  :straight nil
+  :straight (:type built-in)
   :bind (("s-e" . emacs-lisp-macroexpand)))
 #+END_SRC
 
@@ -794,14 +794,14 @@ has only the .el files) and use it to make a fake git repository.
   (push ".mli.d" completion-ignored-extensions))
 
 (use-package ocp-indent
-  :straight nil ; not handled by straight
+  :straight (:type built-in) ; not handled by straight
   :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
   :after tuareg
   :config (setq ocp-indent-untabify t))
 
 (defvar merlin-locate-preference)
 (use-package merlin
-  :straight nil
+  :straight (:type built-in)
   :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
   :diminish
   :commands (merlin-mode merlin-locate)
@@ -838,7 +838,7 @@ With prefix argument, invert `merlin-locate-preference'."
                   :files ("editor-integration/emacs/dune.el")))
 
 (use-package ocamlformat
-  :straight nil
+  :straight (:type built-in)
   :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
   :after tuareg
   :config
@@ -916,7 +916,7 @@ Mode for editing Melt (.mlt) files. Melt is a tool to generate latex
 from OCaml.
 #+BEGIN_SRC emacs-lisp
 (use-package melt-mode
-  :straight nil
+  :straight (:type built-in)
   :mode "\\.mlt\\'"
   :load-path "/home/gaetan/dev/ocaml-melt/")
 #+END_SRC
@@ -1115,7 +1115,7 @@ smartscan instead but that doesn't cycle.
 * Agda
 #+BEGIN_SRC emacs-lisp
 (use-package agda2
-  :straight nil
+  :straight (:type built-in)
   :load-path "/usr/share/emacs/site-lisp/elpa-src/agda2-mode-2.5.3/"
   :mode (("\\.agda\\'" . agda2-mode)))
 #+END_SRC
@@ -1129,7 +1129,7 @@ smartscan instead but that doesn't cycle.
 * erc
 #+BEGIN_SRC emacs-lisp
 (use-package erc
-  :straight nil
+  :straight (:type built-in)
   :commands erc-tls
   :config
   (setq
@@ -1164,7 +1164,7 @@ smartscan instead but that doesn't cycle.
           (setq buffers (cdr buffers)))))))
 
 (use-package erc-services
-  :straight nil
+  :straight (:type built-in)
   :after erc
   :config
   (setq erc-prompt-for-nickserv-password nil)
@@ -1275,7 +1275,7 @@ smartscan instead but that doesn't cycle.
 #+BEGIN_SRC emacs-lisp
 (use-package python
   :defer t
-  :straight nil
+  :straight (:type built-in)
   :commands (python-mode run-python)
   :config
   (setq python-shell-interpreter "python3"))
