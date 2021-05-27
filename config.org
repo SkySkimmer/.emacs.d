@@ -1237,6 +1237,11 @@ smartscan instead but that doesn't cycle.
             'my-comint-preoutput-read-only)
 #+END_SRC
 
+* Lua
+#+BEGIN_SRC emacs-lisp
+(use-package lua-mode)
+#+END_SRC
+
 * Fish
 #+BEGIN_SRC emacs-lisp
 (use-package fish-mode
