@@ -47,7 +47,7 @@ package dependency being acquired before the override.
   ; push stuff to my/recipes here
   (setq straight-recipe-overrides
         (cons (cons nil my/recipes) nil)
-        straight-recipes-gnu-elpa-use-mirror nil))
+        straight-recipes-gnu-elpa-use-mirror t))
 #+END_SRC
 
 ** Install straight
@@ -73,14 +73,14 @@ elisp.
 Like =straight-fetch= functions but use =fetch --all= instead of
 fetching some specific remote.
 #+BEGIN_SRC emacs-lisp
-(cl-defun straight-vc-git-fetch (recipe)
+(cl-defun my/straight-vc-git-fetch (recipe)
   "Using straight.el-style RECIPE, fetch all remotes."
   (while t
     (and (straight-vc-git--ensure-remotes recipe)
-         (straight--get-call "git" "fetch" "--all")
+         (straight--process-output "git" "fetch" "--all")
          (cl-return-from straight-vc-git-fetch t))))
 
-(defun straight-vc-fetch (recipe)
+(defun my/straight-vc-fetch (recipe)
   "Pull from all remotes for straight.el-style RECIPE.
 
 This method sets `straight--default-directory' to the local
@@ -92,7 +92,7 @@ repository directory and delegates to the relevant
     (let ((straight--default-directory (straight--dir "repos" local-repo)))
       (straight-vc 'fetch type recipe))))
 
-(defun straight-fetch-package (package &optional ignored)
+(defun my/straight-fetch-package (package &optional ignored)
   "Try to fetch a PACKAGE from all remotes.
 PACKAGE is a string naming a package. Interactively, select
 PACKAGE from the known packages in the current Emacs session
@@ -101,7 +101,7 @@ using `completing-read'."
   (let ((recipe (gethash package straight--recipe-cache)))
     (straight-vc-fetch recipe)))
 
-(defun straight-fetch-all (&optional ignored predicate)
+(defun my/straight-fetch-all (&optional ignored predicate)
   "Try to fetch all packages (with fetch --all).
 
 Return a list of recipes for packages that were not successfully
@@ -114,7 +114,7 @@ non-nil if the package should actually be normalized."
   (interactive)
   (straight--map-existing-repos-interactively
    (lambda (package)
-     (straight-fetch-package package))
+     (my/straight-fetch-package package))
    predicate))
 #+END_SRC
 
@@ -1089,19 +1089,19 @@ smartscan instead but that doesn't cycle.
    "./"
    (TeX-current-file-name-master-relative)))
 
-(use-package tex
-  :straight auctex
-  :commands TeX-latex-mode
-  :config
-  (setq
-   LaTeX-command "latex -synctex=1")
-  (add-hook 'LaTeX-mode-hook
-            '(lambda () (add-to-list 'TeX-expand-list
-                                '("%u" Okular-make-url))))
-  (add-to-list 'TeX-view-program-list
-               '("Okular" "okular %u"))
-  (add-to-list 'TeX-view-program-selection
-               '(output-pdf "Okular")))
+;; (use-package tex
+;;   :straight auctex
+;;   :commands TeX-latex-mode
+;;   :config
+;;   (setq
+;;    LaTeX-command "latex -synctex=1")
+;;   (add-hook 'LaTeX-mode-hook
+;;             '(lambda () (add-to-list 'TeX-expand-list
+;;                                 '("%u" Okular-make-url))))
+;;   (add-to-list 'TeX-view-program-list
+;;                '("Okular" "okular %u"))
+;;   (add-to-list 'TeX-view-program-selection
+;;                '(output-pdf "Okular")))
 
 (use-package company-bibtex
   :commands company-bibtex
