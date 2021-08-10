@@ -838,16 +838,16 @@ With prefix argument, invert `merlin-locate-preference'."
   :straight (dune :type git :host github :repo "ocaml/dune"
                   :files ("editor-integration/emacs/dune.el")))
 
-(use-package ocamlformat
-  :straight (:type built-in)
-  :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
-  :after tuareg
-  :config
-  (setq ocamlformat-show-errors 'echo)
-  (define-key tuareg-mode-map (kbd "C-<tab>") #'ocamlformat)
-  (defun my/ocamlformat-hook ()
-    (add-hook 'before-save-hook #'ocamlformat-before-save t t))
-  (add-hook 'tuareg-mode-hook #'my/ocamlformat-hook))
+;; (use-package ocamlformat
+;;   :straight (:type built-in)
+;;   :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
+;;   :after tuareg
+;;   :config
+;;   (setq ocamlformat-show-errors 'echo)
+;;   (define-key tuareg-mode-map (kbd "C-<tab>") #'ocamlformat)
+;;   (defun my/ocamlformat-hook ()
+;;     (add-hook 'before-save-hook #'ocamlformat-before-save t t))
+;;   (add-hook 'tuareg-mode-hook #'my/ocamlformat-hook))
 #+END_SRC
 
 * Coq dev
