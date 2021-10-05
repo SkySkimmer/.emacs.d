@@ -6,7 +6,67 @@
  '(package-selected-packages
    '(fish-mode agda2-mode beginend qml-mode biblio company-bibtex company-flx diff-hl yaml-mode ivy-hydra wgrep-ag wgrep hydra company-coq company nv-delete-back rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auctex ace-window))
  '(safe-local-variable-values
-   '((project-vc-merge-submodules)
+   '((eval let*
+           ((project-root
+             (locate-dominating-file buffer-file-name "_CoqProject"))
+            (coqprime-folder
+             (expand-file-name "coqprime/src" project-root))
+            (rewriter-folder
+             (expand-file-name "rewriter/src" project-root))
+            (rupicola-folder
+             (expand-file-name "rupicola/src" project-root))
+            (bedrock2-folder
+             (expand-file-name "rupicola/bedrock2/bedrock2/src" project-root))
+            (coqutil-folder
+             (expand-file-name "rupicola/bedrock2/deps/coqutil/src" project-root))
+            (coq-path
+             (lambda nil
+               (split-string
+                (or
+                 (getenv "COQPATH")
+                 "")
+                path-separator t))))
+           (unless
+               (member coqutil-folder
+                       (funcall coq-path))
+             (setenv "COQPATH"
+                     (mapconcat #'identity
+                                (cons coqutil-folder
+                                      (funcall coq-path))
+                                path-separator)))
+           (unless
+               (member rewriter-folder
+                       (funcall coq-path))
+             (setenv "COQPATH"
+                     (mapconcat #'identity
+                                (cons rewriter-folder
+                                      (funcall coq-path))
+                                path-separator)))
+           (unless
+               (member rupicola-folder
+                       (funcall coq-path))
+             (setenv "COQPATH"
+                     (mapconcat #'identity
+                                (cons rupicola-folder
+                                      (funcall coq-path))
+                                path-separator)))
+           (unless
+               (member bedrock2-folder
+                       (funcall coq-path))
+             (setenv "COQPATH"
+                     (mapconcat #'identity
+                                (cons bedrock2-folder
+                                      (funcall coq-path))
+                                path-separator)))
+           (unless
+               (member coqprime-folder
+                       (funcall coq-path))
+             (setenv "COQPATH"
+                     (mapconcat #'identity
+                                (cons coqprime-folder
+                                      (funcall coq-path))
+                                path-separator))))
+     (project-vc-merge-submodules)
      (coq-prog-name . "/home/gaetan/Aarhus/HoTTClasses/HoTT/hoqtop")
      (checkdoc-package-keywords-flag)
      (eval let
