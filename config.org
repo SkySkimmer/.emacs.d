@@ -996,24 +996,6 @@ TODO recipe
    proof-splash-seen t
    coq-accept-proof-using-suggestion 'never)
 
-  (defun my/coq-test-option (string)
-    "Ask Coq if option STRING is set."
-    (let ((res (company-coq-ask-prover (concat "Test " string "."))))
-      (cond
-       ((string-match-p (rx "off" eol) res) nil)
-       ((string-match-p (rx "on" eol) res) t)
-       (t (error "Bad result in coq-test-option: %s" res)))))
-
-  (defun my/coq-toggle-option (string)
-    "Toggle option STRING according to the result of `my/coq-test-option'."
-    (interactive "M")
-    (let ((string (if (my/coq-test-option string)
-                      (concat "Unset " string ".")
-                    (concat "Set " string "."))))
-      (proof-shell-invisible-command string 'wait)
-      (proof-prf)
-      (message "%s" string)))
-
   (defun my/coq-mode-setup ()
     "Setup non-customize coq mode stuff."
     (flycheck-mode 0)
@@ -1022,27 +1004,9 @@ TODO recipe
     (define-key coq-mode-map (kbd "s-<right>") #'proof-goto-point)
     (define-key coq-mode-map (kbd "s-<up>") #'proof-undo-last-successful-command)
     (define-key coq-mode-map (kbd "s-<left>") #'proof-goto-end-of-locked)
-    (define-key coq-mode-map (kbd "s-<end>") #'proof-process-buffer)
-    (my/coq-deftoggler coq-toggle-printing-implicit "Printing Implicit" (kbd "C-c i"))
-    (my/coq-deftoggler coq-toggle-printing-all "Printing All" (kbd "C-c a"))
-    (my/coq-deftoggler coq-toggle-printing-notations "Printing Notations" (kbd "C-c n"))
-    (my/coq-deftoggler coq-toggle-printing-universes "Printing Universes" (kbd "C-c u")))
+    (define-key coq-mode-map (kbd "s-<end>") #'proof-process-buffer))
 
-  (add-hook 'coq-mode-hook #'my/coq-mode-setup)
-
-  :preface
-  (defmacro my/coq-deftoggler (fn string &optional key)
-    "Define function FN toggling option STRING using `my/coq-toggle-option' and bind to KEY."
-    `(progn
-       (if ,key
-           (define-key coq-mode-map ,key (quote ,fn)))
-
-       (defun ,fn ()
-         ,(concat "`my/coq-toggle-option' specialised to \""
-                  string
-                  "\".")
-         (interactive)
-         (my/coq-toggle-option ,string)))))
+  (add-hook 'coq-mode-hook #'my/coq-mode-setup))
 #+END_SRC
 
 * Company-Coq
