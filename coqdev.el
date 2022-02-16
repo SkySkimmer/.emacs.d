@@ -138,10 +138,10 @@ Note that this function is executed before _Coqproject is read if it exists."
       ((error err) (progn (message "Error reading file %S: %S" file err) nil)))))
 
 (defun coqdev--find-single-library (sexps)
-  "If list SEXPS has a single element whose `car' is \"library\", return it.
+  "If list SEXPS has an element whose `car' is \"library\", return the first one.
 Otherwise return `nil'."
   (let ((libs (seq-filter (lambda (elt) (equal (car elt) 'library)) sexps)))
-    (and (null (cdr libs)) (car libs))))
+    (and libs (car libs))))
 
 (defun coqdev--dune-library-name (lib)
   "With LIB a dune-syntax library stanza, get its name as a string."
