@@ -86,7 +86,7 @@ Note that this function is executed before _Coqproject is read if it exists."
       (setq-local coq-prog-name (concat dir "_build/default/dev/shim/coqtop-prelude")))))
 (add-hook 'hack-local-variables-hook #'coqdev-setup-proofgeneral)
 
-(defvar coqdev-ocamldebug-command "dune exec -- dev/dune-dbg coqc /tmp/foo.v"
+(defvar coqdev-ocamldebug-command "dune exec -- dev/dune-dbg -emacs coqc /tmp/foo.v"
   "Command run by `coqdev-ocamldebug'")
 
 (declare-function comint-check-proc "comint")
@@ -121,7 +121,7 @@ Note that this function is executed before _Coqproject is read if it exists."
                               #'ocamldebug-sentinel)
         (ocamldebug-mode)))
     (ocamldebug-set-buffer)
-    (insert "source dune_db_409")))
+    (insert "source db")))
 
 ;; Provide correct breakpoint setting in dune wrapped libraries
 ;; (assuming only 1 library/dune file)
