@@ -556,6 +556,22 @@ Note that jumping to a line by its number is still possible with avy.
 (save-place-mode t)
 #+END_SRC
 
+* Backward-kill-word vs parens
+source: reddit/u/mickeyp https://old.reddit.com/r/emacs/comments/rlli0u/whats_your_favorite_defadvice/hpgy8ne/
+#+BEGIN_SRC emacs-lisp
+(defadvice backward-kill-word (around delete-pair activate)
+  (if (eq (char-syntax (char-before)) ?\()
+      (progn
+    (backward-char 1)
+    (save-excursion
+      (forward-sexp 1)
+      (delete-char -1))
+    (forward-char 1)
+    (append-next-kill)
+    (kill-backward-chars 1))
+    ad-do-it))
+#+END_SRC
+
 * Unicode
 #+BEGIN_SRC emacs-lisp
 (set-charset-priority 'unicode)
@@ -963,6 +979,21 @@ from OCaml.
 (use-package expand-region
   :bind (("C-=" . er/expand-region)))
 #+END_SRC
+
+* Block undo
+source: reddit/u/oantolin https://old.reddit.com/r/emacs/comments/rlli0u/whats_your_favorite_defadvice/hpic51a/
+#+BEGIN_SRC emacs-lisp
+(defun block-undo (fn &rest args)
+  (let ((marker (prepare-change-group)))
+    (unwind-protect (apply fn args)
+      (undo-amalgamate-change-group marker))))
+
+(dolist (fn '(kmacro-call-macro
+              kmacro-exec-ring-item
+              apply-macro-to-region-lines))
+  (advice-add fn :around #'block-undo))
+#+END_SRC
+
 
 * Undo tree
 #+BEGIN_SRC emacs-lisp
