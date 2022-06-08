@@ -812,14 +812,14 @@ has only the .el files) and use it to make a fake git repository.
 
 (use-package ocp-indent
   :straight (:type built-in) ; not handled by straight
-  :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
+  :load-path "/home/gaetan/.opam/4.14.0/share/emacs/site-lisp"
   :after tuareg
   :config (setq ocp-indent-untabify t))
 
 (defvar merlin-locate-preference)
 (use-package merlin
   :straight (:type built-in)
-  :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
+  :load-path "/home/gaetan/.opam/4.14.0/share/emacs/site-lisp"
   :diminish
   :commands (merlin-mode merlin-locate)
   :bind (:map merlin-mode-map ([remap merlin-locate] . my/merlin-locate))
@@ -838,7 +838,7 @@ With prefix argument, invert `merlin-locate-preference'."
     (interactive "P")
     (let ((merlin-locate-preference
            (if arg (my/invert-merlin-locate-preference) merlin-locate-preference)))
-      (merlin-locate)))
+      (merlin-locate nil)))
 
   :config
   ;; Disable Merlin's own error checking, we use flycheck
@@ -856,7 +856,7 @@ With prefix argument, invert `merlin-locate-preference'."
 
 ;; (use-package ocamlformat
 ;;   :straight (:type built-in)
-;;   :load-path "/home/gaetan/.opam/4.09.1/share/emacs/site-lisp"
+;;   :load-path "/home/gaetan/.opam/4.14.0/share/emacs/site-lisp"
 ;;   :after tuareg
 ;;   :config
 ;;   (setq ocamlformat-show-errors 'echo)
