@@ -727,7 +727,9 @@ following keys.
   :config
   (global-company-mode)
   (setq company-idle-delay 0.3
-        company-minimum-prefix-length 2))
+        company-minimum-prefix-length 2
+        company-dabbrev-downcase nil
+        company-dabbrev-ignore-case t))
 
 (use-package company-flx
   :defer 5
