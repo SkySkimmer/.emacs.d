@@ -4,6 +4,7 @@
 /beginend/
 /biblio.el/
 /caml-mode/
+/compat/
 /cl-lib/
 /company-bibtex/
 /company-coq/
@@ -44,6 +45,7 @@
 /markdown-mode/
 /math-symbol-lists/
 /melpa/
+/nongnu-elpa/
 /nv-delete-back/
 /org-bullets/
 /parsebib/
@@ -53,6 +55,7 @@
 /pos-tip/
 /projectile/
 /qml-mode/
+/queue/
 /rainbow-mode/
 /s.el/
 /sdcv.el/

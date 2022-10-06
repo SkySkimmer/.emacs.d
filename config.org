@@ -853,7 +853,7 @@ With prefix argument, invert `merlin-locate-preference'."
   (flycheck-ocaml-setup))
 
 (use-package dune
-  :straight (dune :type git :host github :repo "ocaml/dune"
+  :straight (dune :branch "main" :type git :host github :repo "ocaml/dune"
                   :files ("editor-integration/emacs/dune.el")))
 
 ;; (use-package ocamlformat
@@ -1186,6 +1186,7 @@ smartscan instead but that doesn't cycle.
 * Dictionary (sdcv)
 #+BEGIN_SRC emacs-lisp
 (use-package sdcv
+  :straight (:type built-in)
   :bind (("C-c d" . sdcv-search-input)
          :map sdcv-mode-map
          ("RET" . sdcv-search-input)))
