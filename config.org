@@ -1005,7 +1005,8 @@ source: reddit/u/oantolin https://old.reddit.com/r/emacs/comments/rlli0u/whats_y
   (global-undo-tree-mode)
   (setq undo-tree-visualizer-diff t
         undo-tree-visualizer-timestamps t
-        undo-tree-enable-undo-in-region nil))
+        undo-tree-enable-undo-in-region nil
+        undo-tree-auto-save-history nil))
 #+END_SRC
 
 * Proof General
