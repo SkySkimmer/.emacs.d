@@ -15,6 +15,7 @@
 /projectile.cache
 /transient/history.el
 /transient/levels.el
+/eln-cache/
 
 #used by Emacs japanese IME
 /kkcrc
