@@ -1080,7 +1080,7 @@ smartscan instead but that doesn't cycle.
   (add-hook 'org-mode-hook #'highlight-symbol-nav-mode)
   (add-hook 'coq-mode-hook #'highlight-symbol-nav-mode)
   (add-hook 'makefile-mode-hook #'highlight-symbol-nav-mode)
-  :bind (("M-n" . highlight-symbol-next) ("M-p" . highlight-symbol-prev)))
+  :bind (("M-n" . highlight-symbol-next) ("M-p" . highlight-symbol-prev) ("C-c s" . highlight-symbol)))
 #+END_SRC
 
 * AucTex
