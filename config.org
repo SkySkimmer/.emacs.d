@@ -1219,6 +1219,9 @@ smartscan instead but that doesn't cycle.
             (format " ℘[%s]" (projectile-project-name)))))
   (setq projectile-switch-project-action 'projectile-vc)
 
+  ; useless and easy to hit by mistake when autocompleting for projectile-cleanup-known-projects
+  (defun projectile-clear-known-projects () t)
+
   (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
   (define-key projectile-mode-map (kbd "C-c p C-b") #'magit-blame-addition)
   (define-key projectile-mode-map (kbd "C-c p C-l") #'magit-log-buffer-file))
