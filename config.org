@@ -1235,7 +1235,11 @@ smartscan instead but that doesn't cycle.
    counsel-projectile-switch-project-action
    (1+ (cl-position #'counsel-projectile-switch-project-action-vc
                     (cdr counsel-projectile-switch-project-action)
-                    :key #'cadr))))
+                    :key #'cadr)))
+
+  (defadvice counsel-projectile-switch-project (before counsel-switch-proj-clean activate)
+    "Cleanup known projects before autocompletion looks at them"
+    (projectile-cleanup-known-projects)))
 #+END_SRC
 
 * Comint
