@@ -934,10 +934,10 @@ With prefix argument, invert `merlin-locate-preference'."
 Mode for editing Melt (.mlt) files. Melt is a tool to generate latex
 from OCaml.
 #+BEGIN_SRC emacs-lisp
-(use-package melt-mode
-  :straight (:type built-in)
-  :mode "\\.mlt\\'"
-  :load-path "/home/gaetan/dev/ocaml-melt/")
+;(use-package melt-mode
+;  :straight (:type built-in)
+;  :mode "\\.mlt\\'"
+;  :load-path "/home/gaetan/dev/ocaml-melt/")
 #+END_SRC
 
 * Markdown
