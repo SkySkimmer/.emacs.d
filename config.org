@@ -804,10 +804,11 @@ has only the .el files) and use it to make a fake git repository.
          ("\\(?:\\`\\|/\\)jbuild\\'" . tuareg-jbuild-mode)
          ("\\.eliomi?\\'" . tuareg-mode))
   :init
-  (defun tuareg-reset-indent ()
-    "Reset comment style for tuareg mode"
-    (setq-local comment-style 'indent))
-  (add-hook 'tuareg-mode-hook #'tuareg-reset-indent)
+  (defun my/tuareg-tweaks ()
+    "Reset comment style for tuareg mode, disable prettify symbols"
+    (setq-local comment-style 'indent)
+    (prettify-symbols-mode -1))
+  (add-hook 'tuareg-mode-hook #'my/tuareg-tweaks)
 
   (push ".ml.d" completion-ignored-extensions)
   (push ".mli.d" completion-ignored-extensions))
