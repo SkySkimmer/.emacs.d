@@ -1041,6 +1041,8 @@ TODO recipe
   (defun my/coq-mode-setup ()
     "Setup non-customize coq mode stuff."
     (flycheck-mode 0)
+    (define-key coq-mode-map (kbd "M-n") #'highlight-symbol-next)
+    (define-key coq-mode-map (kbd "M-p") #'highlight-symbol-prev)
     (define-key coq-mode-map (kbd "s-n") #'proof-assert-next-command-interactive)
     (define-key coq-mode-map (kbd "s-<down>") #'proof-assert-next-command-interactive)
     (define-key coq-mode-map (kbd "s-<right>") #'proof-goto-point)
