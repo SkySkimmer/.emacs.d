@@ -1059,7 +1059,7 @@ TODO recipe
   :init (add-hook 'coq-mode-hook #'company-coq-mode)
   :config
   (setq
-   company-coq-disabled-features '(hello)
+   company-coq-disabled-features '(hello obsolete-warnings)
    company-coq-live-on-the-edge t))
 #+END_SRC
 
