@@ -55,6 +55,10 @@ Bootstrap is using a git submodule instead of downloading some random
 elisp.
 #+BEGIN_SRC emacs-lisp
 (eval-and-compile
+  ; make things work on emacs 29
+  ; (init crashes with void-variable this thing otherwise)
+  (defvar native-comp-deferred-compilation-deny-list nil)
+
   (defvar straight-check-for-modifications)
   (setq  straight-check-for-modifications 'never)
 
