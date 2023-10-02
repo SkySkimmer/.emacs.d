@@ -105,12 +105,12 @@
      (bug-reference-bug-regexp . "#\\(?2:[0-9]+\\)")
      (eval let
            ((default-directory
-              (locate-dominating-file buffer-file-name ".dir-locals.el")))
+             (locate-dominating-file buffer-file-name ".dir-locals.el")))
            (setq-local coq-prog-name
                        (expand-file-name "../bin/coqtop")))
      (eval let
            ((default-directory
-              (locate-dominating-file buffer-file-name ".dir-locals.el")))
+             (locate-dominating-file buffer-file-name ".dir-locals.el")))
            (setq-local coq-prog-args
                        `("-coqlib" ,(expand-file-name "..")
                          "-R" ,(expand-file-name "../theories")
@@ -158,7 +158,7 @@
      (coq-prog-name . "~/dev/coq/coq/bin/coqtop")
      (eval let
            ((default-directory
-              (locate-dominating-file buffer-file-name ".dir-locals.el")))
+             (locate-dominating-file buffer-file-name ".dir-locals.el")))
            (setq-local coq-prog-args
                        `("-coqlib" ,(expand-file-name "..")
                          "-R" ,(expand-file-name ".")
@@ -169,7 +169,7 @@
      (coq-prog-args "-emacs" "-boot")
      (eval let
            ((default-directory
-              (locate-dominating-file buffer-file-name ".dir-locals.el")))
+             (locate-dominating-file buffer-file-name ".dir-locals.el")))
            (make-local-variable 'coq-prog-args)
            (setq coq-prog-args
                  `("-indices-matter" "-boot" "-nois" "-coqlib" ,(expand-file-name "..")
@@ -178,7 +178,7 @@
      (coq-prog-args "-emacs" "-indices-matter")
      (eval let
            ((default-directory
-              (locate-dominating-file buffer-file-name ".dir-locals.el")))
+             (locate-dominating-file buffer-file-name ".dir-locals.el")))
            (make-local-variable 'coq-prog-name)
            (setq coq-prog-name
                  (expand-file-name "../hoqtop")))
@@ -233,4 +233,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :extend nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 113 :width normal :foundry "1ASC" :family "Liberation Mono"))))
- '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+ '(aw-leading-char-face ((t (:inherit ace-jump-face-foreground :height 3.0))))
+ '(child-frame-border ((t (:background "midnight blue")))))

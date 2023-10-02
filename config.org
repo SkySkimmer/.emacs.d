@@ -238,6 +238,7 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
  show-paren-delay 0
  custom-search-field nil
  show-paren-predicate t
+ show-paren-context-when-offscreen 'child-frame
 )
 (minibuffer-depth-indicate-mode t)
 
