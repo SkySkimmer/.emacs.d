@@ -383,6 +383,8 @@ Indent aware line beginning
 ;; remap C-a to `smarter-move-beginning-of-line'
 (global-set-key [remap move-beginning-of-line]
                 'my/smarter-move-beginning-of-line)
+(global-set-key [remap beginning-of-visual-line]
+                'my/smarter-move-beginning-of-line)
 #+END_SRC
 
 * Frame title
