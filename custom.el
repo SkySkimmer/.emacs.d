@@ -6,7 +6,25 @@
  '(package-selected-packages
    '(fish-mode agda2-mode beginend qml-mode biblio company-bibtex company-flx diff-hl yaml-mode ivy-hydra wgrep-ag wgrep hydra company-coq company nv-delete-back rainbow-mode counsel-projectile projectile systemd dired ws-butler which-key use-package undo-tree tuareg try org-bullets markdown-mode magit highlight-symbol flycheck-ocaml expand-region counsel auctex ace-window))
  '(safe-local-variable-values
-   '((eval let*
+   '((coqchk-prog-args "-bytecode-compiler" "yes")
+     (eval let*
+           ((project-root
+             (locate-dominating-file buffer-file-name "_CoqProject"))
+            (coqprime-folder
+             (expand-file-name "coqprime/src" project-root))
+            (coq-path
+             (split-string
+              (or
+               (getenv "COQPATH")
+               "")
+              path-separator t)))
+           (unless
+               (member coqprime-folder coq-path)
+             (setenv "COQPATH"
+                     (mapconcat #'identity
+                                (cons coqprime-folder coq-path)
+                                path-separator))))
+     (eval let*
            ((project-root
              (locate-dominating-file buffer-file-name "_CoqProject"))
             (coqprime-folder
