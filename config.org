@@ -771,7 +771,9 @@ following keys.
    magit-branch-rename-push-target 'local-only
    magit-section-initial-visibility-alist '(([unpushed status] . show)
                                             ([unpulled status] . show))
-   magit-no-confirm (cons 'delete-branch-on-remote magit-no-confirm))
+   magit-no-confirm (cons 'delete-branch-on-remote magit-no-confirm)
+   transient-default-level 5 ; enables -S for signed commits
+   )
 
   (remove-hook 'magit-blame-goto-chunk-hook #'magit-blame-maybe-update-revision-buffer)
 
