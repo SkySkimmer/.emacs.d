@@ -1044,10 +1044,11 @@ TODO recipe
    coq-accept-proof-using-suggestion 'never)
   (setq shell-command-history
         (append
-         '("/home/gaetan/dev/coq/coq/_build/default/dev/shim/coqtop"
+         '(
+           "/home/gaetan/dev/coq/coq/_build/install/default/bin/coqtop"
            "/home/gaetan/.opam/4.14.0/bin/coqtop"
            "/home/gaetan/dev/coq/coq-8.11/bin/coqtop"
-           "/home/gaetan/dev/coq/coq/_build/install/default/bin/coqtop")
+           )
          shell-command-history))
 
   (defun my/coq-mode-setup ()
