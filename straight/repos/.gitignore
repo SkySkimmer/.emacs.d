@@ -3,6 +3,7 @@
 /avy/
 /beginend/
 /biblio.el/
+/bind-key/
 /caml-mode/
 /compat/
 /cl-lib/
@@ -25,9 +26,7 @@
 /Emacs-wgrep/
 /emacs-which-key/
 /epkgs/
-/epl/
 /expand-region.el/
-/f.el/
 /flx/
 /flycheck-ocaml/
 /flycheck/
@@ -37,8 +36,8 @@
 /haskell-mode/
 /highlight-symbol.el/
 /hydra/
-/lean-mode/
 /let-alist/
+/llama/
 /lua-mode/
 /magit/
 /magit-popup/
@@ -49,7 +48,6 @@
 /nv-delete-back/
 /org-bullets/
 /parsebib/
-/pkg-info/
 /PG/
 /popup-el/
 /pos-tip/
@@ -57,7 +55,6 @@
 /qml-mode/
 /queue/
 /rainbow-mode/
-/s.el/
 /sdcv.el/
 /seq/
 /showtip/

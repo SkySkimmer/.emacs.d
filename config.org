@@ -934,15 +934,6 @@ With prefix argument, invert `merlin-locate-preference'."
   (add-to-list 'compilation-error-regexp-alist 'coq-ocaml))
 #+END_SRC
 
-* Lean
-
-#+BEGIN_SRC emacs-lisp
-(use-package lean-mode
-  :mode (("\\.lean\\'" . lean-mode))
-  :config
-  (setq lean-rootdir "~/dev/lean/"))
-#+END_SRC
-
 * Melt
 Mode for editing Melt (.mlt) files. Melt is a tool to generate latex
 from OCaml.
