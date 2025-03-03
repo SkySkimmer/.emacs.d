@@ -759,7 +759,7 @@ following keys.
         flycheck-emacs-lisp-load-path 'inherit))
 #+END_SRC
 
-* Magit
+p* Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :commands (magit-show-commit)
@@ -770,7 +770,8 @@ following keys.
    magit-diff-highlight-indentation '((".*" . tabs))
    magit-branch-rename-push-target 'local-only
    magit-section-initial-visibility-alist '(([unpushed status] . show)
-                                            ([unpulled status] . show))
+                                            ([unpulled status] . show)
+                                            ([untracked status] . show))
    magit-no-confirm (cons 'delete-branch-on-remote magit-no-confirm)
    transient-default-level 5 ; enables -S for signed commits
    )
