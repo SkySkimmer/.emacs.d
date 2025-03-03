@@ -783,7 +783,7 @@ following keys.
     (magit-run-git-async "merge" "--ff-only" args "@{upstream}"))
 
   (transient-append-suffix 'magit-merge "p"
-    '("u" "Merge upstream" my/magit-merge-upstream ?u))
+    '("u" "Merge upstream" my/magit-merge-upstream))
 
   :bind (("C-x g" . magit-status)))
 
