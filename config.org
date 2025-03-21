@@ -444,7 +444,11 @@ even if there is no associated file.")
         " "))))
 
 (setq frame-title-format
-      '((:eval (if (and (buffer-modified-p) (not buffer-read-only)) "(!) " ""))
+      '((:eval
+         (if (and (not (string-equal (buffer-name) "*scratch*"))
+                  (buffer-modified-p)
+                  (not buffer-read-only))
+             "(!) " ""))
         "%b"
         (:eval (frame-title-mode-bonus))
         "— Emacs"))
