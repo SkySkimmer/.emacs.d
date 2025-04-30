@@ -763,7 +763,7 @@ following keys.
         flycheck-emacs-lisp-load-path 'inherit))
 #+END_SRC
 
-p* Magit
+* Magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit
   :commands (magit-show-commit)
