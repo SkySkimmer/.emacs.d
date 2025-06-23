@@ -817,7 +817,7 @@ has only the .el files) and use it to make a fake git repository.
 (use-package tuareg
   :defines (tuareg-mode-hook)
   :mode (("\\.ml[4iplg]?\\'" . tuareg-mode)
-         ("\\.native\\'" . tuareg-mode)
+         ("\\.native\\'" . tuareg-mode) ; restrict to Coq_*.native?
          ("[./]opam_?\\'" . tuareg-opam-mode)
          ("\\(?:\\`\\|/\\)jbuild\\'" . tuareg-jbuild-mode)
          ("\\.eliomi?\\'" . tuareg-mode))
