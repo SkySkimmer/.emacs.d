@@ -1038,7 +1038,6 @@ TODO recipe
    proof-follow-mode 'followdown
    proof-sticky-errors t
    proof-splash-seen t
-   coq-run-completely-silent nil
    coq-accept-proof-using-suggestion 'never)
   (setq shell-command-history
         (append
