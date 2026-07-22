@@ -262,6 +262,13 @@ This is mostly minibuffer history. Not sure it works with counsel, we shall see.
              (format-time-string "%Y-%m-%d (%a)"))))
     (insert s)))
 (bind-key "C-c h" #'my/insert-date)
+
+;; fix man display of links
+;; supposed to be not needed in emacs 31 (emacs bug #81410)
+;; test with man mkfifo
+(add-hook 'Man-cooked-hook
+          (defun +man-handle-osc ()
+            (ansi-osc-apply-on-region (point-min) (point-max))))
 #+END_SRC
 
 ** Dash fontlock
