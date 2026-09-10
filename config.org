@@ -856,8 +856,8 @@ has only the .el files) and use it to make a fake git repository.
 
   (defun my/invert-merlin-locate-preference ()
     (cl-case merlin-locate-preference
-      ('ml 'mli)
-      ('mli 'ml)))
+      (ml 'mli)
+      (mli 'ml)))
 
   (defun my/merlin-locate (&optional arg)
     "Locate the identifier under point.
